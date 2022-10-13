@@ -1,0 +1,69 @@
+.container {
+    background-color: rgba(0, 0, 0, 0.05);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.container_visible {
+    display: block;
+}
+
+.container_hidden {
+    display: none;
+}
+
+.modal {
+    position: absolute;
+}
+
+.modal_visible {
+    animation: visible forwards 1, ease-in;
+}
+
+.close_btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 99;
+}
+
+@keyframes visible {
+    0% {
+        left: var(--mouse-x);
+        top: var(--mouse-y);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+
+    100% {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.modal_hidden {
+    animation: hidden forwards 1, ease-in;
+}
+
+@keyframes hidden {
+    0% {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        left: var(--mouse-x);
+        top: var(--mouse-y);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+}

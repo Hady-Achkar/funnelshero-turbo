@@ -1,0 +1,12 @@
+.container {
+    display: grid;
+    grid-template-rows: min-content auto;
+    flex: 1;
+    height: 100%;
+}
+.block {
+    display: flex;
+}
+.body {
+    flex: 1;
+}

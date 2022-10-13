@@ -1,0 +1,14 @@
+html,
+#__next,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+body,
+a {
+    font-family: Poppins, serif;
+}

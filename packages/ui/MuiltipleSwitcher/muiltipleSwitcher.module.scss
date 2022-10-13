@@ -1,0 +1,61 @@
+.container {
+    display: inline-flex;
+    background-color: transparent;
+    position: relative;
+    user-select: none;
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.btn {
+    padding: 8px 16px;
+    font-size: 20px;
+    background-color: white;
+    color: #383838;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    transition: all 120ms ease;
+    border: none;
+}
+.btn[disabled] {
+    background-color: #f8fafc;
+    color: #383838 !important;
+}
+.btn:not([disabled], .btn_selected):hover {
+    background-color: #efefff !important;
+    color: #5f5f5f !important;
+}
+
+.btn_selected {
+    color: white !important;
+}
+
+.btn_selected > span {
+    z-index: 2 !important;
+    position: relative;
+    white-space: nowrap;
+}
+.animation_block {
+    background-color: #9e97f6;
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1 !important;
+}
+.animation {
+    transition: 160ms ease;
+    transition-property: width, transform;
+}
+.divider {
+    width: 2px;
+    height: auto;
+    background-color: rgb(233, 233, 233);
+    border-radius: 10px;
+    margin: 6px 0;
+}
