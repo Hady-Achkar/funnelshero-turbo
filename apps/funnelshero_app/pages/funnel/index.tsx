@@ -1,12 +1,40 @@
 import type { NextPage } from "next";
+import { useState, useMemo } from "react";
 import s from "./funnel.module.scss";
-import { Topbar, Sidebar } from "../../src/components";
 import { Editor, Frame, Element } from "@craftjs/core";
 import { ButtonE, Image, Text } from "editor";
 import NextImage from "next/image";
-import { Scroll } from "ui";
+import { Scroll, MuiltipleSwitcher } from "ui";
+import {
+    ImageContent,
+    TitleContent,
+    ButtonContent,
+    VideoContent,
+    DividerContent,
+    ParagraphContent,
+    Topbar,
+    Sidebar,
+    SearchInput,
+} from "components";
 
 const Funnel: NextPage = () => {
+    const [activeCard, setActiveCard] = useState<string>("image");
+    const memoSidebarActiveComponents: IActiveComponent = useMemo(() => {
+        return {
+            image: <ImageContent />,
+            video: <VideoContent />,
+            text: <TitleContent />,
+            button: <ButtonContent />,
+            divider: <DividerContent />,
+            paragraph: <ParagraphContent />,
+        };
+    }, []);
+
+    const onClickCard = (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (e.currentTarget.dataset.key)
+            setActiveCard(e.currentTarget.dataset.key);
+    };
+
     return (
         <div className={s.container}>
             <Topbar />
@@ -19,7 +47,10 @@ const Funnel: NextPage = () => {
                         Text,
                     }}
                 >
-                    <Sidebar />
+                    <Sidebar
+                        onClickCard={onClickCard}
+                        activeCard={activeCard}
+                    />
                     <Scroll className={s.artboard}>
                         <Frame>
                             <Element
@@ -49,10 +80,44 @@ const Funnel: NextPage = () => {
                             </Element>
                         </Frame>
                     </Scroll>
+
+                    <div className={s.settings_content}>
+                        <div className={s.body}>
+                            <div className={s.switch_block}>
+                                <MuiltipleSwitcher
+                                    containerClass={s.switch_container}
+                                    btnsClass={s.switch_btn}
+                                    data={[
+                                        {
+                                            label: "Design",
+                                            id: "design",
+                                        },
+                                        {
+                                            label: "Pages",
+                                            id: "pages",
+                                        },
+                                    ]}
+                                />
+                            </div>
+                            <div className={["title16", s.title].join(" ")}>
+                                Search
+                            </div>
+                            <SearchInput
+                                placeholder={"Search Image templates"}
+                            />
+                            <Scroll>
+                                {memoSidebarActiveComponents[activeCard]}
+                            </Scroll>
+                        </div>
+                    </div>
                 </Editor>
             </div>
         </div>
     );
 };
+
+interface IActiveComponent {
+    [key: string]: JSX.Element;
+}
 
 export default Funnel;

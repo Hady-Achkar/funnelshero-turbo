@@ -61,6 +61,8 @@ export const MuiltipleSwitcher: FC<IProps> = ({
     btnsClass = "",
     name,
     disabled = false,
+    animatedClassName = "",
+    selectedBtnClass = "",
 }) => {
     const containerId = useMemo<string>(() => colId(data), [data]);
     const [selected, setSelected] = useState<ISelected>({
@@ -152,7 +154,7 @@ export const MuiltipleSwitcher: FC<IProps> = ({
                             className={[
                                 s.btn,
                                 selected?.index === index
-                                    ? s["btn_selected"]
+                                    ? selectedBtnClass || s["btn_selected"]
                                     : "",
                                 btnsClass,
                             ].join(" ")}
@@ -172,7 +174,7 @@ export const MuiltipleSwitcher: FC<IProps> = ({
             })}
             {!disabled ? (
                 <div
-                    className={[s.animation_block].join(" ")}
+                    className={[s.animation_block, animatedClassName].join(" ")}
                     ref={animatedBlock}
                 />
             ) : null}
@@ -211,4 +213,6 @@ interface IProps {
     btnsClass?: string;
     name?: string;
     disabled?: boolean;
+    animatedClassName?: string;
+    selectedBtnClass?: string;
 }

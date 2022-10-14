@@ -12,3 +12,8 @@ body,
 a {
     font-family: Poppins, serif;
 }
+
+.selected {
+    border: 2px dashed green;
+    padding: 0;
+}

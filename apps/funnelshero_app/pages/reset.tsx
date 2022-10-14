@@ -9,6 +9,7 @@ import s from "./home.module.scss";
 
 const Reset: NextPage = () => {
     const router = useRouter();
+
     return (
         <div>
             <Head>
@@ -35,10 +36,9 @@ const Reset: NextPage = () => {
 
                             <Submit
                                 className={s.login_btn}
-                                onClick={() => router.push("/change")}
-                            >
-                                Reset Password
-                            </Submit>
+                                href={"/change"}
+                                label={"Reset Password"}
+                            />
                             <div className={s.create_accound}>
                                 <p>
                                     Know your password?

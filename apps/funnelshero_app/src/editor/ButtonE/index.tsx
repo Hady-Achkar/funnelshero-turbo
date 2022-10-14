@@ -1,6 +1,24 @@
 import { FC } from "react";
-import { useNode } from "@craftjs/core";
+import { NodeId, useNode } from "@craftjs/core";
 import { Button } from "ui";
+
+// interface CraftNode {
+//     id: NodeId;
+//     related: boolean;
+//     inNodeContext: boolean;
+//     connectors: IConnectors;
+//     actionsObject: IActionsObject;
+// }
+
+// interface IConnectors {
+//     connect: (dom: HTMLElement) => HTMLElement;
+//     drag: (dom: HTMLElement) => HTMLElement;
+// }
+// interface IActionsObject {
+//     setProp: (props: Object, throttleRate?: number) => void;
+//     setCustom: (custom: Object, throttleRate?: number) => void;
+//     setHidden: (bool: boolean) => void;
+// }
 
 export const ButtonE: FC<IProps> = ({ size, variant, color, text }) => {
     const {
