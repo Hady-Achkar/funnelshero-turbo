@@ -34,6 +34,7 @@ export const Text: FC<IProps> = ({ text }) => {
         isSelected,
         // isDragged,
         // isHovered,
+        id,
     } = useNode((node) => ({
         isSelected: node.events.selected,
         isDragged: node.events.dragged,
@@ -53,15 +54,15 @@ export const Text: FC<IProps> = ({ text }) => {
             className={[s.container, isSelected ? "selected" : ""].join(" ")}
             ref={(ref) => connect(drag(ref))}
         >
-            {isSelected ? <TextMenu editor={editor} /> : null}
+            {isSelected ? <TextSettings editor={editor} /> : null}
             <Tiptap.EditorContent editor={editor} />
         </div>
     );
 };
 
-const TextMenu: FC<IMenuProps> = ({ editor }) => {
+const TextSettings: FC<IMenuProps> = ({ editor }) => {
     return (
-        <div className={s.menu}>
+        <div className={s.settings}>
             <Button
                 onClick={() =>
                     editor.chain().focus().setTextAlign("center").run()

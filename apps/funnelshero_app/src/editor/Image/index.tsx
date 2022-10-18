@@ -1,14 +1,18 @@
-import { useEditor, useNode } from "@craftjs/core";
-import NextImage, { StaticImageData } from "next/image";
+import { useNode } from "@craftjs/core";
 import { FC } from "react";
 import s from "./imageE.module.scss";
+import { Button, Icon } from "ui";
 
-export const Image: FC<IProps> = ({ src, alt, width, height }) => {
+export const Image: FC<IProps> = ({ src, alt, width = 100, height = 100 }) => {
     const {
-        connectors: { connect, drag, select },
-        isClicked,
-    } = useEditor((node) => ({
-        isClicked: node.events.selected,
+        connectors: { connect, drag },
+        isSelected,
+        // isDragged,
+        // isHovered,
+    } = useNode((node) => ({
+        isSelected: node.events.selected,
+        isDragged: node.events.dragged,
+        isHovered: node.events.hovered,
     }));
 
     Image.craft = {
@@ -29,22 +33,16 @@ export const Image: FC<IProps> = ({ src, alt, width, height }) => {
         },
     };
 
-    // console.log(isClicked);
-
-    if (typeof src === "string")
-        return <img src={src} alt={alt} width={width} height={height} />;
-
     return (
-        // <div ref={(ref) => connect(drag(ref))}>
-        //     asddsa
-        <NextImage
-            src={src}
-            alt={alt}
-            width={width}
-            height={height}
-            className={[isClicked ? "selected" : ""].join(" ")}
-        />
-        // </div>
+        <div
+            ref={(ref) => {
+                connect(drag(ref));
+            }}
+            className={[s.container].join(" ")}
+        >
+            {isSelected ? <ImageSettings /> : null}
+            <img src={src} alt={alt} width={width} height={height} />
+        </div>
     );
 };
 
@@ -52,31 +50,33 @@ const ImageSettings = () => {
     const { props, setProp } = useNode();
 
     return (
-        <div>
-            Src:{" "}
-            <input
-                type="text"
-                value={props.text}
-                onChange={(e) =>
-                    setProp((props) => {
-                        return (props.text = e.target.value);
-                    })
-                }
-            />
-            Alt:{" "}
-            <input
-                type="text"
-                value={props.color}
-                onChange={(e) =>
-                    setProp((props) => (props.color = e.target.value))
-                }
-            />
+        <div className={s.settings}>
+            <Button className={s.settings_button}>
+                <Icon type={"Move"} size={20} />
+                Move
+            </Button>
+            <Button className={s.settings_button}>
+                <Icon type={"Trash"} size={20} />
+                Delete
+            </Button>
+            <Button className={s.settings_button}>
+                <Icon type={"Comment"} size={20} />
+                Add Comment
+            </Button>
+            <Button className={s.settings_button}>
+                <Icon type={"Duplicate"} size={20} />
+                Duplicate
+            </Button>
+            <Button className={s.settings_button}>
+                <Icon type={"Rotate"} size={20} />
+                Rotate
+            </Button>
         </div>
     );
 };
 
 interface IProps {
-    src: string | StaticImageData;
+    src: string;
     alt?: string;
     width?: string | number;
     height?: string | number;

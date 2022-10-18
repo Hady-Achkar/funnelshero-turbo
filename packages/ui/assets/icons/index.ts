@@ -1,4 +1,3 @@
-import React from "../icons/react-icon.svg";
 import Search from "../icons/search.svg";
 import ChevronLeft from "../icons/chevron-left.svg";
 import ChevronRight from "../icons/chevron-right.svg";
@@ -20,9 +19,15 @@ import Type from "../icons/type.svg";
 import Trash from "../icons/trash.svg";
 import LineThrough from "../icons/line-through.svg";
 import Link from "../icons/link.svg";
+import Container from "../icons/container.svg";
+import QuestionMark from "../icons/question-mark.svg";
+import Move from "../icons/move.svg";
+import Rotate from "../icons/rotate.svg";
+import Comment from "../icons/comment.svg";
+import OptInForm from "../icons/opt-in-form.svg";
+import Duplicate from "../icons/duplicate.svg";
 
 export {
-    React,
     Search,
     ChevronLeft,
     ChevronRight,
@@ -44,4 +49,11 @@ export {
     Trash,
     LineThrough,
     Link,
+    Container,
+    QuestionMark,
+    Move,
+    Rotate,
+    OptInForm,
+    Comment,
+    Duplicate,
 };
