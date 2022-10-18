@@ -1,0 +1,57 @@
+.container {
+    flex: 1;
+    position: relative;
+    height: 100%;
+}
+.scroll,
+.block {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    overflow-y: auto;
+    padding: 0 6px 6px 0;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        // box-shadow: inset 0 0 5px #383838;
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #383838;
+        border-radius: 10px;
+    }
+    // &::-webkit-scrollbar-thumb:hover {
+    //     background: rgba(255, 255, 255, 0.6);
+    // }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    .scroll:hover.scroll::-webkit-scrollbar-thumb {
+        background-color: #383838;
+        position: absolute;
+    }
+
+    .scroll::-webkit-scrollbar {
+        background-color: transparent;
+        width: 5px;
+        height: 5px;
+        position: absolute;
+        right: 0;
+    }
+
+    .scroll::-webkit-scrollbar-track {
+        display: none;
+    }
+
+    .scroll::-webkit-scrollbar-thumb {
+        border-radius: 50px;
+        background-color: inherit;
+    }
+}

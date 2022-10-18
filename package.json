@@ -1,0 +1,34 @@
+{
+  "name": "funnelshero",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.23",
+    "eslint-config-custom": "*",
+    "prettier": "latest",
+    "sass": "^1.54.9",
+    "turbo": "latest"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/material": "^5.10.9",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "next-transpile-modules": "^9.0.0"
+  },
+  "packageManager": "npm@8.16.0"
+}

@@ -1,0 +1,19 @@
+html,
+#__next,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+body,
+a {
+    font-family: Poppins, serif;
+}
+
+.selected {
+    border: 2px dashed green;
+    padding: 0;
+}

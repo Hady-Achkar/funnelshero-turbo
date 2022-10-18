@@ -1,0 +1,36 @@
+.container {
+    background-color: $block-bgc;
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation_btn {
+    width: 140px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: all 120ms ease;
+    position: relative;
+
+    &:not(.active):hover {
+        background-color: #efefff;
+    }
+    & > div {
+        background-color: $black;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 4px;
+
+        & svg path {
+            stroke: white;
+        }
+    }
+    & > span::first-letter {
+        text-transform: uppercase;
+    }
+}

@@ -1,0 +1,35 @@
+.container {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+}
+
+.container p {
+    margin: 0 !important;
+    padding: 5px !important;
+}
+
+.menu {
+    display: flex;
+    border: 1px solid $purple;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    background-color: white;
+    padding: 6px;
+    & > span {
+        margin-left: 10px;
+        display: flex;
+        align-items: center;
+    }
+}
+.tool_btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.is_active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.divider {
+    width: 2px;
+    background-color: $purple;
+}

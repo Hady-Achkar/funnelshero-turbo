@@ -1,0 +1,85 @@
+.label {
+    margin-bottom: 6px;
+    color: rgba(0, 0, 0, 0.25);
+}
+
+.container {
+    border: 2px solid #d9d9d9;
+    box-sizing: border-box;
+    border-radius: 8px;
+    flex: 1;
+    outline: none;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 4px 14px;
+    align-items: center;
+    input[type="file"] {
+        display: none;
+    }
+    input[type="time"]::-webkit-calendar-picker-indicator {
+        filter: invert(70%);
+    }
+    input[type="time"]::-webkit-calendar-picker-indicator {
+        filter: invert(70%);
+    }
+    & > span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &_disabled {
+        background-color: #f1f5f9;
+    }
+    &:focus-within {
+        border: 2px solid #9e97f6;
+    }
+}
+
+.input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.25);
+    font: normal normal 16px / normal Poppins, serif;
+    padding: 0;
+
+    &::placeholder {
+        color: rgba(0, 0, 0, 0.25);
+        font: normal normal 16px / normal Poppins, serif;
+    }
+}
+.input_button {
+    border: none;
+    background-color: transparent;
+}
+.input,
+.textarea {
+    width: 100%;
+    display: block;
+}
+
+.textarea {
+    resize: none;
+    padding: 10px;
+}
+
+.padding_bottom {
+    padding-bottom: 20px;
+}
+
+.error {
+    margin-top: 5px;
+    color: $red;
+}
+
+.rounded {
+    padding: 20px 12px;
+    border-radius: 50px;
+
+    &_error {
+        padding: 20px 12px;
+        border-radius: 50px;
+        border: 2px solid $red !important;
+    }
+}

@@ -1,0 +1,111 @@
+.full_centered {
+    width: 100%;
+    height: calc(100vh - 74px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #F6F5FE;
+
+    .sign_block {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 52px;
+
+        .forgot_title {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            h3 {
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 24px;
+                line-height: 29px;
+                color: #383838
+            }
+
+            p {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 19px;
+                font-family: 'Poppins';
+                color: #383838
+            }
+        }
+
+        .login_title {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 72px;
+            line-height: 108px;
+            color: #383838;
+            margin-top: 0;
+            margin-bottom: 0;
+            span {
+                color: rgba(158, 151, 246, 1);
+            }
+        }
+
+        .sign_block_textFields {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+
+            .sign_textField {
+                width: 608px;
+                border-radius: 50px;
+                height: 52px;
+            }
+        }
+
+        .flex_end {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 12px;
+            margin-bottom: 20px;
+
+            a {
+                font-family: 'Ubuntu';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 16px;
+                color: #9C9C9C;
+                text-decoration: none;
+            }
+        }
+    }
+
+    .login_btn {
+        width: 100%;
+        margin-top: 34px;
+        height: 56px;
+        background: #9E97F6;
+    }
+
+    .create_accound {
+        display: flex;
+        margin-top: 20px;
+        justify-content: center;
+
+        p {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            color: #9C9C9C;
+
+            a {
+                color: #9E97F6;
+            }
+        }
+    }
+}

@@ -1,0 +1,47 @@
+.container {
+    border: none;
+    outline: none;
+    color: white;
+    border-radius: 50px;
+    transition: all 200ms linear;
+}
+
+.primary {
+    background: #9e97f6;
+    color: white;
+    border: 1px solid #9e97f6;
+}
+.primary:focus {
+    background: #6b61ef;
+}
+.primary:hover {
+    background: #8982e5;
+}
+.primary[disabled] {
+    background-color: #d0d5dd;
+    border: 1px solid #d0d5dd;
+    cursor: not-allowed;
+}
+
+.secondary {
+    background: white;
+    border: 1px solid #9e97f6;
+    color: #383838;
+}
+.secondary:focus {
+    border-color: #6b61ef;
+}
+.secondary[disabled] {
+    border-color: #d0d5dd;
+    cursor: not-allowed;
+}
+.large {
+    padding: 16px 47px;
+}
+
+.normal {
+    padding: 8px 37px;
+}
+.small {
+    padding: 6px 27px;
+}

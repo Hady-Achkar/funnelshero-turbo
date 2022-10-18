@@ -1,0 +1,43 @@
+{
+  "name": "funnelshero_app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev ",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@craftjs/core": "^0.2.0-beta.8",
+    "@reduxjs/toolkit": "^1.8.5",
+    "@tiptap/core": "^2.0.0-beta.199",
+    "@tiptap/extension-document": "^2.0.0-beta.199",
+    "@tiptap/extension-heading": "^2.0.0-beta.199",
+    "@tiptap/extension-link": "^2.0.0-beta.199",
+    "@tiptap/extension-paragraph": "^2.0.0-beta.199",
+    "@tiptap/extension-text": "^2.0.0-beta.199",
+    "@tiptap/extension-text-align": "^2.0.0-beta.199",
+    "@tiptap/extension-underline": "^2.0.0-beta.199",
+    "@tiptap/react": "^2.0.0-beta.199",
+    "@tiptap/starter-kit": "^2.0.0-beta.199",
+    "api": "*",
+    "axios": "^0.27.2",
+    "next": "12.2.5",
+    "next-translate": "^1.5.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-redux": "^8.0.2",
+    "ui": "*"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^6.3.1",
+    "@types/node": "18.7.14",
+    "@types/react": "18.0.18",
+    "@types/react-dom": "18.0.6",
+    "eslint": "8.23.0",
+    "eslint-config-next": "12.2.5",
+    "sass": "^1.54.8",
+    "typescript": "4.8.2"
+  }
+}

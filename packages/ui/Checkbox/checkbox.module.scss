@@ -1,0 +1,87 @@
+.container {
+    $form-control-color: white;
+    $form-control-d: #94a3b8;
+    $form-background: #9e97f6;
+
+    color: $form-control-color;
+    user-select: none;
+    font-size: 16px !important;
+    box-sizing: border-box;
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
+    & {
+        input[type="checkbox"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: white;
+            margin: 0;
+            font: inherit;
+            color: $form-background;
+            width: 1.15em;
+            height: 1.15em;
+            border: 1px solid #94a3b8;
+            border-radius: 3px;
+            transform: translateY(-0.075em);
+            display: grid;
+            place-content: center;
+        }
+        & input[type="checkbox"]:checked {
+            background-color: $form-background;
+        }
+        input[type="checkbox"]::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            clip-path: polygon(
+                14% 44%,
+                0 65%,
+                50% 100%,
+                100% 16%,
+                80% 0%,
+                43% 62%
+            );
+            transform: scale(0);
+            transform-origin: bottom left;
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em $form-control-color;
+            background-color: CanvasText;
+        }
+
+        input[type="checkbox"]:checked::before {
+            transform: scale(1);
+        }
+
+        input[type="checkbox"]:disabled {
+            --form-control-color: $form-control-d;
+            color: $form-control-d;
+            cursor: not-allowed;
+        }
+        label {
+            color: $form-background;
+        }
+    }
+}
+
+.form-control {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.1;
+    width: inline !important;
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;
+    cursor: pointer;
+    align-items: center;
+}
+
+.form-control + .form-control {
+    margin-top: 1em;
+}
+
+.form-control--disabled {
+    color: #94a3b8;
+    cursor: not-allowed;
+}

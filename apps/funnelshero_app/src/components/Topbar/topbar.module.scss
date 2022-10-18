@@ -1,0 +1,29 @@
+@import "@styles/variables.scss";
+
+.container {
+    background-color: $black;
+    display: flex;
+    padding: 16px 10px;
+    z-index: 100;
+}
+
+.back_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    grid-gap: 0 20px;
+    font-size: 18px;
+    & path {
+        stroke: white;
+        fill: white;
+    }
+}
+.toggle_container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    grid-gap: 0 16px;
+    padding-right: 40px;
+    align-items: center;
+}
