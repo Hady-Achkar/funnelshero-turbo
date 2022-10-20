@@ -1,6 +1,13 @@
 .container {
     position: relative;
     display: inline-block;
+    & img {
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
+    }
 }
 
 .settings {
@@ -8,7 +15,8 @@
     border: 1px solid $purple;
     position: absolute;
     bottom: 100%;
-    right: 0;
+    margin-bottom: 2px;
+    left: 0;
     background-color: white;
     padding: 6px;
     & > span {
@@ -27,4 +35,8 @@
             border-right: 1px solid $purple;
         }
     }
+}
+.selected {
+    outline: 1px solid green;
+    padding: 6px;
 }
