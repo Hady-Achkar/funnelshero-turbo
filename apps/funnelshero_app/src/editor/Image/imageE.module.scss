@@ -1,0 +1,30 @@
+.container {
+    position: relative;
+    display: inline-block;
+}
+
+.settings {
+    display: flex;
+    border: 1px solid $purple;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    background-color: white;
+    padding: 6px;
+    & > span {
+        margin-left: 10px;
+        display: flex;
+        align-items: center;
+    }
+    & > .settings_button {
+        display: flex;
+        font-size: 12px;
+        white-space: nowrap;
+        align-items: center;
+        padding: 0 16px;
+        grid-gap: 0 10px;
+        &:not(:last-child) {
+            border-right: 1px solid $purple;
+        }
+    }
+}

@@ -28,7 +28,8 @@
         "**/*.ts",
         "**/*.tsx",
         "pages/index.jsx",
-        "./custom.d.ts"
+        "./custom.d.ts",
+        "next.config.js"
     ],
     "exclude": ["node_modules"]
 }

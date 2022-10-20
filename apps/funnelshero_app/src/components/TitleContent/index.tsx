@@ -1,11 +1,11 @@
-import { FC, useRef, useState } from "react";
+import { FC } from "react";
 import s from "./titleContent.module.scss";
 import { useEditor, Element } from "@craftjs/core";
 import { Text } from "editor";
 import { Button } from "ui";
 
 export const TitleContent: FC<IProps> = () => {
-    const { connectors, query } = useEditor();
+    const { connectors } = useEditor();
 
     const handleChange = () => {};
 

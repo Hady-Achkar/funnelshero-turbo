@@ -9,23 +9,39 @@ export const Sidebar: FC<IProps> = ({ onClickCard }) => {
         return [
             {
                 icon: "Image",
-                title: "image",
+                title: "Image",
             },
             {
                 icon: "Video",
-                title: "video",
+                title: "Video",
             },
             {
                 icon: "Button",
-                title: "button",
+                title: "Button",
             },
             {
                 icon: "Divider",
-                title: "divider",
+                title: "Divider",
             },
             {
                 icon: "File",
                 title: "text",
+            },
+            {
+                icon: "OptInForm",
+                title: "Opt-in Form",
+            },
+            {
+                icon: "QuestionMark",
+                title: "Question Box",
+            },
+            {
+                icon: "AlignCenter",
+                title: "Quizz",
+            },
+            {
+                icon: "Container",
+                title: "Component",
             },
         ];
     }, []);

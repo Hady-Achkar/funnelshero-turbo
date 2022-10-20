@@ -43,7 +43,7 @@ const Funnel: NextPage = () => {
                     resolver={{
                         Image,
                         ButtonE,
-                        NextImage,
+                        // NextImage,
                         Text,
                     }}
                 >
@@ -65,7 +65,6 @@ const Funnel: NextPage = () => {
                                     variant="outlined"
                                     text={"Click"}
                                 />
-
                                 <Element
                                     is={"div"}
                                     id={"div123123"}
