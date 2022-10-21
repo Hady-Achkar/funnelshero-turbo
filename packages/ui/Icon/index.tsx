@@ -1,17 +1,7 @@
-import React from "react";
-// import * as Icons from 'react-feather'
+import { SVGAttributes, FC } from "react";
+import * as Icons from "react-feather";
 import s from "./icon.module.scss";
 import * as I from "../assets/icons";
-
-interface IProps {
-    type: string;
-    fill?: string;
-    color?: string;
-    className?: string;
-    size?: number;
-    strokeWidth?: number;
-    stroke?: string;
-}
 
 export const Icon: React.FC<IProps> = ({
     type,
@@ -20,6 +10,8 @@ export const Icon: React.FC<IProps> = ({
     size = 26,
     className = "",
     strokeWidth = 1,
+    feather = false,
+    ...props
 }) => {
     type = type.charAt(0).toUpperCase() + type.slice(1);
 
@@ -27,7 +19,30 @@ export const Icon: React.FC<IProps> = ({
         return <>{"invalid <Icon/> type"}</>;
     }
 
-    const Custom = I[type];
+    if (feather) {
+        const Feather: Icon = Icons[type] as Icon;
+        if (fill) {
+            return (
+                <Feather
+                    className={className}
+                    fill={fill}
+                    color={color}
+                    size={size}
+                    {...props}
+                />
+            );
+        }
+        return (
+            <Feather
+                className={className}
+                color={color}
+                size={size}
+                {...props}
+            />
+        );
+    }
+
+    const Custom = I[type] as Icon;
 
     if (fill) {
         return (
@@ -52,5 +67,22 @@ export const Icon: React.FC<IProps> = ({
         />
     );
 };
+
+interface IconProps extends SVGAttributes<SVGElement> {
+    color?: string;
+    size?: string | number;
+}
+type Icon = FC<IconProps>;
+
+interface IProps {
+    type: string;
+    fill?: string;
+    color?: string;
+    className?: string;
+    size?: number;
+    strokeWidth?: number;
+    stroke?: string;
+    feather?: boolean;
+}
 
 export default Icon;

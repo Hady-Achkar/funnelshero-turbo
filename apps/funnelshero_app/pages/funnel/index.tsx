@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useState, useMemo } from "react";
 import s from "./funnel.module.scss";
 import { Editor, Frame, Element } from "@craftjs/core";
-import { ButtonE, Image, Text } from "editor";
+import { ButtonE, Image, Text, InputE } from "editor";
 import NextImage from "next/image";
 import { Scroll, MuiltipleSwitcher } from "ui";
 import {
@@ -12,9 +12,11 @@ import {
     VideoContent,
     DividerContent,
     ParagraphContent,
+    OptInFormContent,
+    QuestionBoxContent,
     Topbar,
     Sidebar,
-    SearchInput,
+    Settings,
 } from "components";
 
 const Funnel: NextPage = () => {
@@ -27,6 +29,8 @@ const Funnel: NextPage = () => {
             button: <ButtonContent />,
             divider: <DividerContent />,
             paragraph: <ParagraphContent />,
+            optInForm: <OptInFormContent />,
+            questionBox: <QuestionBoxContent />,
         };
     }, []);
 
@@ -43,7 +47,7 @@ const Funnel: NextPage = () => {
                     resolver={{
                         Image,
                         ButtonE,
-                        // NextImage,
+                        InputE,
                         Text,
                     }}
                 >
@@ -79,36 +83,7 @@ const Funnel: NextPage = () => {
                             </Element>
                         </Frame>
                     </Scroll>
-
-                    <div className={s.settings_content}>
-                        <div className={s.body}>
-                            <div className={s.switch_block}>
-                                <MuiltipleSwitcher
-                                    containerClass={s.switch_container}
-                                    btnsClass={s.switch_btn}
-                                    data={[
-                                        {
-                                            label: "Design",
-                                            id: "design",
-                                        },
-                                        {
-                                            label: "Pages",
-                                            id: "pages",
-                                        },
-                                    ]}
-                                />
-                            </div>
-                            <div className={["title16", s.title].join(" ")}>
-                                Search
-                            </div>
-                            <SearchInput
-                                placeholder={"Search Image templates"}
-                            />
-                            <Scroll>
-                                {memoSidebarActiveComponents[activeCard]}
-                            </Scroll>
-                        </div>
-                    </div>
+                    <Settings activeCard={activeCard} />
                 </Editor>
             </div>
         </div>

@@ -5,43 +5,52 @@ import { Button, Icon } from "ui";
 export const Sidebar: FC<IProps> = ({ onClickCard }) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const memoCardData: IMemoCard[] = useMemo(() => {
+    const memoCardData: IMemoCard[] = useMemo<IMemoCard[]>(() => {
         return [
             {
                 icon: "Image",
                 title: "Image",
+                id: "image",
             },
             {
                 icon: "Video",
                 title: "Video",
+                id: "video",
             },
             {
                 icon: "Button",
                 title: "Button",
+                id: "button",
             },
             {
                 icon: "Divider",
                 title: "Divider",
+                id: "divider",
             },
             {
                 icon: "File",
                 title: "text",
+                id: "text",
             },
             {
                 icon: "OptInForm",
-                title: "Opt-in Form",
+                title: "Opt in Form",
+                id: "optInForm",
             },
             {
                 icon: "QuestionMark",
                 title: "Question Box",
+                id: "questionBox",
             },
             {
                 icon: "AlignCenter",
                 title: "Quizz",
+                id: "Quizz",
             },
             {
                 icon: "Container",
                 title: "Component",
+                id: "component",
             },
         ];
     }, []);
@@ -51,7 +60,7 @@ export const Sidebar: FC<IProps> = ({ onClickCard }) => {
             {memoCardData.map((item, index) => {
                 return (
                     <Card
-                        dataKey={item.title}
+                        dataKey={item.id}
                         key={index}
                         icon={item.icon}
                         title={item.title}
@@ -94,4 +103,5 @@ interface ICard {
 interface IMemoCard {
     icon: string;
     title: string;
+    id: string;
 }
