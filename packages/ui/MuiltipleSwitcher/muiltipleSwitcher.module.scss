@@ -15,7 +15,7 @@
     font-weight: 500;
     transition: all 120ms ease;
     border: none;
-    background-color: transparent;
+    background-color: white;
 }
 .btn[disabled] {
     background-color: #f8fafc;
@@ -27,7 +27,7 @@
 }
 
 .btn_selected {
-    font-weight: 600;
+    color: white;
 }
 
 .btn_selected > span {
@@ -38,9 +38,9 @@
 .animation_block {
     background-color: #9e97f6;
     position: absolute;
-    left: 0;
-    bottom: 0;
-    max-height: 3px;
+    // left: 0;
+    // bottom: 0;
+    // max-height: 3px;
     font-size: 20px;
     display: flex;
     justify-content: center;

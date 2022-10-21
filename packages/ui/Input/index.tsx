@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState, FC } from "react";
+import { useLayoutEffect, useState, FC, forwardRef, ReactElement } from "react";
 import s from "./input.module.scss";
 
 let typingTimer: NodeJS.Timeout; //timer identifier
@@ -34,157 +34,164 @@ const validateField = (
 ): boolean =>
     fieldName ? regex[fieldName].validation.test(text.toString()) : false;
 
-export const Input: FC<IProps> = ({
-    type = "text",
-    name,
-    placeholder,
-    onFinish,
-    className = "",
-    value = "",
-    label,
-    errorMassage = null,
-    onChange = () => {},
-    validate = false,
-    frontIcon = <></>,
-    buttons = [],
-    buttonsArgs = {},
-    min,
-    max,
-    disabled = false,
-    rounded = false,
-    ...props
-}) => {
-    const [visibility, setVisibility] = useState<boolean>(false);
-    const [isValid, setIsValid] = useState<boolean>(false);
-    const [defaultValue, setDefaultValue] = useState<string | number>(value);
-
-    useLayoutEffect(() => setDefaultValue(value), []);
-
-    useLayoutEffect(() => {
-        if (validate && defaultValue) {
-            name && setIsValid(validateField(name, defaultValue.toString()));
-            // return onChange && onChange(text, validateField(name, defaultValue))
-        }
-        setIsValid(true);
-    }, []);
-
-    const onTextChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
+    (
+        {
+            type = "text",
+            name,
+            placeholder,
+            onFinish,
+            className = "",
+            value = "",
+            label,
+            errorMassage = null,
+            onChange = () => {},
+            validate = false,
+            frontIcon = <></>,
+            buttons = [],
+            buttonsArgs = {},
+            min,
+            max,
+            disabled = false,
+            rounded = false,
+            ...props
+        },
+        ref
     ) => {
-        let text: InputText;
-        if (type === "number" && min && min >= 0 && +e.target.value < 0) {
-            text = Number(
-                e.target.value.toString().replace("-", "")
-            ) as InputText;
-        } else {
-            text = e.target.value;
-        }
+        const [visibility, setVisibility] = useState<boolean>(false);
+        const [isValid, setIsValid] = useState<boolean>(false);
+        const [defaultValue, setDefaultValue] = useState<string | number>(
+            value
+        );
 
-        setDefaultValue(text);
-        if (onFinish) {
-            if (text) {
-                clearTimeout(typingTimer);
-                if (validate) {
-                    const _isValid = validateField(name, text);
+        useLayoutEffect(() => setDefaultValue(value), []);
 
-                    setIsValid(_isValid);
+        useLayoutEffect(() => {
+            if (validate && defaultValue) {
+                name &&
+                    setIsValid(validateField(name, defaultValue.toString()));
+                // return onChange && onChange(text, validateField(name, defaultValue))
+            }
+            setIsValid(true);
+        }, []);
+
+        const onTextChange = (
+            e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        ) => {
+            let text: InputText;
+            if (type === "number" && min && min >= 0 && +e.target.value < 0) {
+                text = Number(
+                    e.target.value.toString().replace("-", "")
+                ) as InputText;
+            } else {
+                text = e.target.value;
+            }
+
+            setDefaultValue(text);
+            if (onFinish) {
+                if (text) {
+                    clearTimeout(typingTimer);
+                    if (validate) {
+                        const _isValid = validateField(name, text);
+
+                        setIsValid(_isValid);
+                        return (typingTimer = setTimeout(
+                            () => onFinish(e, label, _isValid),
+                            doneTypingInterval
+                        ));
+                    }
                     return (typingTimer = setTimeout(
-                        () => onFinish(e, label, _isValid),
+                        () => onFinish(e, label),
                         doneTypingInterval
                     ));
                 }
-                return (typingTimer = setTimeout(
-                    () => onFinish(e, label),
-                    doneTypingInterval
-                ));
             }
-        }
-        
-        if (validate) {
-            const _isValid = validateField(name, text);
-            setIsValid(_isValid);
-            if (_isValid) {
-                return onChange(e, label, _isValid);
-            } else {
-                return onChange({
-                    target: {
-                        name: e.target.name,
-                        value: false,
-                    },
-                });
+
+            if (validate) {
+                const _isValid = validateField(name, text);
+                setIsValid(_isValid);
+                if (_isValid) {
+                    return onChange(e, label, _isValid);
+                } else {
+                    return onChange({
+                        target: {
+                            name: e.target.name,
+                            value: false,
+                        },
+                    });
+                }
             }
-        }
-        return onChange(e, label);
-    };
+            return onChange(e, label);
+        };
 
-    if (type === "textarea") {
-        return (
-            <div className={[s.container, className].join(" ")}>
-                <textarea
-                    className={[s.container, s.textarea].join(" ")}
-                    name={name}
-                    placeholder={placeholder}
-                    rows={8}
-                    onChange={onTextChange}
-                    disabled={disabled}
-                    {...props}
-                />
-            </div>
-        );
-    }
-
-    if (type === "file") {
-        return (
-            <label className={s.label_container}>
-                <div className={[s.container, className].join(" ")}>
-                    {placeholder}
-                    <input
-                        type="file"
+        if (type === "textarea") {
+            return (
+                <div className={[s.container, className].join(" ")} ref={ref}>
+                    <textarea
+                        className={[s.container, s.textarea].join(" ")}
+                        name={name}
+                        placeholder={placeholder}
+                        rows={8}
                         onChange={onTextChange}
                         disabled={disabled}
                         {...props}
                     />
                 </div>
-            </label>
-        );
-    }
+            );
+        }
 
-    return (
-        <div style={{ flex: 1, width: "auto" }}>
-            <label className={s.label_container}>
-                {label && <div className={s.label}>{label}</div>}
-                <div
-                    className={[
-                        s.container,
-                        className,
-                        disabled ? s.container_disabled : "",
-                        rounded
-                            ? validate
-                                ? !isValid
-                                    ? [s.rounded_error]
+        if (type === "file") {
+            return (
+                <label className={s.label_container} ref={ref}>
+                    <div className={[s.container, className].join(" ")}>
+                        {placeholder}
+                        <input
+                            type="file"
+                            onChange={onTextChange}
+                            disabled={disabled}
+                            {...props}
+                        />
+                    </div>
+                </label>
+            );
+        }
+
+        return (
+            <div style={{ flex: 1, width: "auto" }}>
+                <label className={s.label_container} ref={ref}>
+                    {label && <div className={s.label}>{label}</div>}
+                    <div
+                        className={[
+                            s.container,
+                            className,
+                            disabled ? s.container_disabled : "",
+                            rounded
+                                ? validate
+                                    ? !isValid
+                                        ? [s.rounded_error]
+                                        : s.rounded
                                     : s.rounded
-                                : s.rounded
-                            : "",
-                    ].join(" ")}
-                >
-                    {frontIcon}
-                    <input
-                        type={
-                            type === "password"
-                                ? visibility
-                                    ? "text"
-                                    : "password"
-                                : type
-                        }
-                        className={[s.input].join(" ")}
-                        placeholder={placeholder}
-                        value={defaultValue}
-                        name={name}
-                        onChange={(e) => onTextChange(e)}
-                        disabled={disabled}
-                        {...props}
-                    />
-                    {/* {type === "password" && (
+                                : "",
+                        ].join(" ")}
+                    >
+                        {frontIcon}
+                        <input
+                            type={
+                                type === "password"
+                                    ? visibility
+                                        ? "text"
+                                        : "password"
+                                    : type
+                            }
+                            className={[s.input].join(" ")}
+                            placeholder={placeholder}
+                            value={defaultValue}
+                            name={name}
+                            onChange={(e) => onTextChange(e)}
+                            disabled={disabled}
+                            {...props}
+                        />
+                        {/* {type === "password" && (
                         <span onClick={() => setVisibility(!visibility)}>
                             <Icon
                                 feather={true}
@@ -193,38 +200,39 @@ export const Input: FC<IProps> = ({
                             />
                         </span>
                     )} */}
-                    {buttons &&
-                        buttons.map(({ onClick, ...args }, index) => {
-                            return (
-                                <button
-                                    className={s.input_button}
-                                    key={index}
-                                    onClick={() => {
-                                        onClick &&
-                                            onClick({
-                                                value: defaultValue,
-                                                setValue: setDefaultValue,
-                                                isValid,
-                                                ...buttonsArgs,
-                                            });
-                                    }}
-                                    {...args}
-                                >
-                                    {args?.label}
-                                </button>
-                            );
-                        })}
-                </div>
-            </label>
+                        {buttons &&
+                            buttons.map(({ onClick, ...args }, index) => {
+                                return (
+                                    <button
+                                        className={s.input_button}
+                                        key={index}
+                                        onClick={() => {
+                                            onClick &&
+                                                onClick({
+                                                    value: defaultValue,
+                                                    setValue: setDefaultValue,
+                                                    isValid,
+                                                    ...buttonsArgs,
+                                                });
+                                        }}
+                                        {...args}
+                                    >
+                                        {args?.label}
+                                    </button>
+                                );
+                            })}
+                    </div>
+                </label>
 
-            {validate && !isValid && (
-                <div className={[s.error].join(" ")}>
-                    {errorMassage || (name && regex[name].errorMessage)}
-                </div>
-            )}
-        </div>
-    );
-};
+                {validate && !isValid && (
+                    <div className={[s.error].join(" ")}>
+                        {errorMassage || (name && regex[name].errorMessage)}
+                    </div>
+                )}
+            </div>
+        );
+    }
+);
 
 interface IValidator {
     validation: RegExp;
@@ -261,7 +269,7 @@ interface IProps {
     label?: string;
     errorMassage?: string;
     validate?: boolean;
-    frontIcon?: FC;
+    frontIcon?: ReactElement | FC | null;
     buttons?: IButtons[];
     buttonsArgs?: IButtonArguments;
     min?: number;

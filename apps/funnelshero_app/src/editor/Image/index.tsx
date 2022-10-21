@@ -1,5 +1,5 @@
-import { useNode } from "@craftjs/core";
-import { FC } from "react";
+import { useNode, useEditor, Node } from "@craftjs/core";
+import { Component, FC, ReactElement, useEffect } from "react";
 import s from "./imageE.module.scss";
 import { Button, Icon } from "ui";
 
@@ -9,11 +9,25 @@ export const Image: FC<IProps> = ({ src, alt, width = 100, height = 100 }) => {
         isSelected,
         // isDragged,
         // isHovered,
-    } = useNode((node) => ({
-        isSelected: node.events.selected,
-        isDragged: node.events.dragged,
-        isHovered: node.events.hovered,
-    }));
+    } = useNode((node: Node) => {
+        return {
+            isSelected: node.events.selected,
+            isDragged: node.events.dragged,
+            isHovered: node.events.hovered,
+        };
+    });
+
+    const { selectedNodeId, actions } = useEditor((state) => {
+        return {
+            selectedNodeId: state.events.selected.keys().next().value,
+        };
+    });
+
+    useEffect(() => {
+        const _CONTIANER = document.getElementsByClassName(s.container)[0];
+
+        console.log(_CONTIANER);
+    }, []);
 
     Image.craft = {
         displayName: "Image",
@@ -33,29 +47,31 @@ export const Image: FC<IProps> = ({ src, alt, width = 100, height = 100 }) => {
         },
     };
 
+    const onDelete = () => {
+        actions.delete(selectedNodeId);
+    };
+
     return (
         <div
-            ref={(ref) => {
-                connect(drag(ref));
-            }}
-            className={[s.container].join(" ")}
+            ref={connect}
+            className={[s.container, isSelected ? s.selected : ""].join(" ")}
         >
-            {isSelected ? <ImageSettings /> : null}
+            {isSelected ? (
+                <ImageSettings onDelete={onDelete} drag={drag} />
+            ) : null}
             <img src={src} alt={alt} width={width} height={height} />
         </div>
     );
 };
 
-const ImageSettings = () => {
-    const { props, setProp } = useNode();
-
+const ImageSettings: FC<IImageProps> = ({ onDelete, drag }) => {
     return (
         <div className={s.settings}>
-            <Button className={s.settings_button}>
+            <Button className={s.settings_button} ref={drag}>
                 <Icon type={"Move"} size={20} />
                 Move
             </Button>
-            <Button className={s.settings_button}>
+            <Button className={s.settings_button} onClick={onDelete}>
                 <Icon type={"Trash"} size={20} />
                 Delete
             </Button>
@@ -82,3 +98,35 @@ interface IProps {
     height?: string | number;
     craft?: any;
 }
+
+interface IImageProps {
+    onDelete?: () => void;
+    // containerRef: { current: HTMLDivElement };
+    drag: TDrag;
+    // connect: TConnect;
+}
+
+type TDrag = <
+    B extends
+        | HTMLElement
+        | ReactElement<
+              any,
+              | string
+              | ((props: any) => ReactElement<any, any>)
+              | (new (props: any) => Component<any, any, any>)
+          >
+>(
+    element: B
+) => B;
+type TConnect = <
+    B extends
+        | HTMLElement
+        | ReactElement<
+              any,
+              | string
+              | ((props: any) => ReactElement<any, any>)
+              | (new (props: any) => Component<any, any, any>)
+          >
+>(
+    element: B
+) => B;

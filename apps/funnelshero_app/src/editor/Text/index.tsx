@@ -65,16 +65,6 @@ const TextSettings: FC<IMenuProps> = ({ editor }) => {
         <div className={s.settings}>
             <Button
                 onClick={() =>
-                    editor.chain().focus().setTextAlign("center").run()
-                }
-                className={[
-                    s.tool_btn,
-                    editor.isActive({ textAlign: "center" }) ? s.is_active : "",
-                ].join(" ")}
-                label={<Icon type={"AlignCenter"} size={18} strokeWidth={2} />}
-            />
-            <Button
-                onClick={() =>
                     editor.chain().focus().setTextAlign("justify").run()
                 }
                 className={[
@@ -94,6 +84,16 @@ const TextSettings: FC<IMenuProps> = ({ editor }) => {
                     editor.isActive({ textAlign: "left" }) ? s.is_active : "",
                 ].join(" ")}
                 label={<Icon type={"AlignLeft"} size={18} strokeWidth={2} />}
+            />
+            <Button
+                onClick={() =>
+                    editor.chain().focus().setTextAlign("center").run()
+                }
+                className={[
+                    s.tool_btn,
+                    editor.isActive({ textAlign: "center" }) ? s.is_active : "",
+                ].join(" ")}
+                label={<Icon type={"AlignCenter"} size={18} strokeWidth={2} />}
             />
             <Button
                 onClick={() =>

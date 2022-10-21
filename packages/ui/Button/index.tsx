@@ -1,9 +1,9 @@
-import React, { forwardRef } from "react";
+import React, { FC, forwardRef } from "react";
 import s from "./button.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-interface IProps {
+interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     label?: string | JSX.Element;
     className?: string;
     activeClass?: string;

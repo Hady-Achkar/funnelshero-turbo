@@ -1,0 +1,15 @@
+.input {
+    background-color: $light-gray;
+    border: none;
+    border-radius: 0;
+    color: $gray;
+    padding: 4px 6px;
+    &:focus-within {
+        border: none;
+    }
+    & input[type="date"]::-webkit-inner-spin-button,
+    & input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
+}
