@@ -44,7 +44,7 @@ const Home: NextPage = () => {
                             <div className={s.create_accound}>
                                 <p>
                                     Don’t have an account?
-                                    <Link href={"/"}>
+                                    <Link href={"/register"}>
                                         <a>Create an Account</a>
                                     </Link>
                                 </p>

@@ -6,6 +6,8 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Step1 } from './step1';
+import { Step2 } from './step2';
+import { Step3 } from './step3';
 
 const steps = [
   { title: "Register", description: "This is a description." },
@@ -14,13 +16,16 @@ const steps = [
 ];
 
 export default function RegisterStepper({activeStep, setActiveStep}:{activeStep:number, setActiveStep:(state:number)=>void}) {
-  
   const [skipped, setSkipped] = React.useState(new Set<number>());
 
   const currentStep = () => {
     switch (activeStep) {
       case 0:
         return <Step1 setStep={setActiveStep} />
+      case 1:
+        return <Step2 setStep={setActiveStep}/>
+      case 2:
+        return <Step3 setStep={setActiveStep}/>
       default:
         return <Step1 setStep={setActiveStep} />
     }
@@ -68,7 +73,7 @@ export default function RegisterStepper({activeStep, setActiveStep}:{activeStep:
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Stepper activeStep={activeStep}>
+      {activeStep===1?null:<Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
           const labelProps: {
@@ -86,7 +91,7 @@ export default function RegisterStepper({activeStep, setActiveStep}:{activeStep:
             </Step>
           );
         })}
-      </Stepper>
+      </Stepper>}
       {activeStep === steps.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>

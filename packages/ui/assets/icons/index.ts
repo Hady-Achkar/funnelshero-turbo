@@ -20,7 +20,8 @@ import Type from "../icons/type.svg";
 import Trash from "../icons/trash.svg";
 import LineThrough from "../icons/line-through.svg";
 import Link from "../icons/link.svg";
-
+import StepIcon from "../icons/steps-item-icon.svg"
+import PayPalIcon from "../icons/paypal.svg"
 export {
     React,
     Search,
@@ -44,4 +45,6 @@ export {
     Trash,
     LineThrough,
     Link,
+    StepIcon,
+    PayPalIcon
 };
