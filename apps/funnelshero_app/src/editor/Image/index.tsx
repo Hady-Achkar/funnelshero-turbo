@@ -1,5 +1,5 @@
 import { useNode, useEditor, Node } from "@craftjs/core";
-import { Component, FC, ReactElement, useEffect } from "react";
+import { Component, FC, ReactElement } from "react";
 import s from "./imageE.module.scss";
 import { Button, Icon } from "ui";
 
@@ -22,12 +22,6 @@ export const Image: FC<IProps> = ({ src, alt, width = 100, height = 100 }) => {
             selectedNodeId: state.events.selected.keys().next().value,
         };
     });
-
-    useEffect(() => {
-        const _CONTIANER = document.getElementsByClassName(s.container)[0];
-
-        console.log(_CONTIANER);
-    }, []);
 
     Image.craft = {
         displayName: "Image",

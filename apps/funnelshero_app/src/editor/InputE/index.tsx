@@ -1,23 +1,14 @@
 import { FC, forwardRef } from "react";
 import s from "./inputE.module.scss";
 import { Input, Icon } from "ui";
+import { useNode, useEditor, Node } from "@craftjs/core";
 
 export const InputE: FC<IProps> = forwardRef(
     ({ placeholder, type = "text", frontIcon = "" }, ref) => {
-        // InputE.craft = {
-        //     displayName: "Input",
-        //     props: {
-        //         placeholder: "Placeholder",
-        //     },
-        //     rules: {
-        //         canDrag: (node: { data: { props: { text: string } } }) => true,
-        //         canMoveIn: (incoming: Node[], self: Node) => true,
-        //         canMoveOut: (outgoing: Node[], self: Node) => true,
-        //     },
-        //     related: {
-        //         // settings: ImageSettings,
-        //     },
-        // };
+        const {
+            connectors: { connect, drag },
+        } = useNode((node: Node) => node);
+
         return (
             <div style={{ display: "inline-flex" }}>
                 <Input
@@ -35,6 +26,23 @@ export const InputE: FC<IProps> = forwardRef(
         );
     }
 );
+
+InputE.craft = {
+    displayName: "Input",
+    props: {
+        placeholder: "Placeholder",
+        type: "text",
+        frontIcon: "",
+    },
+    rules: {
+        canDrag: (node: { data: { props: { text: string } } }) => true,
+        canMoveIn: (incoming: Node[], self: Node) => true,
+        canMoveOut: (outgoing: Node[], self: Node) => true,
+    },
+    related: {
+        // settings: ImageSettings,
+    },
+};
 
 interface IProps {
     placeholder?: string;
