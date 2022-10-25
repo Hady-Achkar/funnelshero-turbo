@@ -3,9 +3,6 @@ import s from "./imageContent.module.scss";
 import { Button } from "ui";
 import { Image } from "editor";
 import { useEditor, Element } from "@craftjs/core";
-import image1 from "assets/images/r-1.png";
-import image2 from "assets/images/r-2.png";
-import NextImage from "next/image";
 
 export const ImageContent: FC = () => {
     const { connectors } = useEditor();

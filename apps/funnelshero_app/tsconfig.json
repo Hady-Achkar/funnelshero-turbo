@@ -20,7 +20,8 @@
             "@assets/*": ["assets/*"],
             "@interfaces/*": ["interfaces/*"],
             "@store/*": ["store/*"],
-            "@styles/*": ["styles/*"]
+            "@styles/*": ["styles/*"],
+            "@utils/*": ["utils/*"]
         }
     },
     "include": [
