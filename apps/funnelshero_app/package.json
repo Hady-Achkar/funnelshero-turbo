@@ -28,6 +28,7 @@
     "next": "12.2.5",
     "next-translate": "^1.5.0",
     "react": "18.2.0",
+    "react-color-picker-wheel": "^0.1.6",
     "react-dom": "18.2.0",
     "react-feather": "^2.0.10",
     "react-popper": "^2.3.0",

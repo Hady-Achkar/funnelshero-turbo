@@ -1,21 +1,27 @@
-import { FC, useRef, useLayoutEffect, useState, useEffect } from "react";
-import s from "./modal.module.css";
-import { Button, Icon } from "../../core";
-import { createPortal } from "react-dom";
+import React, { FC, useRef, useLayoutEffect } from "react";
+import s from "./modal.module.scss";
+import { Portal } from "..";
 
 const root = document.documentElement;
 
-window.addEventListener("click", (e) => {
-    const target = e.target.closest(".modal-handler");
+window.addEventListener("click", (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target: HTMLElement = e.target.closest(".modal-handler");
     if (target) {
         root.style.setProperty("--mouse-x", e.pageX + "px");
         root.style.setProperty("--mouse-y", e.pageY + "px");
     }
 });
 
-let timer;
+let timer: NodeJS.Timer;
 
-export const Modal = ({
+interface IProps {
+    visibility: boolean;
+    closeBtnEnabled: boolean;
+    setVisibility: (arg: boolean) => void;
+    className: string;
+    animationTiming: number;
+}
+export const Modal: FC<IProps> = ({
     visibility,
     setVisibility,
     children,
@@ -29,7 +35,9 @@ export const Modal = ({
         clearTimeout(timer);
     }, []);
 
-    const onClose = (e) => {
+    const onClose = (
+        e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
+    ) => {
         if (modal.current) {
             modal.current.classList.remove(s["modal_visible"]);
             modal.current.classList.add(s["modal_hidden"]);
@@ -40,6 +48,19 @@ export const Modal = ({
 
         e.stopPropagation();
     };
+
+    const childrenWithProps = React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
+            const passProps: IPassProps = { onCloseModal: onClose };
+            interface IPassProps {
+                onCloseModal: (
+                    event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
+                ) => void;
+            }
+            return React.cloneElement(child, passProps);
+        }
+        return child;
+    });
 
     return visibility ? (
         <Portal>
@@ -63,19 +84,13 @@ export const Modal = ({
                     ].join(" ")}
                 >
                     {closeBtnEnabled && (
-                        <Button
-                            className={s.close_btn}
-                            onClick={onClose}
-                            label={<Icon type={"X"} size={22} feather={true} />}
-                        />
+                        <div className={s.close_btn} onClick={onClose}>
+                            X
+                        </div>
                     )}
-                    {children}
+                    {childrenWithProps}
                 </div>
             </div>
         </Portal>
     ) : null;
-};
-
-const Portal = ({ children }) => {
-    return createPortal(children, document.getElementById("root"));
 };

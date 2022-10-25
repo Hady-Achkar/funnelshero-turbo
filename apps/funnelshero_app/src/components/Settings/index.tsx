@@ -1,7 +1,8 @@
-import { FC, useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import s from "./settings.module.scss";
 import { MuiltipleSwitcher, Scroll } from "ui";
 import { SearchInput } from "components";
+import { useEditor } from "@craftjs/core";
 import {
     ImageContent,
     TitleContent,
@@ -26,28 +27,59 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
             questionBox: <QuestionBoxContent />,
         };
     }, []);
+    const { selected } = useEditor((state) => {
+        const [currentNodeId]: Set<string> = state.events.selected;
+        let selected;
+
+        if (currentNodeId) {
+            selected = {
+                id: currentNodeId,
+                name: state.nodes[currentNodeId].data.name,
+                settings:
+                    state.nodes[currentNodeId].related &&
+                    state.nodes[currentNodeId].related.settings,
+            };
+        }
+        return { selected };
+    });
+
+    const memoSwitchColor = useMemo(() => {
+        const _DATA = [
+            {
+                label: "Design",
+                id: "design",
+            },
+            {
+                label: "Pages",
+                id: "pages",
+            },
+        ];
+        if (activeCard === "customHTMLBlock") {
+            _DATA[2] = {
+                label: "HTML block",
+                id: "htmlBlock",
+            };
+        }
+        return _DATA;
+    }, [activeCard]);
 
     return (
         <div className={s.settings_content}>
             <div className={s.body}>
                 <MuiltipleSwitcher
                     containerClass={s.switch_container}
-                    data={[
-                        {
-                            label: "Design",
-                            id: "design",
-                        },
-                        {
-                            label: "Pages",
-                            id: "pages",
-                        },
-                    ]}
+                    data={memoSwitchColor}
                 />
                 <div className={["title16", s.title].join(" ")}>Search</div>
                 <div>
                     <SearchInput placeholder={"Search Image templates"} />
                 </div>
-                <Scroll>{memoSidebarActiveComponents[activeCard]}</Scroll>
+                <Scroll>
+                    {memoSidebarActiveComponents[activeCard]}
+                    {selected &&
+                        selected.settings &&
+                        React.createElement(selected.settings)}
+                </Scroll>
             </div>
         </div>
     );

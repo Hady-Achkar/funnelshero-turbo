@@ -1,49 +1,38 @@
 import { useNode, useEditor, Node } from "@craftjs/core";
-import { Component, FC, ReactElement } from "react";
+import { Component, FC, ReactElement, useCallback } from "react";
 import s from "./imageE.module.scss";
 import { Button, Icon } from "ui";
+import { insertNodeOnParent } from "utils";
 
 export const Image: FC<IProps> = ({ src, alt, width = 100, height = 100 }) => {
     const {
         connectors: { connect, drag },
         isSelected,
-        // isDragged,
-        // isHovered,
+        id,
+        parent,
     } = useNode((node: Node) => {
         return {
             isSelected: node.events.selected,
             isDragged: node.events.dragged,
             isHovered: node.events.hovered,
+            parent: node.data.parent,
         };
     });
 
-    const { selectedNodeId, actions } = useEditor((state) => {
+    const { selectedNodeId, actions, query } = useEditor((state) => {
         return {
             selectedNodeId: state.events.selected.keys().next().value,
         };
     });
 
-    Image.craft = {
-        displayName: "Image",
-        props: {
-            src: src,
-            alt: alt,
-            width: width,
-            height: height,
-        },
-        rules: {
-            canDrag: (node: { data: { props: { text: string } } }) => true,
-            canMoveIn: (incoming: Node[], self: Node) => true,
-            canMoveOut: (outgoing: Node[], self: Node) => true,
-        },
-        related: {
-            settings: ImageSettings,
-        },
-    };
+    const duplicateNode = useCallback(() => {
+        const parentNode = query.node(parent).get();
+        const indexToAdd = parentNode.data.nodes.indexOf(id) + 1;
 
-    const onDelete = () => {
-        actions.delete(selectedNodeId);
-    };
+        insertNodeOnParent(id, parent, indexToAdd, query, actions);
+    }, [id, parent, query]);
+
+    const onDelete = () => actions.delete(selectedNodeId);
 
     return (
         <div
@@ -51,14 +40,18 @@ export const Image: FC<IProps> = ({ src, alt, width = 100, height = 100 }) => {
             className={[s.container, isSelected ? s.selected : ""].join(" ")}
         >
             {isSelected ? (
-                <ImageSettings onDelete={onDelete} drag={drag} />
+                <ImageSettings
+                    onDelete={onDelete}
+                    drag={drag}
+                    duplicateNode={duplicateNode}
+                />
             ) : null}
             <img src={src} alt={alt} width={width} height={height} />
         </div>
     );
 };
 
-const ImageSettings: FC<IImageProps> = ({ onDelete, drag }) => {
+const ImageSettings: FC<IImageProps> = ({ onDelete, drag, duplicateNode }) => {
     return (
         <div className={s.settings}>
             <Button className={s.settings_button} ref={drag}>
@@ -73,7 +66,7 @@ const ImageSettings: FC<IImageProps> = ({ onDelete, drag }) => {
                 <Icon type={"Comment"} size={20} />
                 Add Comment
             </Button>
-            <Button className={s.settings_button}>
+            <Button className={s.settings_button} onClick={duplicateNode}>
                 <Icon type={"Duplicate"} size={20} />
                 Duplicate
             </Button>
@@ -83,6 +76,19 @@ const ImageSettings: FC<IImageProps> = ({ onDelete, drag }) => {
             </Button>
         </div>
     );
+};
+
+Image.craft = {
+    displayName: "Image",
+    props: {},
+    rules: {
+        canDrag: (node: { data: { props: { text: string } } }) => true,
+        canMoveIn: (incoming: Node[], self: Node) => true,
+        canMoveOut: (outgoing: Node[], self: Node) => true,
+    },
+    related: {
+        settings: ImageSettings,
+    },
 };
 
 interface IProps {
@@ -95,9 +101,8 @@ interface IProps {
 
 interface IImageProps {
     onDelete?: () => void;
-    // containerRef: { current: HTMLDivElement };
     drag: TDrag;
-    // connect: TConnect;
+    duplicateNode: () => void;
 }
 
 type TDrag = <

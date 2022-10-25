@@ -1,16 +1,15 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import s from "./buttonContent.module.scss";
-import { ButtonE, ButtonSettings } from "editor";
+import { ButtonE } from "editor";
 import { Button } from "ui";
 import { Element, useEditor } from "@craftjs/core";
 
 export const ButtonContent: FC<IProps> = () => {
-    const { connectors } = useEditor();
+    const { connectors, query } = useEditor();
 
     return (
         <div className={s.container}>
             <div className={s.block}>
-                <ButtonSettings />
                 <Button
                     label={"Button"}
                     className={s.green}
