@@ -1,6 +1,6 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useMemo, useState } from "react";
 import s from "./settings.module.scss";
-import { MuiltipleSwitcher, Scroll } from "ui";
+import { MuiltipleSwitcher, Scroll, IMuiltipleSwitcherEventType } from "ui";
 import { SearchInput } from "components";
 import { useEditor } from "@craftjs/core";
 import {
@@ -12,9 +12,11 @@ import {
     ParagraphContent,
     OptInFormContent,
     QuestionBoxContent,
+    HtmlBlockContent,
 } from "components";
 
 export const Settings: FC<IProps> = ({ activeCard }) => {
+    const [selectedSwitcher, setSelectedSwitcher] = useState<number>();
     const memoSidebarActiveComponents: IActiveComponent = useMemo(() => {
         return {
             image: <ImageContent />,
@@ -25,8 +27,10 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
             paragraph: <ParagraphContent />,
             optInForm: <OptInFormContent />,
             questionBox: <QuestionBoxContent />,
+            customHTMLBlock: <HtmlBlockContent />,
         };
     }, []);
+
     const { selected } = useEditor((state) => {
         const [currentNodeId]: Set<string> = state.events.selected;
         let selected;
@@ -63,18 +67,25 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
         return _DATA;
     }, [activeCard]);
 
+    const onChangeSwitcher = (e: IMuiltipleSwitcherEventType) => {
+        setSelectedSwitcher(e.target.index);
+    };
+
+    console.log(selectedSwitcher);
     return (
         <div className={s.settings_content}>
             <div className={s.body}>
                 <MuiltipleSwitcher
                     containerClass={s.switch_container}
                     data={memoSwitchColor}
+                    onChange={onChangeSwitcher}
                 />
                 <div className={["title16", s.title].join(" ")}>Search</div>
                 <div>
                     <SearchInput placeholder={"Search Image templates"} />
                 </div>
                 <Scroll>
+                    {/* <Tabs></Tabs> */}
                     {memoSidebarActiveComponents[activeCard]}
                     {selected &&
                         selected.settings &&

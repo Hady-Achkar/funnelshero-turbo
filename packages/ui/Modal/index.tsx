@@ -29,7 +29,7 @@ export const Modal: FC<IProps> = ({
     closeBtnEnabled = true,
     animationTiming = 360,
 }) => {
-    const modal = useRef();
+    let modal = useRef<HTMLDivElement>();
 
     useLayoutEffect(() => {
         clearTimeout(timer);
@@ -73,7 +73,7 @@ export const Modal: FC<IProps> = ({
                 ].join(" ")}
             >
                 <div
-                    ref={modal}
+                    ref={modal as React.RefObject<HTMLDivElement>}
                     onClick={(e) => {
                         e.stopPropagation();
                     }}

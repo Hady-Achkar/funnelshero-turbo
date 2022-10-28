@@ -2,7 +2,6 @@ import { FC, useState } from "react";
 import { useNode } from "@craftjs/core";
 import { Button } from "ui";
 import Wheel from "@uiw/react-color-wheel";
-import ColorPicker from "react-color-picker-wheel";
 
 export const ButtonE: FC<IProps> = ({ color, text, className = "" }) => {
     const {
@@ -11,7 +10,7 @@ export const ButtonE: FC<IProps> = ({ color, text, className = "" }) => {
 
     return (
         <Button
-            ref={(ref) => connect(drag(ref))}
+            ref={(ref: HTMLButtonElement) => connect(drag(ref))}
             className={className}
             style={{
                 backgroundColor: color,
