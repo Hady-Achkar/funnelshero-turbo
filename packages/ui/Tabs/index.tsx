@@ -2,7 +2,7 @@ import { FC, ReactElement, useRef } from "react";
 import s from "./tabs.module.scss";
 
 export const Tabs: FC<IProps> = ({ children = [], select = 0 }) => {
-    const blockRef = useRef<HTMLElement>();
+    const blockRef = useRef<HTMLElement>(null);
 
     return (
         <div className={s.container}>
@@ -35,5 +35,5 @@ export const Tabs: FC<IProps> = ({ children = [], select = 0 }) => {
 
 interface IProps {
     select: number;
-    children: ReactElement[];
+    children: React.ReactNode[];
 }

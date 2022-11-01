@@ -20,6 +20,7 @@ interface IProps {
     setVisibility: (arg: boolean) => void;
     className: string;
     animationTiming: number;
+    children: React.ReactNode | React.ReactNode[];
 }
 export const Modal: FC<IProps> = ({
     visibility,
