@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useNode } from "@craftjs/core";
+import { useNode, Node } from "@craftjs/core";
 import * as Tiptap from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import s from "./text.module.scss";
@@ -32,23 +32,14 @@ export const Text: FC<IProps> = ({ text }) => {
     const {
         connectors: { connect, drag },
         isSelected,
-        // isDragged,
-        // isHovered,
-        id,
-    } = useNode((node) => ({
+    } = useNode((node: Node) => ({
         isSelected: node.events.selected,
         isDragged: node.events.dragged,
         isHovered: node.events.hovered,
     }));
 
-    Text.craft = {
-        rules: {
-            canDrag: (node) => node.data.props.text != "Drag",
-        },
-    };
-    if (!editor) {
-        return null;
-    }
+    if (!editor) return null;
+
     return (
         <div
             className={[s.container, isSelected ? "selected" : ""].join(" ")}
@@ -60,6 +51,11 @@ export const Text: FC<IProps> = ({ text }) => {
     );
 };
 
+Text.craft = {
+    rules: {
+        canDrag: (node: Node) => node.data.props.text != "Drag",
+    },
+};
 const TextSettings: FC<IMenuProps> = ({ editor }) => {
     return (
         <div className={s.settings}>

@@ -50,6 +50,15 @@ const colId = (arr: IData[]) => {
     return a;
 };
 
+export interface IMuiltipleSwitcherEventType {
+    target: {
+        label: ReactNode | string | JSX.Element;
+        value: string | number;
+        index: number;
+        name: string | undefined;
+    };
+}
+
 export const MuiltipleSwitcher: FC<IProps> = ({
     data = [],
     onChange = () => {},
@@ -193,18 +202,9 @@ interface ISelected {
     index: number;
 }
 
-interface IOnChangeEvent {
-    target: {
-        label: ReactNode | string | JSX.Element;
-        value: string | number;
-        index: number;
-        name: string | undefined;
-    };
-}
-
 interface IProps {
     data: IData[];
-    onChange?(e: IOnChangeEvent): void;
+    onChange?(e: IMuiltipleSwitcherEventType): void;
     containerPadding?: number;
     paddingBetweenBtns?: number;
     divider?: boolean;

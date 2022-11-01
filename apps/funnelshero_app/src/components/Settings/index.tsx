@@ -1,6 +1,6 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useLayoutEffect, useMemo, useState } from "react";
 import s from "./settings.module.scss";
-import { MuiltipleSwitcher, Scroll } from "ui";
+import { MuiltipleSwitcher, IMuiltipleSwitcherEventType, Tabs } from "ui";
 import { SearchInput } from "components";
 import { useEditor } from "@craftjs/core";
 import {
@@ -12,9 +12,15 @@ import {
     ParagraphContent,
     OptInFormContent,
     QuestionBoxContent,
+    HtmlBlockContent,
+    HTMLBlock,
+    Design,
+    Pages,
 } from "components";
+import { Scroll } from "ui";
 
 export const Settings: FC<IProps> = ({ activeCard }) => {
+    const [selectedSwitcher, setSelectedSwitcher] = useState<number>(0);
     const memoSidebarActiveComponents: IActiveComponent = useMemo(() => {
         return {
             image: <ImageContent />,
@@ -25,8 +31,14 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
             paragraph: <ParagraphContent />,
             optInForm: <OptInFormContent />,
             questionBox: <QuestionBoxContent />,
+            customHTMLBlock: <HtmlBlockContent />,
         };
     }, []);
+
+    useLayoutEffect(() => {
+        setSelectedSwitcher(0);
+    }, [activeCard]);
+
     const { selected } = useEditor((state) => {
         const [currentNodeId]: Set<string> = state.events.selected;
         let selected;
@@ -61,7 +73,17 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
             };
         }
         return _DATA;
-    }, [activeCard]);
+    }, [activeCard, selectedSwitcher]);
+
+    // const memoTabContainer = useMemo(() => {
+    //     return (
+
+    //     );
+    // }, [activeCard]);
+
+    const onChangeSwitcher = (e: IMuiltipleSwitcherEventType) => {
+        setSelectedSwitcher(e.target.index);
+    };
 
     return (
         <div className={s.settings_content}>
@@ -69,17 +91,26 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
                 <MuiltipleSwitcher
                     containerClass={s.switch_container}
                     data={memoSwitchColor}
+                    onChange={onChangeSwitcher}
                 />
                 <div className={["title16", s.title].join(" ")}>Search</div>
                 <div>
                     <SearchInput placeholder={"Search Image templates"} />
                 </div>
-                <Scroll>
-                    {memoSidebarActiveComponents[activeCard]}
-                    {selected &&
-                        selected.settings &&
-                        React.createElement(selected.settings)}
-                </Scroll>
+                {selected &&
+                    selected.settings &&
+                    React.createElement(selected.settings)}
+                <div className={s.container}>
+                    <Tabs select={selectedSwitcher}>
+                        <Design>
+                            {memoSidebarActiveComponents[activeCard]}
+                        </Design>
+                        <Pages>asd</Pages>
+                        {activeCard === "customHTMLBlock" ? (
+                            <HTMLBlock />
+                        ) : null}
+                    </Tabs>
+                </div>
             </div>
         </div>
     );
