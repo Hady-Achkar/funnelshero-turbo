@@ -7,9 +7,9 @@ import AvatarImage from '../assets/images/Avatar.png'
 const ProfileLayout = ({ children }: { children: JSX.Element }) => (
     <>
         <ProfileTopBar />
-        <div className={s.mainContent}>
-            <div className={s.nav_bar}>
-                <div className={s.avatar}>
+        <div className={`${s.mainContent} flex space_between`}>
+            <div className={`${s.nav_bar} flex column`}>
+                <div className={`${s.avatar} flex`}>
                     <Image
                         src={AvatarImage}
                         layout={"fixed"}
@@ -22,28 +22,28 @@ const ProfileLayout = ({ children }: { children: JSX.Element }) => (
                     </div>
                 </div>
                 <div>
-                    <ul className={s.list}>
-                        <li className={s.list_item}>
+                    <ul className={`${s.list} flex column`}>
+                        <li className={`${s.list_item} flex align_center`}>
                             <Icon type="AccountIcon" />
                             Your Account
                         </li>
-                        <li className={s.list_item}>
+                        <li className={`${s.list_item} flex align_center`}>
                             <Icon type="FunnelIcon" />
                             My Funnels
                         </li>
-                        <li className={s.list_item}>
+                        <li className={`${s.list_item} flex align_center`}>
                             <Icon type="PasswordIcon" />
                             Login & security
                         </li>
-                        <li className={s.list_item}>
+                        <li className={`${s.list_item} flex align_center`}>
                             <Icon type="BillingIcon" />
                             Billing & plans
                         </li>
-                        <li className={s.list_item}>
+                        <li className={`${s.list_item} flex align_center`}>
                             <Icon type="PurchaseIcon" />
                             Purchase history
                         </li>
-                        <li className={s.list_item}>
+                        <li className={`${s.list_item} flex align_center`}>
                             <Icon type="NotificationIcon" />
                             Notification
                         </li>
@@ -52,7 +52,7 @@ const ProfileLayout = ({ children }: { children: JSX.Element }) => (
             </div>
             {children}
             <div className={s.account}>
-                <div className={s.avatar}>
+                <div className={`${s.avatar} flex align_center`}>
                     <Image
                         src={AvatarImage}
                         layout={"fixed"}

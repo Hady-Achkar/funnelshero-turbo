@@ -3,10 +3,8 @@
     height: 74px;
     background: #383838;
     position: relative;
-    display: flex;
-    align-items: center;
 
-    .top_container_logo{
+    .top_container_logo {
         margin-left: 32px;
     }
 
@@ -16,11 +14,9 @@
         left: 0;
         width: 100%;
         height: 100%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
         gap: 34px;
-        img{
+
+        img {
             padding-right: 20px;
         }
     }

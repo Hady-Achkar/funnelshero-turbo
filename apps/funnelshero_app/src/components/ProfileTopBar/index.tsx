@@ -5,7 +5,7 @@ import { Submit } from ".."
 import s from './style.module.scss'
 import AvatarImage from '../../assets/images/Avatar.png'
 const ProfileTopBar = () =>(
-    <div className={s.top_container}>
+    <div className={`${s.top_container} flex align_center`}>
         <div className={s.top_container_logo}>
             <Image
                 src={"/logo.png"}
@@ -14,7 +14,7 @@ const ProfileTopBar = () =>(
                 width="50"
                 height="50" />
         </div>
-        <div className={s.top_container_nav_bar}>
+        <div className={`${s.top_container_nav_bar} flex flex_end align_center`}>
             <Icon type="NotificationIcon" color="white" />
             <Submit label="Create a new funnel" />
             <p style={{color:'white'}}>name surname</p>
