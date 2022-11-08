@@ -42,7 +42,7 @@ const Funnel: NextPage = () => {
                             >
                                 <ButtonE
                                     // size="small"
-                                    variant="outlined"
+                                    // variant="outlined"
                                     text={"Click"}
                                 />
                                 <Element

@@ -5,6 +5,9 @@ import Head from "next/head";
 import { Checkbox, Input } from "ui";
 import SignLayout from "layouts/signLayout";
 import Link from "next/link";
+import Image from "next/image";
+import { useEffect } from "react";
+import video from "./public/sun-culture.mp4";
 
 const Home: NextPage = () => {
     return (

@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const path = require("path");
 const withTM = require("next-transpile-modules")(["ui"]);
+const withVideos = require('next-videos')
 
 const nextConfig = withTM({
-    reactStrictMode: true,
+    // reactStrictMode: true,
+
     swcMinify: true,
     optimizeFonts: true,
     env: {
@@ -33,6 +35,7 @@ const nextConfig = withTM({
         //     http: true,
         //   },
         // ],
+
     },
 
     webpack(config) {
@@ -45,4 +48,5 @@ const nextConfig = withTM({
         return config;
     },
 });
-module.exports = nextConfig;
+
+module.exports = withVideos(nextConfig);
