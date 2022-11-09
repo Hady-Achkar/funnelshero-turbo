@@ -45,7 +45,12 @@ export const Sidebar: FC<IProps> = ({ onClickCard }) => {
             {
                 icon: "AlignCenter",
                 title: "Quizz",
-                id: "Quizz",
+                id: "1uizz",
+            },
+            {
+                icon: "File",
+                title: "Custom HTML block",
+                id: "customHTMLBlock",
             },
             {
                 icon: "Container",

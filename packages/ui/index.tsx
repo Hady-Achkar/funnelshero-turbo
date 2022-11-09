@@ -6,3 +6,6 @@ export * from "./Checkbox";
 export * from "./Radio";
 export * from "./Scroll";
 export * from "./MuiltipleSwitcher";
+export * from "./Portal";
+export * from "./Tabs";
+export * from "./Select";

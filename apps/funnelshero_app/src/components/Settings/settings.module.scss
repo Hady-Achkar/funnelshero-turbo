@@ -6,6 +6,7 @@
     background-color: $block-bgc;
     display: flex;
     flex-direction: column;
+    max-width: 440px;
 }
 .body {
     flex: 1;
@@ -18,5 +19,9 @@
 }
 
 .switch_btn {
+    flex: 1;
+}
+
+.container {
     flex: 1;
 }

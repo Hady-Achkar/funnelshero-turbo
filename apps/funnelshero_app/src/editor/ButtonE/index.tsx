@@ -1,36 +1,19 @@
-import { FC } from "react";
-import { NodeId, useNode } from "@craftjs/core";
+import { FC, useState } from "react";
+import { useNode } from "@craftjs/core";
 import { Button } from "ui";
+import Wheel from "@uiw/react-color-wheel";
 
-// interface CraftNode {
-//     id: NodeId;
-//     related: boolean;
-//     inNodeContext: boolean;
-//     connectors: IConnectors;
-//     actionsObject: IActionsObject;
-// }
-
-// interface IConnectors {
-//     connect: (dom: HTMLElement) => HTMLElement;
-//     drag: (dom: HTMLElement) => HTMLElement;
-// }
-// interface IActionsObject {
-//     setProp: (props: Object, throttleRate?: number) => void;
-//     setCustom: (custom: Object, throttleRate?: number) => void;
-//     setHidden: (bool: boolean) => void;
-// }
-
-export const ButtonE: FC<IProps> = ({ size, variant, color, text }) => {
+export const ButtonE: FC<IProps> = ({ color, text, className = "" }) => {
     const {
         connectors: { connect, drag },
     } = useNode();
+
     return (
         <Button
-            style={{ color }}
-            size={size}
-            variant={variant}
-            ref={(ref) => {
-                connect(drag(ref));
+            ref={(ref: HTMLButtonElement) => connect(drag(ref))}
+            className={className}
+            style={{
+                backgroundColor: color,
             }}
         >
             {text}
@@ -38,36 +21,35 @@ export const ButtonE: FC<IProps> = ({ size, variant, color, text }) => {
     );
 };
 
-const ButtonSettings = () => {
-    const { props, setProp } = useNode();
+export const ButtonSettings = () => {
+    const {
+        actions: { setProp },
+        color,
+    } = useNode((node) => ({
+        color: node.data.props.color,
+    }));
+    const [hsva, setHsva] = useState(color);
+
     return (
         <div>
-            Text:{" "}
-            <input
-                type="text"
-                value={props.text}
-                onChange={(e) =>
-                    setProp((props) => (props.text = e.target.value))
-                }
-            />
-            Color:{" "}
-            <input
-                type="text"
-                value={props.color}
-                onChange={(e) =>
-                    setProp((props) => (props.color = e.target.value))
-                }
+            <Wheel
+                color={hsva}
+                onChange={(color) => {
+                    setHsva({ ...hsva, ...color.hsva });
+                    setProp((props) => {
+                        return (props.color = color.hexa);
+                    });
+                }}
             />
         </div>
     );
 };
-Button.craft = {
+
+ButtonE.craft = {
     displayName: "My Button Component",
     props: {
-        color: "#000",
+        color: { h: 0, s: 80, v: 68, a: 1 },
         text: "Hi",
-        size: "normal",
-        variant: "primary",
     },
     rules: {
         canDrag: (node: { data: { props: { text: string } } }) =>
@@ -80,11 +62,13 @@ Button.craft = {
         settings: ButtonSettings,
     },
 };
+
 type ButtonSize = "normal" | "large" | "small";
 
 interface IProps {
-    size?: ButtonSize;
-    variant?: string;
+    // size?: ButtonSize;
+    // variant?: string;
+    className?: string;
     color?: string;
-    text?: string;
+    text: string;
 }

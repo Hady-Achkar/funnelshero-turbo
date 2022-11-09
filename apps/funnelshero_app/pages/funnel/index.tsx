@@ -1,38 +1,13 @@
 import type { NextPage } from "next";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import s from "./funnel.module.scss";
 import { Editor, Frame, Element } from "@craftjs/core";
-import { ButtonE, Image, Text, InputE } from "editor";
-import NextImage from "next/image";
-import { Scroll, MuiltipleSwitcher } from "ui";
-import {
-    ImageContent,
-    TitleContent,
-    ButtonContent,
-    VideoContent,
-    DividerContent,
-    ParagraphContent,
-    OptInFormContent,
-    QuestionBoxContent,
-    Topbar,
-    Sidebar,
-    Settings,
-} from "components";
+import { ButtonE, Image, Text, InputE, HTML } from "editor";
+import { Scroll } from "ui";
+import { Topbar, Sidebar, Settings } from "components";
 
 const Funnel: NextPage = () => {
     const [activeCard, setActiveCard] = useState<string>("image");
-    const memoSidebarActiveComponents: IActiveComponent = useMemo(() => {
-        return {
-            image: <ImageContent />,
-            video: <VideoContent />,
-            text: <TitleContent />,
-            button: <ButtonContent />,
-            divider: <DividerContent />,
-            paragraph: <ParagraphContent />,
-            optInForm: <OptInFormContent />,
-            questionBox: <QuestionBoxContent />,
-        };
-    }, []);
 
     const onClickCard = (e: React.MouseEvent<HTMLButtonElement>) => {
         if (e.currentTarget.dataset.key)
@@ -49,6 +24,7 @@ const Funnel: NextPage = () => {
                         ButtonE,
                         InputE,
                         Text,
+                        HTML,
                     }}
                 >
                     <Sidebar
@@ -65,8 +41,8 @@ const Funnel: NextPage = () => {
                                 canvas
                             >
                                 <ButtonE
-                                    size="small"
-                                    variant="outlined"
+                                    // size="small"
+                                    // variant="outlined"
                                     text={"Click"}
                                 />
                                 <Element

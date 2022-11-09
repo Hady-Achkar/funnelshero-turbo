@@ -9,7 +9,7 @@ interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     activeClass?: string;
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
     disabled?: boolean;
-    children?: React.ReactChild | React.ReactChild[];
+    children?: React.ReactNode | React.ReactNode[];
     variant?: string;
     size?: string;
     href?: string;

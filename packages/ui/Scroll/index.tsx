@@ -4,7 +4,7 @@ import s from "./scroll.module.scss";
 interface IProps {
     showOnHover?: boolean;
     className?: string;
-    children: React.ReactChild | React.ReactChild[];
+    children: React.ReactNode | React.ReactNode[];
 }
 type Ref = HTMLButtonElement;
 
