@@ -36,11 +36,63 @@
         }
         &:hover {
             color: $purple;
-            font-weight: 600;
         }
     }
 }
 .selected {
     outline: 1px solid green;
     padding: 6px;
+}
+.active_btn {
+    color: $purple;
+}
+
+.left_top,
+.left_bottom,
+.right_top,
+.right_bottom {
+    width: 6px;
+    height: 6px;
+    background-color: $light-gray;
+    cursor: pointer;
+    &:hover {
+        background-color: $purple;
+    }
+}
+
+.left_top {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.left_bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.right_top {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.right_bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.border_radius_container {
+    display: flex;
+    align-items: center;
+    grid-gap: 0 8px;
+    & .radius_input {
+        // border: none !important;
+        border-radius: 0 !important;
+        padding: 4px;
+        width: 80px;
+        background-color: $light-gray;
+        & input {
+            color: black;
+        }
+    }
 }

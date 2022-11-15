@@ -27,6 +27,7 @@ import Comment from "../icons/comment.svg";
 import OptInForm from "../icons/opt-in-form.svg";
 import Duplicate from "../icons/duplicate.svg";
 import Vimeo from "../icons/vimeo.svg";
+import BorderRadius from "../icons/border-radius.svg";
 
 export {
     Search,
@@ -58,4 +59,5 @@ export {
     Comment,
     Duplicate,
     Vimeo,
+    BorderRadius,
 };

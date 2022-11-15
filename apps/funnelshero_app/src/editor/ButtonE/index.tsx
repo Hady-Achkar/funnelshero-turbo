@@ -28,6 +28,7 @@ export const ButtonSettings = () => {
     } = useNode((node) => ({
         color: node.data.props.color,
     }));
+    
     const [hsva, setHsva] = useState(color);
 
     return (

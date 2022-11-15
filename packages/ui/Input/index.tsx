@@ -79,9 +79,10 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
         ) => {
             let text: InputText;
+
             if (type === "number" && min && min >= 0 && +e.target.value < 0) {
                 text = Number(
-                    e.target.value.toString().replace("-", "")
+                    +e.target.value.toString().replace("-", "")
                 ) as InputText;
             } else {
                 text = e.target.value;
@@ -163,7 +164,6 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                     <div
                         className={[
                             s.container,
-                            className,
                             disabled ? s.container_disabled : "",
                             rounded
                                 ? validate
@@ -172,6 +172,7 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                                         : s.rounded
                                     : s.rounded
                                 : "",
+                            className,
                         ].join(" ")}
                     >
                         {frontIcon}
@@ -260,7 +261,7 @@ interface IProps {
         isValid?: boolean
     ) => void;
     onChange?: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | ITarget,
+        e?: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | ITarget,
         label?: string,
         isValid?: boolean
     ) => void;

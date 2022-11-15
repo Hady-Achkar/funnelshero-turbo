@@ -21,24 +21,6 @@ import { Scroll } from "ui";
 
 export const Settings: FC<IProps> = ({ activeCard }) => {
     const [selectedSwitcher, setSelectedSwitcher] = useState<number>(0);
-    const memoSidebarActiveComponents: IActiveComponent = useMemo(() => {
-        return {
-            image: <ImageContent />,
-            video: <VideoContent />,
-            text: <TitleContent />,
-            button: <ButtonContent />,
-            divider: <DividerContent />,
-            paragraph: <ParagraphContent />,
-            optInForm: <OptInFormContent />,
-            questionBox: <QuestionBoxContent />,
-            customHTMLBlock: <HtmlBlockContent />,
-        };
-    }, []);
-
-    useLayoutEffect(() => {
-        setSelectedSwitcher(0);
-    }, [activeCard]);
-
     const { selected } = useEditor((state) => {
         const [currentNodeId]: Set<string> = state.events.selected;
         let selected;
@@ -54,6 +36,26 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
         }
         return { selected };
     });
+
+    const memoSidebarActiveComponents: IActiveComponent = useMemo(() => {
+        return {
+            image: <ImageContent  />,
+            video: <VideoContent />,
+            text: <TitleContent />,
+            button: <ButtonContent />,
+            divider: <DividerContent />,
+            paragraph: <ParagraphContent />,
+            optInForm: <OptInFormContent />,
+            questionBox: <QuestionBoxContent />,
+            customHTMLBlock: <HtmlBlockContent />,
+        };
+    }, []);
+
+    useLayoutEffect(() => {
+        setSelectedSwitcher(0);
+    }, [activeCard]);
+
+ 
 
     const memoSwitchColor = useMemo(() => {
         const _DATA = [
