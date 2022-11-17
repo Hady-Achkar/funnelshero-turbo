@@ -26,9 +26,20 @@ import Rotate from "../icons/rotate.svg";
 import Comment from "../icons/comment.svg";
 import OptInForm from "../icons/opt-in-form.svg";
 import Duplicate from "../icons/duplicate.svg";
-
+import NotificationIcon from '../icons/notification.svg'
+import AvatarIcon from '../icons/Avatar.svg'
+import AccountIcon from '../icons/account.svg'
+import FunnelIcon from '../icons/funnel.svg'
+import PasswordIcon from '../icons/password.svg'
+import BillingIcon from '../icons/billing.svg'
+import PurchaseIcon from '../icons/purchase.svg'
 export {
     Search,
+    BillingIcon,
+    PurchaseIcon,
+    PasswordIcon,
+    FunnelIcon,
+    AccountIcon,
     ChevronLeft,
     ChevronRight,
     Settings,
@@ -56,4 +67,6 @@ export {
     OptInForm,
     Comment,
     Duplicate,
+    NotificationIcon,
+    AvatarIcon
 };
