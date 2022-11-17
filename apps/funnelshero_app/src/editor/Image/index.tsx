@@ -1,5 +1,12 @@
 import { useNode, useEditor, Node } from "@craftjs/core";
-import { Component, FC, ReactElement, useCallback, useState } from "react";
+import {
+    Component,
+    FC,
+    ReactElement,
+    useCallback,
+    useEffect,
+    useState,
+} from "react";
 import s from "./imageE.module.scss";
 import { Button, Icon, Input } from "ui";
 import { insertNodeOnParent } from "utils";
@@ -63,6 +70,7 @@ export const Image: FC<IProps> = ({
                     isRotating={isRotating}
                 />
             ) : null}
+
             <img src={src} alt={alt} width={width} height={height} />
             {isRotating && (
                 <>
@@ -87,6 +95,11 @@ export const Image: FC<IProps> = ({
         </div>
     );
 };
+interface StartPos {
+    x?: number;
+    y: number;
+}
+let startPos: StartPos | null = null;
 
 const ImageSettings: FC<IImageProps> = ({
     onDelete,
@@ -95,9 +108,38 @@ const ImageSettings: FC<IImageProps> = ({
     onRatation,
     isRotating,
 }) => {
-    // const onChnageRadius = (e) => {
-    //     console.log(e.target.value)
-    // }
+    const [mouseDown, setMouseDown] = useState<boolean>(false);
+    const [rotation, setRotation] = useState<number>(0);
+
+    useEffect(() => {
+        window.addEventListener("mouseup", () => setMouseDown(false));
+        function handle(e) {
+            if (mouseDown) {
+                let pageX: number = e.pageX;
+                let pageY: number = e.pageY;
+                // setRotation();
+            }
+        }
+        window.addEventListener("mousemove", handle);
+        return () => window.removeEventListener("mousemove", handle);
+    }, [mouseDown]);
+
+    const onMouseDown = (e) => {
+        let pageX: number = e.pageX;
+        let pageY: number = e.pageY;
+
+        startPos = { x: pageX, y: pageY };
+
+        setMouseDown(true);
+    };
+
+    const onMouseUp = () => {
+        setMouseDown(false);
+    };
+
+    const rR = (e) => {
+        // console.log(e);
+    };
 
     return (
         <div className={s.settings}>
@@ -125,7 +167,9 @@ const ImageSettings: FC<IImageProps> = ({
                 className={`${s.settings_button} ${
                     isRotating ? s.active_btn : ""
                 }`}
-                onClick={onRatation}
+                onClick={rR}
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
             >
                 <Icon type={"Rotate"} size={20} />
                 Rotate
@@ -152,6 +196,7 @@ interface IProps {
     height?: string | number;
     craft?: any;
     radius?: string;
+    rotation?: number | string;
 }
 
 interface IImageProps {
@@ -174,6 +219,7 @@ type TDrag = <
 >(
     element: B
 ) => B;
+
 type TConnect = <
     B extends
         | HTMLElement
