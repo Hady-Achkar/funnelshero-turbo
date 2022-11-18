@@ -7,7 +7,6 @@ import { useEditor, Element } from "@craftjs/core";
 export const ImageContent: FC = () => {
     const { connectors, actions, currentNodeId } = useEditor((node) => {
         const [currentNodeId]: Set<string> = node.events.selected;
-
         return {
             currentNodeId,
         };

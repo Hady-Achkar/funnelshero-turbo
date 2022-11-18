@@ -54,8 +54,8 @@ export const Sidebar: FC<IProps> = ({ onClickCard }) => {
             },
             {
                 icon: "Container",
-                title: "Component",
-                id: "component",
+                title: "Container",
+                id: "container",
             },
         ];
     }, []);

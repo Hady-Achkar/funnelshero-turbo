@@ -1,7 +1,7 @@
 import React, { FC, useLayoutEffect, useMemo, useState } from "react";
 import s from "./settings.module.scss";
 import { MuiltipleSwitcher, IMuiltipleSwitcherEventType, Tabs } from "ui";
-import { SearchInput } from "components";
+import { SearchInput, Edges } from "components";
 import { useEditor } from "@craftjs/core";
 import {
     ImageContent,
@@ -39,7 +39,7 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
 
     const memoSidebarActiveComponents: IActiveComponent = useMemo(() => {
         return {
-            image: <ImageContent  />,
+            image: <ImageContent />,
             video: <VideoContent />,
             text: <TitleContent />,
             button: <ButtonContent />,
@@ -54,8 +54,6 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
     useLayoutEffect(() => {
         setSelectedSwitcher(0);
     }, [activeCard]);
-
- 
 
     const memoSwitchColor = useMemo(() => {
         const _DATA = [
@@ -77,12 +75,6 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
         return _DATA;
     }, [activeCard, selectedSwitcher]);
 
-    // const memoTabContainer = useMemo(() => {
-    //     return (
-
-    //     );
-    // }, [activeCard]);
-
     const onChangeSwitcher = (e: IMuiltipleSwitcherEventType) => {
         setSelectedSwitcher(e.target.index);
     };
@@ -96,16 +88,19 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
                     onChange={onChangeSwitcher}
                 />
                 <div className={["title16", s.title].join(" ")}>Search</div>
+
                 <div>
-                    <SearchInput placeholder={"Search Image templates"} />
+                    {" "}
+                    <SearchInput placeholder={"Search Image templates"} />{" "}
                 </div>
-                {selected &&
-                    selected.settings &&
-                    React.createElement(selected.settings)}
+
                 <div className={s.container}>
                     <Tabs select={selectedSwitcher}>
                         <Design>
                             {memoSidebarActiveComponents[activeCard]}
+                            {selected &&
+                                selected.settings &&
+                                React.createElement(selected.settings)}
                         </Design>
                         <Pages>asd</Pages>
                         {activeCard === "customHTMLBlock" ? (
