@@ -2,6 +2,7 @@ import { FC } from "react";
 import s from "./buttonContent.module.scss";
 import { ButtonE } from "editor";
 import { Button } from "ui";
+import { Padding } from "components";
 import { Element, useEditor } from "@craftjs/core";
 
 export const ButtonContent: FC<IProps> = () => {

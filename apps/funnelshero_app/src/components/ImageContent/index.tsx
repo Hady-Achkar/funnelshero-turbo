@@ -1,14 +1,29 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import s from "./imageContent.module.scss";
-import { Button } from "ui";
+import { Button, Input } from "ui";
 import { Image } from "editor";
 import { useEditor, Element } from "@craftjs/core";
 
 export const ImageContent: FC = () => {
-    const { connectors } = useEditor();
+    const { connectors, actions, currentNodeId } = useEditor((node) => {
+        const [currentNodeId]: Set<string> = node.events.selected;
+        return {
+            currentNodeId,
+        };
+    });
+
+    const onChnageRadius = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        actions.setProp(currentNodeId, (props) => {
+            return (props.radius = e.target.value);
+        });
+    };
 
     return (
         <div className={s.container}>
+            <Input type={"number"} min={0} onChange={onChnageRadius} />
+
             <div className={["title16", s.title].join(" ")}>All results</div>
             <div className={s.elements}>
                 <Button

@@ -4,6 +4,7 @@ export * from "./Submit";
 export * from "./Sidebar";
 export * from "./SignTopBar";
 export * from "./Settings";
+export * from "./Edges";
 
 export * from "./ImageContent";
 export * from "./TitleContent";

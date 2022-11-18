@@ -56,6 +56,7 @@ Text.craft = {
         canDrag: (node: Node) => node.data.props.text != "Drag",
     },
 };
+
 const TextSettings: FC<IMenuProps> = ({ editor }) => {
     return (
         <div className={s.settings}>

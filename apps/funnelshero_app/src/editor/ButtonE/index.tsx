@@ -1,19 +1,29 @@
 import { FC, useState } from "react";
 import { useNode } from "@craftjs/core";
 import { Button } from "ui";
+import { Edges } from "components";
 import Wheel from "@uiw/react-color-wheel";
+import s from "./buttonE.module.scss";
+import { IEdges } from "interfaces";
 
-export const ButtonE: FC<IProps> = ({ color, text, className = "" }) => {
+export const ButtonE: FC<IProps> = ({
+    color,
+    text,
+    className = "",
+    padding,
+    margin,
+}) => {
     const {
         connectors: { connect, drag },
     } = useNode();
-
     return (
         <Button
             ref={(ref: HTMLButtonElement) => connect(drag(ref))}
             className={className}
             style={{
                 backgroundColor: color,
+                padding: padding && padding.join("px "),
+                margin: margin && margin.join("px "),
             }}
         >
             {text}
@@ -28,16 +38,25 @@ export const ButtonSettings = () => {
     } = useNode((node) => ({
         color: node.data.props.color,
     }));
+
     const [hsva, setHsva] = useState(color);
 
     return (
-        <div>
+        <div className={s.settings}>
             <Wheel
                 color={hsva}
                 onChange={(color) => {
                     setHsva({ ...hsva, ...color.hsva });
+                    setProp((props) => (props.color = color.hexa));
+                }}
+            />
+            <Edges
+                onChange={(edges: IEdges) => {
                     setProp((props) => {
-                        return (props.color = color.hexa);
+                        return (
+                            (props.padding = edges.padding),
+                            (props.margin = edges.margin)
+                        );
                     });
                 }}
             />
@@ -71,4 +90,6 @@ interface IProps {
     className?: string;
     color?: string;
     text: string;
+    padding: string[];
+    margin: string[];
 }

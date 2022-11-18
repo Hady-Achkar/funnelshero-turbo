@@ -21,7 +21,8 @@
             "@interfaces/*": ["interfaces/*"],
             "@store/*": ["store/*"],
             "@styles/*": ["styles/*"],
-            "@utils/*": ["utils/*"]
+            "@utils/*": ["utils/*"],
+            "@prototypes/*": ["prototypes/*"]
         }
     },
     "include": [

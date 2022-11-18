@@ -19,6 +19,9 @@ const Funnel: NextPage = () => {
             <Topbar />
             <div className={s.block}>
                 <Editor
+                    onNodesChange={(e) => {
+                        // console.log(e.getState());
+                    }}
                     resolver={{
                         Image,
                         ButtonE,
@@ -40,11 +43,7 @@ const Funnel: NextPage = () => {
                                 className={s.element}
                                 canvas
                             >
-                                <ButtonE
-                                    // size="small"
-                                    // variant="outlined"
-                                    text={"Click"}
-                                />
+                                <ButtonE text={"Click"} />
                                 <Element
                                     is={"div"}
                                     id={"div123123"}
