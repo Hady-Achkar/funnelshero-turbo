@@ -5,7 +5,6 @@ interface Array<T> {
 
 Array.prototype.mergeElements = function (pattern: string) {
     const data = "";
-    console.log(12313132);
     for (let i: number = 0; i < this.length; i++) {
         data + `${this[i]}${pattern}`;
     }

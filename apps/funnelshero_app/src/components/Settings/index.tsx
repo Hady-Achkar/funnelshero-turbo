@@ -21,7 +21,7 @@ import { Scroll } from "ui";
 
 export const Settings: FC<IProps> = ({ activeCard }) => {
     const [selectedSwitcher, setSelectedSwitcher] = useState<number>(0);
-    const { selected } = useEditor((state) => {
+    const { selected, actions } = useEditor((state) => {
         const [currentNodeId]: Set<string> = state.events.selected;
         let selected;
 
@@ -101,6 +101,23 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
                             {selected &&
                                 selected.settings &&
                                 React.createElement(selected.settings)}
+                            {selected && (
+                                <Edges
+                                    onChange={(edges: IEdges) => {
+                                        actions.setProp(
+                                            selected.id,
+                                            (props) => {
+                                                return (
+                                                    (props.padding =
+                                                        edges.padding),
+                                                    (props.margin =
+                                                        edges.margin)
+                                                );
+                                            }
+                                        );
+                                    }}
+                                />
+                            )}
                         </Design>
                         <Pages>asd</Pages>
                         {activeCard === "customHTMLBlock" ? (

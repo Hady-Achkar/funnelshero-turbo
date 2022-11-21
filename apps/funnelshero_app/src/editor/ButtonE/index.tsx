@@ -16,14 +16,15 @@ export const ButtonE: FC<IProps> = ({
     const {
         connectors: { connect, drag },
     } = useNode();
+
     return (
         <Button
             ref={(ref: HTMLButtonElement) => connect(drag(ref))}
             className={className}
             style={{
                 backgroundColor: color,
-                padding: padding && padding.join("px "),
-                margin: margin && margin.join("px "),
+                padding,
+                margin,
             }}
         >
             {text}
@@ -48,16 +49,6 @@ export const ButtonSettings = () => {
                 onChange={(color) => {
                     setHsva({ ...hsva, ...color.hsva });
                     setProp((props) => (props.color = color.hexa));
-                }}
-            />
-            <Edges
-                onChange={(edges: IEdges) => {
-                    setProp((props) => {
-                        return (
-                            (props.padding = edges.padding),
-                            (props.margin = edges.margin)
-                        );
-                    });
                 }}
             />
         </div>
@@ -90,6 +81,6 @@ interface IProps {
     className?: string;
     color?: string;
     text: string;
-    padding: string[];
-    margin: string[];
+    padding: string;
+    margin: string;
 }
