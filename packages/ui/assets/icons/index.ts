@@ -26,10 +26,8 @@ import Rotate from "../icons/rotate.svg";
 import Comment from "../icons/comment.svg";
 import OptInForm from "../icons/opt-in-form.svg";
 import Duplicate from "../icons/duplicate.svg";
-
 import Vimeo from "../icons/vimeo.svg";
 import BorderRadius from "../icons/border-radius.svg";
-
 import NotificationIcon from "../icons/notification.svg";
 import AvatarIcon from "../icons/Avatar.svg";
 import AccountIcon from "../icons/account.svg";

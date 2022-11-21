@@ -6,6 +6,14 @@ interface IProps {
     onChange: (edges: IEdges) => void;
 }
 
+const mergeElements = (arr: string[], pattern: string): string => {
+    let data = "";
+    for (let i: number = 0; i < arr.length; i++) {
+        data += ` ${arr[i]}${pattern}`;
+    }
+    return data;
+};
+
 export const Edges: FC<IProps> = ({ onChange }) => {
     const [edge, setEdge] = useState<IEdges>({
         padding: ["0", "0", "0", "0"],
@@ -16,8 +24,13 @@ export const Edges: FC<IProps> = ({ onChange }) => {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         const edgeClone = structuredClone(edge);
-        edgeClone[e.target.name][e.target.dataset.side] = e.target.value;
-        onChange(edgeClone);
+        const edgeType: string = e.target.name;
+
+        edgeClone[edgeType][e.target.dataset.side] = e.target.value;
+
+        const margin = mergeElements(edgeClone.margin, "px");
+        const padding = mergeElements(edgeClone.padding, "px");
+        onChange({ margin, padding });
         setEdge(edgeClone);
     };
 
