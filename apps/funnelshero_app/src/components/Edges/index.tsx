@@ -1,9 +1,11 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import s from "./edges.module.scss";
 import { IEdges } from "interfaces";
 
 interface IProps {
     onChange: (edges: IEdges) => void;
+    padding: string;
+    margin: string;
 }
 
 const mergeElements = (arr: string[], pattern: string): string => {
@@ -14,11 +16,30 @@ const mergeElements = (arr: string[], pattern: string): string => {
     return data;
 };
 
-export const Edges: FC<IProps> = ({ onChange }) => {
+export const Edges: FC<IProps> = ({ onChange, padding, margin }) => {
     const [edge, setEdge] = useState<IEdges>({
-        padding: ["0", "0", "0", "0"],
-        margin: ["0", "0", "0", "0"],
+        padding:
+            typeof padding === "string"
+                ? padding.split("px").splice(0, 4)
+                : ["0", "0", "0", "0"],
+        margin:
+            typeof margin === "string"
+                ? margin.split("px").splice(0, 4)
+                : ["0", "0", "0", "0"],
     });
+
+    useEffect(() => {
+        setEdge({
+            padding:
+                typeof padding === "string"
+                    ? padding.split("px").splice(0, 4)
+                    : ["0", "0", "0", "0"],
+            margin:
+                typeof margin === "string"
+                    ? margin.split("px").splice(0, 4)
+                    : ["0", "0", "0", "0"],
+        });
+    }, [padding, margin]);
 
     const onChangeEdges = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -71,7 +92,7 @@ const Block: FC<IBlockProps> = ({
                     className={s.input}
                     onChange={onChange}
                     data-side={"0"}
-                    value={values[0]}
+                    value={values[0].trim()}
                 />
             </div>
             <div className={s.row}>
@@ -83,7 +104,7 @@ const Block: FC<IBlockProps> = ({
                         className={s.input}
                         onChange={onChange}
                         data-side={"3"}
-                        value={values[3]}
+                        value={values[3].trim()}
                     />
                 </div>
                 <div className={s.padding_container}>{children}</div>
@@ -95,7 +116,7 @@ const Block: FC<IBlockProps> = ({
                         className={s.input}
                         onChange={onChange}
                         data-side={"1"}
-                        value={values[1]}
+                        value={values[1].trim()}
                     />
                 </div>
             </div>
@@ -107,7 +128,7 @@ const Block: FC<IBlockProps> = ({
                     className={s.input}
                     onChange={onChange}
                     data-side={"2"}
-                    value={values[2]}
+                    value={values[2].trim()}
                 />
             </div>
         </div>

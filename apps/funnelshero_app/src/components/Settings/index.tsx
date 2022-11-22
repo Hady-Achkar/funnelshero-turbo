@@ -21,12 +21,14 @@ import { Scroll } from "ui";
 
 export const Settings: FC<IProps> = ({ activeCard }) => {
     const [selectedSwitcher, setSelectedSwitcher] = useState<number>(0);
+
     const { selected, actions } = useEditor((state) => {
         const [currentNodeId]: Set<string> = state.events.selected;
         let selected;
 
         if (currentNodeId) {
             selected = {
+                data: state.nodes[currentNodeId].data,
                 id: currentNodeId,
                 name: state.nodes[currentNodeId].data.name,
                 settings:
@@ -51,9 +53,33 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
         };
     }, []);
 
+    // console.log(selected?.data.props);
+
     useLayoutEffect(() => {
         setSelectedSwitcher(0);
     }, [activeCard]);
+
+    const memoSettings = useMemo(() => {
+        return (
+            <>
+                {selected &&
+                    selected.settings &&
+                    React.createElement(selected.settings)}
+                <Edges
+                    padding={selected?.data?.props?.padding}
+                    margin={selected?.data?.props?.margin}
+                    onChange={(edges: IEdges) => {
+                        actions.setProp(selected.id, (props) => {
+                            return (
+                                (props.padding = edges.padding),
+                                (props.margin = edges.margin)
+                            );
+                        });
+                    }}
+                />
+            </>
+        );
+    }, [selected]);
 
     const memoSwitchColor = useMemo(() => {
         const _DATA = [
@@ -88,43 +114,17 @@ export const Settings: FC<IProps> = ({ activeCard }) => {
                     onChange={onChangeSwitcher}
                 />
                 <div className={["title16", s.title].join(" ")}>Search</div>
-
                 <div>
-                    {" "}
                     <SearchInput placeholder={"Search Image templates"} />{" "}
                 </div>
-
-                <div className={s.container}>
-                    <Tabs select={selectedSwitcher}>
-                        <Design>
-                            {memoSidebarActiveComponents[activeCard]}
-                            {selected &&
-                                selected.settings &&
-                                React.createElement(selected.settings)}
-                            {selected && (
-                                <Edges
-                                    onChange={(edges: IEdges) => {
-                                        actions.setProp(
-                                            selected.id,
-                                            (props) => {
-                                                return (
-                                                    (props.padding =
-                                                        edges.padding),
-                                                    (props.margin =
-                                                        edges.margin)
-                                                );
-                                            }
-                                        );
-                                    }}
-                                />
-                            )}
-                        </Design>
-                        <Pages>asd</Pages>
-                        {activeCard === "customHTMLBlock" ? (
-                            <HTMLBlock />
-                        ) : null}
-                    </Tabs>
-                </div>
+                <Tabs select={selectedSwitcher}>
+                    <Design>
+                        {memoSidebarActiveComponents[activeCard]}
+                        {memoSettings}
+                    </Design>
+                    <Pages>asd</Pages>
+                    {activeCard === "customHTMLBlock" ? <HTMLBlock /> : null}
+                </Tabs>
             </div>
         </div>
     );

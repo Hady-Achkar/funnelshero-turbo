@@ -19,3 +19,4 @@ export * from "./HtmlBlockContent";
 export * from "./Design";
 export * from "./Pages";
 export * from "./HtmlBlock";
+export * from "./BorderRadius";

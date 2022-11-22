@@ -43,7 +43,6 @@ const Funnel: NextPage = () => {
                                 className={s.element}
                                 canvas
                             >
-                                <ButtonE text={"Click"} />
                                 <Element
                                     is={"div"}
                                     id={"div123123"}

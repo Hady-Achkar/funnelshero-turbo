@@ -2,7 +2,6 @@ import { FC } from "react";
 import s from "./buttonContent.module.scss";
 import { ButtonE } from "editor";
 import { Button } from "ui";
-import { Padding } from "components";
 import { Element, useEditor } from "@craftjs/core";
 
 export const ButtonContent: FC<IProps> = () => {
@@ -21,6 +20,7 @@ export const ButtonContent: FC<IProps> = () => {
                                 text="Button"
                                 className={s.green}
                                 is={ButtonE}
+                                padding={"6px 20px  6px 20px"}
                                 canvas
                             />
                         );
@@ -35,6 +35,7 @@ export const ButtonContent: FC<IProps> = () => {
                             <Element
                                 text="Button"
                                 className={s.red}
+                                padding={"6px 20px  6px 20px"}
                                 is={ButtonE}
                                 canvas
                             />
