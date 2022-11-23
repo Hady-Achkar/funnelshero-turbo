@@ -44,7 +44,7 @@ export const Edges: FC<IProps> = ({ onChange, padding, margin }) => {
     const onChangeEdges = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        const edgeClone = structuredClone(edge);
+        const edgeClone: IEdges = structuredClone(edge);
         const edgeType: string = e.target.name;
 
         edgeClone[edgeType][e.target.dataset.side] = e.target.value;
@@ -56,19 +56,22 @@ export const Edges: FC<IProps> = ({ onChange, padding, margin }) => {
     };
 
     return (
-        <Block
-            borderWidth={6}
-            name={"margin"}
-            onChange={onChangeEdges}
-            values={edge.margin}
-        >
+        <div>
+            Edge insets
             <Block
-                borderWidth={2}
-                name={"padding"}
+                borderWidth={6}
+                name={"margin"}
                 onChange={onChangeEdges}
-                values={edge.padding}
-            />
-        </Block>
+                values={edge.margin}
+            >
+                <Block
+                    borderWidth={2}
+                    name={"padding"}
+                    onChange={onChangeEdges}
+                    values={edge.padding}
+                />
+            </Block>
+        </div>
     );
 };
 

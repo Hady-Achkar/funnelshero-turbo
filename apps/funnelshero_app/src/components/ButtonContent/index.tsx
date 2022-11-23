@@ -20,7 +20,7 @@ export const ButtonContent: FC<IProps> = () => {
                                 text="Button"
                                 className={s.green}
                                 is={ButtonE}
-                                padding={"6px 20px  6px 20px"}
+                                padding={"6px 20px 6px 20px"}
                                 canvas
                             />
                         );
@@ -35,7 +35,7 @@ export const ButtonContent: FC<IProps> = () => {
                             <Element
                                 text="Button"
                                 className={s.red}
-                                padding={"6px 20px  6px 20px"}
+                                padding={"6px 20px 6px 20px"}
                                 is={ButtonE}
                                 canvas
                             />
@@ -50,6 +50,7 @@ export const ButtonContent: FC<IProps> = () => {
                             ref,
                             <Element
                                 text="Button"
+                                padding={"6px 20px 6px 20px"}
                                 className={s.blue_gradient}
                                 is={ButtonE}
                                 canvas

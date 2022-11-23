@@ -4,7 +4,7 @@ import s from "./funnel.module.scss";
 import { Editor, Frame, Element } from "@craftjs/core";
 import { ButtonE, Image, Text, InputE, HTML } from "editor";
 import { Scroll } from "ui";
-import { Topbar, Sidebar, Settings } from "components";
+import { Topbar, Sidebar, ToolsBar } from "components";
 
 const Funnel: NextPage = () => {
     const [activeCard, setActiveCard] = useState<string>("image");
@@ -57,7 +57,7 @@ const Funnel: NextPage = () => {
                             </Element>
                         </Frame>
                     </Scroll>
-                    <Settings activeCard={activeCard} />
+                    <ToolsBar activeCard={activeCard} />
                 </Editor>
             </div>
         </div>

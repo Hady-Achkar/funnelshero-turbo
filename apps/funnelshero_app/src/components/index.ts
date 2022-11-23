@@ -3,8 +3,9 @@ export * from "./SearchInput";
 export * from "./Submit";
 export * from "./Sidebar";
 export * from "./SignTopBar";
-export * from "./Settings";
+export * from "./ToolsBar";
 export * from "./Edges";
+export * from "./Settings";
 
 export * from "./ImageContent";
 export * from "./TitleContent";
