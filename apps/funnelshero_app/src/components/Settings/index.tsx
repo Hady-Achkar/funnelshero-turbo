@@ -13,8 +13,10 @@ export const Settings: FC<IProps> = ({
             {selectedEditorElement && (
                 <>
                     <BorderRadius
+                        borderRadius={
+                            selectedEditorElement?.data?.props.borderRadius
+                        }
                         onChange={(borders) => {
-                            console.log(borders);
                             actions.setProp(
                                 selectedEditorElement.id,
                                 (props) => {

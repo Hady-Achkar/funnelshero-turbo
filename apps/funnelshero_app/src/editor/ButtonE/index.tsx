@@ -10,6 +10,7 @@ export const ButtonE: FC<IProps> = ({
     className = "",
     padding,
     margin,
+    borderRadius,
 }) => {
     const {
         connectors: { connect, drag },
@@ -23,6 +24,7 @@ export const ButtonE: FC<IProps> = ({
                 backgroundColor: color,
                 padding,
                 margin,
+                borderRadius,
             }}
         >
             {text}
@@ -74,11 +76,10 @@ ButtonE.craft = {
 type ButtonSize = "normal" | "large" | "small";
 
 interface IProps {
-    // size?: ButtonSize;
-    // variant?: string;
     className?: string;
     color?: string;
     text: string;
     padding?: string;
     margin?: string;
+    borderRadius: string;
 }

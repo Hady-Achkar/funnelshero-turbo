@@ -1,6 +1,5 @@
-export {};
-interface Array<T> {
-    mergeElements(pattern: string): string;
+export interface Array<T> {
+    mergeElements: (pattern: string) => string;
 }
 
 Array.prototype.mergeElements = function (pattern: string) {

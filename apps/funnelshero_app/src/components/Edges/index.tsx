@@ -8,13 +8,13 @@ interface IProps {
     margin: string;
 }
 
-const mergeElements = (arr: string[], pattern: string): string => {
-    let data = "";
-    for (let i: number = 0; i < arr.length; i++) {
-        data += ` ${arr[i]}${pattern}`;
-    }
-    return data;
-};
+// const mergeElements = (arr: string[], pattern: string): string => {
+//     let data = "";
+//     for (let i: number = 0; i < arr.length; i++) {
+//         data += ` ${arr[i]}${pattern}`;
+//     }
+//     return data;
+// };
 
 export const Edges: FC<IProps> = ({ onChange, padding, margin }) => {
     const [edge, setEdge] = useState<IEdges>({
@@ -49,8 +49,9 @@ export const Edges: FC<IProps> = ({ onChange, padding, margin }) => {
 
         edgeClone[edgeType][e.target.dataset.side] = e.target.value;
 
-        const margin = mergeElements(edgeClone.margin, "px");
-        const padding = mergeElements(edgeClone.padding, "px");
+        // const margin = mergeElements(edgeClone.margin, "px");
+        // const padding = mergeElements(edgeClone.padding, "px");
+        console.log([]);
         onChange({ margin, padding });
         setEdge(edgeClone);
     };
