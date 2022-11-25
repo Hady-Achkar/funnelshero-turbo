@@ -1,3 +1,4 @@
+export * from "./colorConverter";
 export * from "./craft";
 
 export const mergeElements = (array: string[] | number[], pattern: string) => {

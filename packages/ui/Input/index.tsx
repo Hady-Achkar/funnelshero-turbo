@@ -55,6 +55,7 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
             max,
             disabled = false,
             rounded = false,
+            maxLength,
             ...props
         },
         ref
@@ -79,20 +80,25 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
         const onTextChange = (
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
         ) => {
-            let text: InputText;
-            if (
-                type === "number" &&
-                min !== undefined &&
-                min >= 0 &&
-                +e.target.value < 0
-            ) {
-                e.target.value = "0";
-                text = e.target.value;
+            let text: InputText | undefined;
+
+            if (type === "number") {
+                if (min !== undefined) {
+                    if (min >= 0 && +e.target.value < 0) {
+                        e.target.value = "0";
+                    }
+                    text = e.target.value;
+                }
+                if (max !== undefined) {
+                    if (+e.target.value > max) {
+                        e.target.value = max.toString();
+                        text = e.target.value;
+                    }
+                }
             } else {
                 text = e.target.value;
             }
-
-            setDefaultValue(text);
+            setDefaultValue(text || "");
 
             if (onFinish) {
                 if (text) {
@@ -113,7 +119,8 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                 }
             }
 
-            if (validate) {
+            if (validate && text) {
+                console.log(text);
                 const _isValid = validateField(name, text);
                 setIsValid(_isValid);
                 if (_isValid) {
@@ -203,6 +210,7 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                                         : "password"
                                     : type
                             }
+                            maxLength={maxLength}
                             className={[s.input].join(" ")}
                             placeholder={placeholder}
                             value={defaultValue}
@@ -296,6 +304,7 @@ interface IProps {
     max?: number;
     disabled?: boolean;
     rounded?: boolean;
+    maxLength?: number;
 }
 
 interface IButtons {
@@ -314,4 +323,4 @@ interface IButtonArguments {
     [key: string]: any;
 }
 
-type InputText = number | string;
+type InputText = number | string | undefined;

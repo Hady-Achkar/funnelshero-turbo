@@ -1,7 +1,8 @@
 import { FC, useState } from "react";
 import { useNode } from "@craftjs/core";
 import { Button } from "ui";
-import Wheel from "@uiw/react-color-wheel";
+import { ColorPicker } from "components";
+// import Wheel from "@uiw/react-color-wheel";
 import s from "./buttonE.module.scss";
 
 export const ButtonE: FC<IProps> = ({
@@ -44,13 +45,14 @@ export const ButtonSettings = () => {
 
     return (
         <div className={s.settings}>
-            <Wheel
+            <ColorPicker />
+            {/* <Wheel
                 color={hsva}
                 onChange={(color) => {
                     setHsva({ ...hsva, ...color.hsva });
                     setProp((props) => (props.color = color.hexa));
                 }}
-            />
+            /> */}
         </div>
     );
 };

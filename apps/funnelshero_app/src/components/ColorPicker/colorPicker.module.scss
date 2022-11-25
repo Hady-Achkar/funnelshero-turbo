@@ -1,0 +1,49 @@
+.container {
+}
+
+.block {
+    display: inline-flex;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.block select {
+    outline: none;
+    border: none;
+    max-width: 50px;
+}
+
+.input {
+    padding: 6px 8px;
+    border-color: white;
+    border-radius: 0;
+}
+
+.hex_input {
+    max-width: 100px !important;
+}
+
+.input input {
+    padding: 0;
+    font-size: 14px;
+}
+
+.rgba_input {
+    max-width: 50px !important;
+}
+
+.alpha_input {
+    max-width: 70px;
+}
+
+.input input::-webkit-outer-spin-button,
+.input input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.input input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}

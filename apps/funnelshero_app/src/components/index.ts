@@ -21,3 +21,4 @@ export * from "./Design";
 export * from "./Pages";
 export * from "./HtmlBlock";
 export * from "./BorderRadius";
+export * from "./ColorPicker";
