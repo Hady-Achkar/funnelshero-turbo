@@ -1,1 +1,6 @@
-.container {}
+.container {
+    display: grid;
+    gap: 16px 0;
+    overflow-y: auto;
+    height: 100%;
+}

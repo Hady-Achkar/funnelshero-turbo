@@ -1,53 +1,78 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import s from "./edges.module.scss";
 import { IEdges } from "interfaces";
 
 interface IProps {
     onChange: (edges: IEdges) => void;
+    padding: string;
+    margin: string;
 }
 
-const mergeElements = (arr: string[], pattern: string): string => {
-    let data = "";
-    for (let i: number = 0; i < arr.length; i++) {
-        data += ` ${arr[i]}${pattern}`;
-    }
-    return data;
-};
+// const mergeElements = (arr: string[], pattern: string): string => {
+//     let data = "";
+//     for (let i: number = 0; i < arr.length; i++) {
+//         data += ` ${arr[i]}${pattern}`;
+//     }
+//     return data;
+// };
 
-export const Edges: FC<IProps> = ({ onChange }) => {
+export const Edges: FC<IProps> = ({ onChange, padding, margin }) => {
     const [edge, setEdge] = useState<IEdges>({
-        padding: ["0", "0", "0", "0"],
-        margin: ["0", "0", "0", "0"],
+        padding:
+            typeof padding === "string"
+                ? padding.split("px").splice(0, 4)
+                : ["0", "0", "0", "0"],
+        margin:
+            typeof margin === "string"
+                ? margin.split("px").splice(0, 4)
+                : ["0", "0", "0", "0"],
     });
+
+    useEffect(() => {
+        setEdge({
+            padding:
+                typeof padding === "string"
+                    ? padding.split("px").splice(0, 4)
+                    : ["0", "0", "0", "0"],
+            margin:
+                typeof margin === "string"
+                    ? margin.split("px").splice(0, 4)
+                    : ["0", "0", "0", "0"],
+        });
+    }, [padding, margin]);
 
     const onChangeEdges = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        const edgeClone = structuredClone(edge);
+        const edgeClone: IEdges = structuredClone(edge);
         const edgeType: string = e.target.name;
 
         edgeClone[edgeType][e.target.dataset.side] = e.target.value;
 
-        const margin = mergeElements(edgeClone.margin, "px");
-        const padding = mergeElements(edgeClone.padding, "px");
+        // const margin = mergeElements(edgeClone.margin, "px");
+        // const padding = mergeElements(edgeClone.padding, "px");
+        console.log([]);
         onChange({ margin, padding });
         setEdge(edgeClone);
     };
 
     return (
-        <Block
-            borderWidth={6}
-            name={"margin"}
-            onChange={onChangeEdges}
-            values={edge.margin}
-        >
+        <div>
+            Edge insets
             <Block
-                borderWidth={2}
-                name={"padding"}
+                borderWidth={6}
+                name={"margin"}
                 onChange={onChangeEdges}
-                values={edge.padding}
-            />
-        </Block>
+                values={edge.margin}
+            >
+                <Block
+                    borderWidth={2}
+                    name={"padding"}
+                    onChange={onChangeEdges}
+                    values={edge.padding}
+                />
+            </Block>
+        </div>
     );
 };
 
@@ -71,7 +96,7 @@ const Block: FC<IBlockProps> = ({
                     className={s.input}
                     onChange={onChange}
                     data-side={"0"}
-                    value={values[0]}
+                    value={values[0].trim()}
                 />
             </div>
             <div className={s.row}>
@@ -83,7 +108,7 @@ const Block: FC<IBlockProps> = ({
                         className={s.input}
                         onChange={onChange}
                         data-side={"3"}
-                        value={values[3]}
+                        value={values[3].trim()}
                     />
                 </div>
                 <div className={s.padding_container}>{children}</div>
@@ -95,7 +120,7 @@ const Block: FC<IBlockProps> = ({
                         className={s.input}
                         onChange={onChange}
                         data-side={"1"}
-                        value={values[1]}
+                        value={values[1].trim()}
                     />
                 </div>
             </div>
@@ -107,7 +132,7 @@ const Block: FC<IBlockProps> = ({
                     className={s.input}
                     onChange={onChange}
                     data-side={"2"}
-                    value={values[2]}
+                    value={values[2].trim()}
                 />
             </div>
         </div>

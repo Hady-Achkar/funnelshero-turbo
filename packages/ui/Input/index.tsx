@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState, FC, forwardRef, ReactElement } from "react";
+import { Icon } from "..";
 import s from "./input.module.scss";
 
 let typingTimer: NodeJS.Timeout; //timer identifier
@@ -64,7 +65,7 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
             value
         );
 
-        useLayoutEffect(() => setDefaultValue(value), []);
+        useLayoutEffect(() => setDefaultValue(value), [value]);
 
         useLayoutEffect(() => {
             if (validate && defaultValue) {
@@ -79,16 +80,20 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
         ) => {
             let text: InputText;
-
-            if (type === "number" && min && min >= 0 && +e.target.value < 0) {
-                text = Number(
-                    +e.target.value.toString().replace("-", "")
-                ) as InputText;
+            if (
+                type === "number" &&
+                min !== undefined &&
+                min >= 0 &&
+                +e.target.value < 0
+            ) {
+                e.target.value = "0";
+                text = e.target.value;
             } else {
                 text = e.target.value;
             }
 
             setDefaultValue(text);
+
             if (onFinish) {
                 if (text) {
                     clearTimeout(typingTimer);
@@ -127,7 +132,10 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
 
         if (type === "textarea") {
             return (
-                <div className={[s.container, className].join(" ")} ref={ref}>
+                <div
+                    className={[s.container, className].join(" ")}
+                    ref={ref as React.RefObject<HTMLDivElement>}
+                >
                     <textarea
                         className={[s.container, s.textarea].join(" ")}
                         name={name}
@@ -143,7 +151,10 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
 
         if (type === "file") {
             return (
-                <label className={s.label_container} ref={ref}>
+                <label
+                    className={s.label_container}
+                    ref={ref as React.RefObject<HTMLLabelElement>}
+                >
                     <div className={[s.container, className].join(" ")}>
                         {placeholder}
                         <input
@@ -158,8 +169,16 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
         }
 
         return (
-            <div style={{ flex: 1, width: "auto" }}>
-                <label className={s.label_container} ref={ref}>
+            <div
+                style={{
+                    flex: 1,
+                    width: "auto",
+                }}
+            >
+                <label
+                    className={s.label_container}
+                    ref={ref as React.RefObject<HTMLLabelElement>}
+                >
                     {label && <div className={s.label}>{label}</div>}
                     <div
                         className={[
@@ -192,15 +211,15 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                             disabled={disabled}
                             {...props}
                         />
-                        {/* {type === "password" && (
-                        <span onClick={() => setVisibility(!visibility)}>
-                            <Icon
-                                feather={true}
-                                type={visibility ? "EyeOff" : "Eye"}
-                                color={"#94A3B8"}
-                            />
-                        </span>
-                    )} */}
+                        {type === "password" && (
+                            <span onClick={() => setVisibility(!visibility)}>
+                                <Icon
+                                    feather={true}
+                                    type={visibility ? "EyeOff" : "Eye"}
+                                    color={"#94A3B8"}
+                                />
+                            </span>
+                        )}
                         {buttons &&
                             buttons.map(({ onClick, ...args }, index) => {
                                 return (

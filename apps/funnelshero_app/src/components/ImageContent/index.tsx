@@ -12,7 +12,7 @@ export const ImageContent: FC = () => {
         };
     });
 
-    const onChnageRadius = (
+    const onChangeRadius = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         actions.setProp(currentNodeId, (props) => {
@@ -22,8 +22,6 @@ export const ImageContent: FC = () => {
 
     return (
         <div className={s.container}>
-            <Input type={"number"} min={0} onChange={onChnageRadius} />
-
             <div className={["title16", s.title].join(" ")}>All results</div>
             <div className={s.elements}>
                 <Button

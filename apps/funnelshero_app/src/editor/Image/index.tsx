@@ -17,6 +17,8 @@ export const Image: FC<IProps> = ({
     width = 100,
     height = 100,
     radius = 0,
+    padding,
+    margin,
 }) => {
     const {
         connectors: { connect, drag },
@@ -58,13 +60,12 @@ export const Image: FC<IProps> = ({
 
     return (
         <div
-            ref={connect}
+            ref={(ref) => connect(drag(ref))}
             className={[s.container, isSelected ? s.selected : ""].join(" ")}
         >
             {isSelected ? (
                 <ImageSettings
                     onDelete={onDelete}
-                    drag={drag}
                     duplicateNode={duplicateNode}
                     onRatation={onRatation}
                     isRotating={isRotating}
@@ -103,76 +104,19 @@ let startPos: StartPos | null = null;
 
 const ImageSettings: FC<IImageProps> = ({
     onDelete,
-    drag,
     duplicateNode,
     onRatation,
     isRotating,
 }) => {
-    const [mouseDown, setMouseDown] = useState<boolean>(false);
-    const [rotation, setRotation] = useState<number>(0);
-
-    useEffect(() => {
-        window.addEventListener("mouseup", () => setMouseDown(false));
-        function handle(e) {
-            if (mouseDown) {
-                let pageX: number = e.pageX;
-                let pageY: number = e.pageY;
-                // setRotation();
-            }
-        }
-        window.addEventListener("mousemove", handle);
-        return () => window.removeEventListener("mousemove", handle);
-    }, [mouseDown]);
-
-    const onMouseDown = (e) => {
-        let pageX: number = e.pageX;
-        let pageY: number = e.pageY;
-
-        startPos = { x: pageX, y: pageY };
-
-        setMouseDown(true);
-    };
-
-    const onMouseUp = () => {
-        setMouseDown(false);
-    };
-
-    const rR = (e) => {
-        // console.log(e);
-    };
-
     return (
         <div className={s.settings}>
-            {/* <div className={ s.border_radius_container}>
-                <Icon type={'BorderRadius'} size={ 30} />
-                <Input type={'number'} onChange={onChnageRadius} className={ s.radius_input} />
-            </div> */}
-            <Button className={s.settings_button} ref={drag}>
-                <Icon type={"Move"} size={20} />
-                Move
-            </Button>
             <Button className={s.settings_button} onClick={onDelete}>
                 <Icon type={"Trash"} size={20} />
                 Delete
             </Button>
-            <Button className={s.settings_button}>
-                <Icon type={"Comment"} size={20} />
-                Add Comment
-            </Button>
             <Button className={s.settings_button} onClick={duplicateNode}>
                 <Icon type={"Duplicate"} size={20} />
                 Duplicate
-            </Button>
-            <Button
-                className={`${s.settings_button} ${
-                    isRotating ? s.active_btn : ""
-                }`}
-                onClick={rR}
-                onMouseDown={onMouseDown}
-                onMouseUp={onMouseUp}
-            >
-                <Icon type={"Rotate"} size={20} />
-                Rotate
             </Button>
         </div>
     );
@@ -197,6 +141,8 @@ interface IProps {
     craft?: any;
     radius?: string;
     rotation?: number | string;
+    padding?: string;
+    margin?: string;
 }
 
 interface IImageProps {

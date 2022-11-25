@@ -1,10 +1,12 @@
 .container {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     grid-gap: 8px 0;
 }
 
 .body {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     grid-gap: 18px 0;
 }
 

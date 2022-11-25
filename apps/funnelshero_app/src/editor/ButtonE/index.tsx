@@ -1,10 +1,8 @@
 import { FC, useState } from "react";
 import { useNode } from "@craftjs/core";
 import { Button } from "ui";
-import { Edges } from "components";
 import Wheel from "@uiw/react-color-wheel";
 import s from "./buttonE.module.scss";
-import { IEdges } from "interfaces";
 
 export const ButtonE: FC<IProps> = ({
     color,
@@ -12,6 +10,7 @@ export const ButtonE: FC<IProps> = ({
     className = "",
     padding,
     margin,
+    borderRadius,
 }) => {
     const {
         connectors: { connect, drag },
@@ -20,11 +19,12 @@ export const ButtonE: FC<IProps> = ({
     return (
         <Button
             ref={(ref: HTMLButtonElement) => connect(drag(ref))}
-            className={className}
+            className={`${className} ${s.button}`}
             style={{
                 backgroundColor: color,
                 padding,
                 margin,
+                borderRadius,
             }}
         >
             {text}
@@ -76,11 +76,10 @@ ButtonE.craft = {
 type ButtonSize = "normal" | "large" | "small";
 
 interface IProps {
-    // size?: ButtonSize;
-    // variant?: string;
     className?: string;
     color?: string;
     text: string;
-    padding: string;
-    margin: string;
+    padding?: string;
+    margin?: string;
+    borderRadius: string;
 }

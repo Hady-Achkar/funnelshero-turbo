@@ -10,8 +10,6 @@
 
 .green {
     background-color: #84c301;
-    border-radius: 16px;
-    padding: 6px 20px;
     &:hover {
         background-color: #7db603;
     }
@@ -19,12 +17,11 @@
 
 .red {
     background-color: #dd2530;
-    border-radius: 16px;
-    padding: 6px 20px;
     &:hover {
         background-color: #c71f2a;
     }
 }
+
 .blue_gradient {
     background: linear-gradient(
         180deg,
@@ -32,8 +29,6 @@
         #867ef1 50.52%,
         #464dfd 100%
     );
-    border-radius: 16px;
-    padding: 6px 20px;
     &:hover {
         background: linear-gradient(
             180deg,
@@ -42,4 +37,10 @@
             #464dfd 100%
         );
     }
+}
+.green,
+.red,
+.blue_gradient {
+    padding: 6px 20px;
+    border-radius: 20px;
 }
