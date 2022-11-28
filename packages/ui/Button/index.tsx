@@ -74,9 +74,9 @@ export const Button = forwardRef<HTMLButtonElement, IProps>(
                         router.back();
                     }
                 }}
-                {...props}
                 disabled={disabled}
                 style={style}
+                {...props}
             >
                 {label}
                 {children}

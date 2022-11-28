@@ -5,50 +5,57 @@ export class ColorConverter {
     static HUE_MAX: number = 360;
     static SV_MAX: number = 100;
 
-    static rgbToHsv(r: number, g: number, b: number): IHSV {
-        // It converts [0,255] format, to [0,1]
-        r = (r % this.RGB_MAX) / parseFloat(this.RGB_MAX.toString());
-        g = (g % this.RGB_MAX) / parseFloat(this.RGB_MAX.toString());
-        b = (b % this.RGB_MAX) / parseFloat(this.RGB_MAX.toString());
+    static rgbToHsv(r: number, g: number, b: number) {
+        let rabs: number,
+            gabs: number,
+            babs: number,
+            rr: number,
+            gg: number,
+            bb: number,
+            h: number = 0,
+            s: number,
+            v: number,
+            diff: number;
+        rabs = r / 255;
+        gabs = g / 255;
+        babs = b / 255;
+        (v = Math.max(rabs, gabs, babs)),
+            (diff = v - Math.min(rabs, gabs, babs));
 
-        let max = Math.max(r, g, b),
-            min = Math.min(r, g, b),
-            h = 0,
-            s,
-            v = max,
-            d = max - min;
+        const diffc = (c: number): number => (v - c) / 6 / diff + 1 / 2;
+        const percentRoundFn = (num: number) => Math.round(num * 100) / 100;
 
-        s = max === 0 ? 0 : d / max;
-
-        if (max === min) {
-            h = 0; // achromatic
+        if (diff == 0) {
+            h = s = 0;
         } else {
-            switch (max) {
-                case r:
-                    h = (g - b) / d + (g < b ? 6 : 0);
-                    break;
-                case g:
-                    h = (b - r) / d + 2;
-                    break;
-                case b:
-                    h = (r - g) / d + 4;
-                    break;
-            }
-            h /= 6;
-        }
+            s = diff / v;
+            rr = diffc(rabs);
+            gg = diffc(gabs);
+            bb = diffc(babs);
 
+            if (rabs === v) {
+                h = bb - gg;
+            } else if (gabs === v) {
+                h = 1 / 3 + rr - bb;
+            } else if (babs === v) {
+                h = 2 / 3 + gg - rr;
+            }
+            if (h < 0) {
+                h += 1;
+            } else if (h > 1) {
+                h -= 1;
+            }
+        }
         return {
-            h: Math.floor(h * this.HUE_MAX),
-            s: Math.floor(s * this.SV_MAX),
-            v: Math.floor(v * this.SV_MAX),
+            h: Math.round(h * 360),
+            s: percentRoundFn(s * 100),
+            v: percentRoundFn(v * 100),
         };
     }
 
     static hexToHsv(hex: string): IHSV | null {
         const rgb: IRGB | null = this.hexToRgb(hex);
         if (rgb?.r) {
-            console.log({ rgb, hsv: this.rgbToHsv(rgb.r, rgb.g, rgb.b) });
-
             return this.rgbToHsv(rgb.r, rgb.g, rgb.b);
         }
         return null;
@@ -65,7 +72,8 @@ export class ColorConverter {
               }
             : null;
     }
-    static hsvToHex(h: number, s: number, v: number) {
+
+    static hsvToHex(h: number, s: number, v: number): string {
         var rgb = this.hsvToRgb(h, s, v);
         return this.rgb2Hex(rgb.r, rgb.g, rgb.b);
     }
@@ -101,6 +109,7 @@ export class ColorConverter {
             b: Math.round(b * this.RGB_MAX),
         };
     }
+
     static rgb2Hex(r: number | string, g: number | string, b: number | string) {
         r = Math.round(+r).toString(16);
         g = Math.round(+g).toString(16);

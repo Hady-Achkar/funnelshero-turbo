@@ -17,3 +17,10 @@ export interface IRGB {
 export interface IHSVA extends IHSV {
     a: number;
 }
+
+export interface ITarget {
+    target: {
+        name: string;
+        value: any;
+    };
+}

@@ -16,6 +16,7 @@ export * from "./ParagraphContent";
 export * from "./OptInFormContent";
 export * from "./QuestionBoxContent";
 export * from "./HtmlBlockContent";
+export * from "./ContainerContent";
 
 export * from "./Design";
 export * from "./Pages";

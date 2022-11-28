@@ -19,6 +19,8 @@ export const ButtonContent: FC<IProps> = () => {
                             <Element
                                 text="Button"
                                 className={s.green}
+                                backgroundColor={"#7db603"}
+                                color={"#fff"}
                                 is={ButtonE}
                                 padding={"6px 20px 6px 20px"}
                                 borderRadius={"20px 20px 20px 20px"}
