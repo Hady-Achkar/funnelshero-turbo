@@ -1,16 +1,18 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useNode } from "@craftjs/core";
-import { Button } from "ui";
-import Wheel from "@uiw/react-color-wheel";
+import { Button, Input } from "ui";
+import { ColorPicker } from "components";
 import s from "./buttonE.module.scss";
+import { TypeInputChangeEvent } from "types";
 
 export const ButtonE: FC<IProps> = ({
-    color,
+    color = "#000000",
     text,
     className = "",
     padding,
     margin,
     borderRadius,
+    backgroundColor,
 }) => {
     const {
         connectors: { connect, drag },
@@ -21,14 +23,14 @@ export const ButtonE: FC<IProps> = ({
             ref={(ref: HTMLButtonElement) => connect(drag(ref))}
             className={`${className} ${s.button}`}
             style={{
-                backgroundColor: color,
+                backgroundColor,
+                color,
                 padding,
                 margin,
                 borderRadius,
             }}
-        >
-            {text}
-        </Button>
+            label={text}
+        />
     );
 };
 
@@ -36,19 +38,36 @@ export const ButtonSettings = () => {
     const {
         actions: { setProp },
         color,
+        backgroundColor,
+        text,
     } = useNode((node) => ({
         color: node.data.props.color,
+        backgroundColor: node.data.props.backgroundColor,
+        text: node.data.props.text,
     }));
-
-    const [hsva, setHsva] = useState(color);
 
     return (
         <div className={s.settings}>
-            <Wheel
-                color={hsva}
+            <div>Text</div>
+            <Input
+                value={text}
+                type="text"
+                onChange={(e: TypeInputChangeEvent) => {
+                    setProp((props: IProps) => (props.text = e.target.value));
+                }}
+            />
+            <div>Fill</div>
+            <ColorPicker
+                color={backgroundColor}
                 onChange={(color) => {
-                    setHsva({ ...hsva, ...color.hsva });
-                    setProp((props) => (props.color = color.hexa));
+                    setProp((props: IProps) => (props.backgroundColor = color));
+                }}
+            />
+            <div>Stroke</div>
+            <ColorPicker
+                color={color}
+                onChange={(color) => {
+                    setProp((props: IProps) => (props.color = color));
                 }}
             />
         </div>
@@ -64,7 +83,6 @@ ButtonE.craft = {
     rules: {
         canDrag: (node: { data: { props: { text: string } } }) =>
             node.data.props.text != "Drag",
-        // canDrag: (self: Node, helper) => true,
         canMoveIn: (incoming: Node[], self: Node) => true,
         canMoveOut: (outgoing: Node[], self: Node) => true,
     },
@@ -73,13 +91,12 @@ ButtonE.craft = {
     },
 };
 
-type ButtonSize = "normal" | "large" | "small";
-
 interface IProps {
-    className?: string;
     color?: string;
     text: string;
     padding?: string;
     margin?: string;
-    borderRadius: string;
+    borderRadius?: string;
+    className?: string;
+    backgroundColor?: string;
 }

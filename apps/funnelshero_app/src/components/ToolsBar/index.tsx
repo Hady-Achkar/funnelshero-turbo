@@ -22,7 +22,7 @@ import {
     HTMLBlock,
     Design,
     Pages,
-    BorderRadius,
+    ContainerContent,
     Settings,
 } from "components";
 import { Scroll } from "ui";
@@ -62,6 +62,7 @@ export const ToolsBar: FC<IProps> = ({ activeCard }) => {
             optInForm: <OptInFormContent />,
             questionBox: <QuestionBoxContent />,
             customHTMLBlock: <HtmlBlockContent />,
+            container: <ContainerContent />,
         };
     }, []);
 
@@ -69,9 +70,9 @@ export const ToolsBar: FC<IProps> = ({ activeCard }) => {
         setSelectedSwitcher(0);
     }, [activeCard]);
 
-    const memoSettings = useMemo(() => {
-        return <></>;
-    }, [selected]);
+    // const memoSettings = useMemo(() => {
+    //     return <></>;
+    // }, [selected]);
 
     const memoSwitchColor = useMemo(() => {
         const _DATA = [
@@ -112,14 +113,12 @@ export const ToolsBar: FC<IProps> = ({ activeCard }) => {
                 <div className={["title16", s.title].join(" ")}>Search</div>
                 <SearchInput placeholder={"Search Image templates"} />
                 <Tabs select={selectedSwitcher}>
-                    <Design> {memoSidebarActiveComponents[activeCard]}</Design>
+                    <Design>{memoSidebarActiveComponents[activeCard]}</Design>
                     <Pages>asd</Pages>
                     <Settings
                         selectedEditorElement={selected}
                         actions={actions}
-                    >
-                        {memoSettings}
-                    </Settings>
+                    />
                     {activeCard === "customHTMLBlock" ? <HTMLBlock /> : null}
                 </Tabs>
             </div>

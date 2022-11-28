@@ -1,10 +1,10 @@
-import { ChangeEvent, FC } from "react";
+import { FC } from "react";
 import s from "./imageContent.module.scss";
-import { Button, Input } from "ui";
+import { Button } from "ui";
 import { Image } from "editor";
 import { useEditor, Element } from "@craftjs/core";
 
-export const ImageContent: FC = () => {
+export const ImageContent: FC<IProps> = ({}) => {
     const { connectors, actions, currentNodeId } = useEditor((node) => {
         const [currentNodeId]: Set<string> = node.events.selected;
         return {
@@ -22,7 +22,12 @@ export const ImageContent: FC = () => {
 
     return (
         <div className={s.container}>
-            <div className={["title16", s.title].join(" ")}>All results</div>
+            <div className={s.row}>
+                <span>Image</span>
+                <span>GIF</span>
+            </div>
+
+            <div className={["title16"].join(" ")}>All results</div>
             <div className={s.elements}>
                 <Button
                     className={s.btn}
@@ -74,3 +79,5 @@ export const ImageContent: FC = () => {
         </div>
     );
 };
+
+interface IProps {}

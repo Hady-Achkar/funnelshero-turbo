@@ -16,8 +16,10 @@ export * from "./ParagraphContent";
 export * from "./OptInFormContent";
 export * from "./QuestionBoxContent";
 export * from "./HtmlBlockContent";
+export * from "./ContainerContent";
 
 export * from "./Design";
 export * from "./Pages";
 export * from "./HtmlBlock";
 export * from "./BorderRadius";
+export * from "./ColorPicker";

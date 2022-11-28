@@ -19,20 +19,22 @@ export const Settings: FC<IProps> = ({
                         onChange={(borders) => {
                             actions.setProp(
                                 selectedEditorElement.id,
-                                (props) => {
+                                (props: { borderRadius: string }) => {
                                     return (props.borderRadius = borders);
                                 }
                             );
                         }}
                     />
-
                     <Edges
                         padding={selectedEditorElement?.data?.props?.padding}
                         margin={selectedEditorElement?.data?.props?.margin}
                         onChange={(edges: IEdges) => {
                             actions.setProp(
                                 selectedEditorElement.id,
-                                (props) => {
+                                (props: {
+                                    padding: string[];
+                                    margin: string[];
+                                }) => {
                                     return (
                                         (props.padding = edges.padding),
                                         (props.margin = edges.margin)
@@ -52,7 +54,7 @@ export const Settings: FC<IProps> = ({
 };
 
 interface IProps {
-    children: React.ReactNode | React.ReactNode[];
+    children?: React.ReactNode | React.ReactNode[];
     selectedEditorElement: any;
     actions: any;
 }
