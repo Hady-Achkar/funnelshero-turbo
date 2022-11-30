@@ -24,3 +24,8 @@ export interface ITarget {
         value: any;
     };
 }
+
+export interface IDimensions {
+    width?: number;
+    height?: number;
+}

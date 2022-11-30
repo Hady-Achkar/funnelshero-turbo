@@ -1,6 +1,5 @@
 import { SVGAttributes, FC } from "react";
 import * as Icons from "react-feather";
-import s from "./icon.module.scss";
 import * as I from "../assets/icons";
 
 export const Icon: React.FC<IProps> = ({

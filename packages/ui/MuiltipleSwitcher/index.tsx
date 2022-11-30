@@ -72,6 +72,7 @@ export const MuiltipleSwitcher: FC<IProps> = ({
     disabled = false,
     animatedClassName = "",
     selectedBtnClass = "",
+    defaultSelected,
 }) => {
     const containerId = useMemo<string>(() => colId(data), [data]);
     const [selected, setSelected] = useState<ISelected>({
@@ -115,17 +116,20 @@ export const MuiltipleSwitcher: FC<IProps> = ({
     }, [selected]);
 
     const animate = (id: number | string) => {
-        const switchBtn: HTMLDivElement = container.current.querySelector(
-            "#switchBtn" + id
-        );
-        if (switchBtn) {
-            const btn: DOMRect = switchBtn.getBoundingClientRect();
-            if (animatedBlock?.current) {
-                animatedBlock.current.style.width = btn.width + "px";
-                animatedBlock.current.style.height = btn.height + "px";
-                const x: number =
-                    btn.left - container.current.getBoundingClientRect().left;
-                animatedBlock.current.style.transform = `translateX(${x}px)`;
+        if (container.current) {
+            const switchBtn: HTMLDivElement | null =
+                container.current.querySelector("#switchBtn" + id);
+            if (switchBtn) {
+                const btn: DOMRect = switchBtn.getBoundingClientRect();
+                if (animatedBlock?.current) {
+                    animatedBlock.current.style.width = btn.width + "px";
+                    animatedBlock.current.style.height = btn.height + "px";
+
+                    const x: number =
+                        btn.left -
+                        container.current.getBoundingClientRect().left;
+                    animatedBlock.current.style.transform = `translateX(${x}px)`;
+                }
             }
         }
     };
@@ -215,4 +219,5 @@ interface IProps {
     disabled?: boolean;
     animatedClassName?: string;
     selectedBtnClass?: string;
+    defaultSelected?: string;
 }

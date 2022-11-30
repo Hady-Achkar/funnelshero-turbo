@@ -1,7 +1,8 @@
-import { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import s from "./container.module.scss";
-import { useNode, Element } from "@craftjs/core";
+import { useNode } from "@craftjs/core";
 import { ColorPicker } from "components";
+import { Icon, Button, Crop } from "ui";
 
 export const Container: FC<IProps> = ({
     borderRadius,
@@ -10,30 +11,60 @@ export const Container: FC<IProps> = ({
     margin,
     width = 300,
     height = 300,
+    children,
 }) => {
     const {
         connectors: { connect, drag },
-    } = useNode();
+        actions: { setProp },
+        isSelected,
+    } = useNode((state) => ({
+        isSelected: state.events.selected,
+    }));
 
     return (
         <div
-            ref={(ref: HTMLDivElement) => connect(drag(ref))}
-            className={s.container}
+            ref={(ref: HTMLDivElement) => connect(ref)}
+            className={`${s.container} ${isSelected && s.selected_container}`}
             style={{
                 borderRadius,
                 backgroundColor,
                 padding,
                 margin,
-                width,
-                height,
+                width: width,
+                height: height,
             }}
-        />
+        >
+            {children}
+            {isSelected && (
+                <Crop
+                    width={width}
+                    height={height}
+                    onChange={(e) => {
+                        setProp(
+                            (props: IProps) => (
+                                (props.width = e.width),
+                                (props.height = e.height)
+                            )
+                        );
+                        // setDimensions(e);
+                    }}
+                />
+            )}
+            {isSelected && (
+                <div className={s.menu}>
+                    <Button
+                        label={<Icon type={"move"} size={18} />}
+                        ref={(ref) => ref && connect(drag(ref))}
+                    />
+                </div>
+            )}
+        </div>
     );
 };
+
 export const ContainerSettings = () => {
     const {
         actions: { setProp },
-        color,
         backgroundColor,
     } = useNode((node) => ({
         color: node.data.props.color,
@@ -63,15 +94,16 @@ Container.craft = {
         text: "Hi",
     },
     rules: {
-        canDrag: (node: { data: { props: { text: string } } }) =>
-            node.data.props.text != "Drag",
-        canMoveIn: (incoming: Node[], self: Node) => true,
-        canMoveOut: (outgoing: Node[], self: Node) => true,
+        canDrop: () => true,
+        canDrag: () => true,
+        canMoveIn: () => true,
+        canMoveOut: () => true,
     },
     related: {
         settings: ContainerSettings,
     },
 };
+
 interface IProps {
     borderRadius?: string;
     backgroundColor: string;
@@ -79,4 +111,14 @@ interface IProps {
     margin?: string;
     width?: number;
     height?: number;
+    children: ReactNode | ReactNode[];
+}
+
+interface IDimensions {
+    width?: number;
+    height?: number;
+}
+interface ICords {
+    x?: number;
+    y?: number;
 }

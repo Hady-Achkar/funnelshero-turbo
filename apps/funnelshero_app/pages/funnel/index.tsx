@@ -3,8 +3,8 @@ import { useState } from "react";
 import s from "./funnel.module.scss";
 import { Editor, Frame, Element } from "@craftjs/core";
 import { ButtonE, Image, Text, InputE, HTML, Container } from "editor";
-import { Scroll } from "ui";
-import { Topbar, Sidebar, ToolsBar } from "components";
+import { Scroll, Button, Icon } from "ui";
+import { Topbar, Sidebar, ToolsBar, Submit } from "components";
 
 const Funnel: NextPage = () => {
     const [activeCard, setActiveCard] = useState<string>("image");
@@ -35,38 +35,36 @@ const Funnel: NextPage = () => {
                         onClickCard={onClickCard}
                         activeCard={activeCard}
                     />
-                    <Scroll className={s.artboard}>
-                        <Frame>
-                            <Element
-                                is={"div"}
-                                padding={5}
-                                background="#eee"
-                                className={s.element}
-                                canvas
-                            >
-                                <Element
-                                    is={"div"}
-                                    id={"div123123"}
-                                    padding={2}
-                                    background="#999"
-                                    canvas
-                                >
-                                    and draggable // Node of type Text,
-                                    draggable
-                                </Element>
-                                <Element is={Text} text={"image1"} canvas />
-                            </Element>
-                        </Frame>
-                    </Scroll>
+                    <div
+                        style={{
+                            flex: 1,
+                            display: "grid",
+                            gridTemplateRows: "auto 1fr",
+                            zIndex: 1,
+                            position: "relative",
+                        }}
+                    >
+                        <div className={s.funnel_menu_container}>
+                            <Button className={s.question_btn}>
+                                <div>?</div> +add
+                            </Button>
+                            <Button
+                                className={s.add_page_btn}
+                                label={"Add page"}
+                            />
+                        </div>
+                        <Scroll className={s.artboard}>
+                            <Frame>
+                                <Element is={"div"} className={s.root} canvas />
+                            </Frame>
+                        </Scroll>
+                    </div>
+
                     <ToolsBar activeCard={activeCard} />
                 </Editor>
             </div>
         </div>
     );
 };
-
-interface IActiveComponent {
-    [key: string]: JSX.Element;
-}
 
 export default Funnel;
