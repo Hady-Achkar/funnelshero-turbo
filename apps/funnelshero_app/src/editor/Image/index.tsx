@@ -1,14 +1,7 @@
 import { useNode, useEditor, Node } from "@craftjs/core";
-import {
-    Component,
-    FC,
-    ReactElement,
-    useCallback,
-    useEffect,
-    useState,
-} from "react";
+import { FC, useCallback } from "react";
 import s from "./imageE.module.scss";
-import { Button, Icon, Input } from "ui";
+import { Button, Icon, Crop } from "ui";
 import { insertNodeOnParent } from "utils";
 
 export const Image: FC<IProps> = ({
@@ -16,12 +9,13 @@ export const Image: FC<IProps> = ({
     alt,
     width = 100,
     height = 100,
-    radius = 0,
+    borderRadius = "0px 0px 0px 0px",
     padding,
     margin,
 }) => {
     const {
         connectors: { connect, drag },
+        actions: { setProp },
         isSelected,
         id,
         parent,
@@ -31,17 +25,13 @@ export const Image: FC<IProps> = ({
             isDragged: node.events.dragged,
             isHovered: node.events.hovered,
             parent: node.data.parent,
+            selectedNodeId: node.id,
         };
     });
 
-    const { selectedNodeId, actions, query } = useEditor((state) => ({
+    const { actions, query } = useEditor((state) => ({
         selectedNodeId: state.events.selected.keys().next().value,
     }));
-
-    const [isRotating, setIsRotating] = useState<boolean>(false);
-    const [corners, setCorners] = useState<Array<number>>([]);
-
-    const onRatation = (): void => setIsRotating(!isRotating);
 
     const duplicateNode = useCallback(() => {
         const parentNode = query.node(parent).get();
@@ -50,73 +40,66 @@ export const Image: FC<IProps> = ({
         insertNodeOnParent(id, parent, indexToAdd, query, actions);
     }, [id, parent, query]);
 
-    const onDelete = () => actions.delete(selectedNodeId);
-
-    const onSelectCorners = (index: number) => {
-        const copyCorners = structuredClone(corners);
-        copyCorners[index] = 0;
-        setCorners(copyCorners);
-    };
+    const onDelete = () => actions.delete(id);
 
     return (
         <div
-            ref={(ref) => connect(drag(ref))}
-            className={[s.container, isSelected ? s.selected : ""].join(" ")}
+            ref={(ref: HTMLDivElement) => connect(ref)}
+            className={[s.container].join(" ")}
+            style={{ margin, padding }}
         >
-            {isSelected ? (
-                <ImageSettings
+            {isSelected && (
+                <ImageMenu
                     onDelete={onDelete}
                     duplicateNode={duplicateNode}
-                    onRatation={onRatation}
-                    isRotating={isRotating}
+                    onDrag={drag}
                 />
-            ) : null}
-
-            <img src={src} alt={alt} width={width} height={height} />
-            {isRotating && (
-                <>
-                    <div
-                        className={s.left_top}
-                        onClick={() => onSelectCorners(0)}
-                    />
-                    <div
-                        className={s.right_top}
-                        onClick={() => onSelectCorners(1)}
-                    />
-                    <div
-                        className={s.right_bottom}
-                        onClick={() => onSelectCorners(2)}
-                    />
-                    <div
-                        className={s.left_bottom}
-                        onClick={() => onSelectCorners(3)}
-                    />
-                </>
             )}
+            {isSelected && (
+                <Crop
+                    width={width}
+                    height={height}
+                    onChange={(e) => {
+                        setProp(
+                            (props: IProps) => (
+                                (props.width = e.width),
+                                (props.height = e.height)
+                            )
+                        );
+                    }}
+                />
+            )}
+            <img
+                src={src}
+                alt={alt}
+                style={{
+                    borderRadius,
+                    width,
+                    height,
+                }}
+            />
         </div>
     );
 };
-interface StartPos {
-    x?: number;
-    y: number;
-}
-let startPos: StartPos | null = null;
 
-const ImageSettings: FC<IImageProps> = ({
+const ImageMenu: FC<IImageMenuProps> = ({
     onDelete,
     duplicateNode,
-    onRatation,
-    isRotating,
+    onDrag,
 }) => {
     return (
-        <div className={s.settings}>
-            <Button className={s.settings_button} onClick={onDelete}>
-                <Icon type={"Trash"} size={20} />
+        <div className={s.menu}>
+            <Button className={s.menu_button} onClick={onDelete}>
+                <Icon type={"Trash"} size={18} />
                 Delete
             </Button>
-            <Button className={s.settings_button} onClick={duplicateNode}>
-                <Icon type={"Duplicate"} size={20} />
+            <Button className={s.menu_button} onClick={duplicateNode}>
+                <Icon type={"Duplicate"} size={18} />
                 Duplicate
+            </Button>
+            <Button className={s.menu_button} ref={(ref) => ref && onDrag(ref)}>
+                <Icon type={"Move"} size={18} />
+                Move
             </Button>
         </div>
     );
@@ -136,44 +119,29 @@ Image.craft = {
 interface IProps {
     src: string;
     alt?: string;
-    width?: string | number;
-    height?: string | number;
+    width?: number;
+    height?: number;
     craft?: any;
-    radius?: string;
+    borderRadius?: string;
     rotation?: number | string;
     padding?: string;
     margin?: string;
 }
 
-interface IImageProps {
+interface IImageMenuProps {
     onDelete?: () => void;
-    drag: TDrag;
     duplicateNode: () => void;
-    onRatation: () => void;
-    isRotating: boolean;
+    onDrag: TDrag;
 }
 
 type TDrag = <
     B extends
         | HTMLElement
-        | ReactElement<
+        | React.ReactElement<
               any,
               | string
-              | ((props: any) => ReactElement<any, any>)
-              | (new (props: any) => Component<any, any, any>)
-          >
->(
-    element: B
-) => B;
-
-type TConnect = <
-    B extends
-        | HTMLElement
-        | ReactElement<
-              any,
-              | string
-              | ((props: any) => ReactElement<any, any>)
-              | (new (props: any) => Component<any, any, any>)
+              | ((props: any) => React.ReactElement<any, any>)
+              | (new (props: any) => React.Component<any, any, any>)
           >
 >(
     element: B

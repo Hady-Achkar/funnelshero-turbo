@@ -1,6 +1,6 @@
 .container {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
     & img {
         -webkit-user-drag: none;
         -khtml-user-drag: none;
@@ -10,7 +10,7 @@
     }
 }
 
-.settings {
+.menu {
     display: flex;
     border: 1px solid $purple;
     position: absolute;
@@ -20,14 +20,14 @@
     padding: 6px;
     background-color: white;
     transition: all 200ms ease;
+    z-index: 9999;
     & > span {
         margin-left: 10px;
         display: flex;
         align-items: center;
     }
-    & > .settings_button {
+    & > .menu_button {
         display: flex;
-        font-size: 12px;
         white-space: nowrap;
         align-items: center;
         grid-gap: 0 10px;
@@ -39,6 +39,7 @@
         }
     }
 }
+
 .selected {
     outline: 1px solid green;
     padding: 6px;

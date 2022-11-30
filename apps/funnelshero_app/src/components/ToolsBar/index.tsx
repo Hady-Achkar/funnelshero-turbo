@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import s from "./toolsBar.module.scss";
 import { MuiltipleSwitcher, IMuiltipleSwitcherEventType, Tabs } from "ui";
-import { SearchInput, Edges } from "components";
+import { SearchInput } from "components";
 import { useEditor } from "@craftjs/core";
 import {
     ImageContent,
@@ -25,7 +25,6 @@ import {
     ContainerContent,
     Settings,
 } from "components";
-import { Scroll } from "ui";
 
 export const ToolsBar: FC<IProps> = ({ activeCard }) => {
     const [selectedSwitcher, setSelectedSwitcher] = useState<number>(0);
@@ -66,14 +65,6 @@ export const ToolsBar: FC<IProps> = ({ activeCard }) => {
         };
     }, []);
 
-    useLayoutEffect(() => {
-        setSelectedSwitcher(0);
-    }, [activeCard]);
-
-    // const memoSettings = useMemo(() => {
-    //     return <></>;
-    // }, [selected]);
-
     const memoSwitchColor = useMemo(() => {
         const _DATA = [
             {
@@ -96,20 +87,27 @@ export const ToolsBar: FC<IProps> = ({ activeCard }) => {
             };
         }
         return _DATA;
-    }, [activeCard, selectedSwitcher]);
+    }, [activeCard]);
 
     const onChangeSwitcher = (e: IMuiltipleSwitcherEventType) => {
         setSelectedSwitcher(e.target.index);
     };
 
+    const memoSwither = useMemo(() => {
+        return (
+            <MuiltipleSwitcher
+                defaultSelected=""
+                containerClass={s.switch_container}
+                data={memoSwitchColor}
+                onChange={onChangeSwitcher}
+            />
+        );
+    }, [activeCard]);
+
     return (
         <div className={s.settings_content}>
             <div className={s.body}>
-                <MuiltipleSwitcher
-                    containerClass={s.switch_container}
-                    data={memoSwitchColor}
-                    onChange={onChangeSwitcher}
-                />
+                <>{memoSwither}</>
                 <div className={["title16", s.title].join(" ")}>Search</div>
                 <SearchInput placeholder={"Search Image templates"} />
                 <Tabs select={selectedSwitcher}>

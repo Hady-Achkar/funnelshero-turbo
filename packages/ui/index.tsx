@@ -9,3 +9,4 @@ export * from "./MuiltipleSwitcher";
 export * from "./Portal";
 export * from "./Tabs";
 export * from "./Select";
+export * from "./Crop";
