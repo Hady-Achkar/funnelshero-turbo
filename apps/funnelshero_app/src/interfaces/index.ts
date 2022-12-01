@@ -28,4 +28,5 @@ export interface ITarget {
 export interface IDimensions {
     width?: number;
     height?: number;
+    rotate?: number;
 }
