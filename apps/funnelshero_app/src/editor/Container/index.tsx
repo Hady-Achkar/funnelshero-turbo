@@ -11,6 +11,7 @@ export const Container: FC<IProps> = ({
     margin,
     width = 300,
     height = 300,
+    rotate = 0,
     children,
 }) => {
     const {
@@ -26,12 +27,9 @@ export const Container: FC<IProps> = ({
             ref={(ref: HTMLDivElement) => connect(ref)}
             className={`${s.container} ${isSelected && s.selected_container}`}
             style={{
-                borderRadius,
-                backgroundColor,
-                padding,
-                margin,
                 width: width,
                 height: height,
+                margin,
             }}
         >
             {children}
@@ -39,22 +37,33 @@ export const Container: FC<IProps> = ({
                 <Crop
                     width={width}
                     height={height}
+                    rotate={rotate}
                     onChange={(e) => {
                         setProp(
                             (props: IProps) => (
                                 (props.width = e.width),
-                                (props.height = e.height)
+                                (props.height = e.height),
+                                (props.rotate = e.rotate)
                             )
                         );
-                        // setDimensions(e);
                     }}
                 />
             )}
+            <div
+                style={{
+                    borderRadius,
+                    backgroundColor,
+                    width: width,
+                    height: height,
+                    transform: `rotate(${rotate}deg)`,
+                }}
+            />
+
             {isSelected && (
                 <div className={s.menu}>
                     <Button
                         label={<Icon type={"move"} size={18} />}
-                        ref={(ref) => ref && connect(drag(ref))}
+                        ref={(ref) => ref && drag(ref)}
                     />
                 </div>
             )}
@@ -111,14 +120,6 @@ interface IProps {
     margin?: string;
     width?: number;
     height?: number;
+    rotate?: number;
     children: ReactNode | ReactNode[];
-}
-
-interface IDimensions {
-    width?: number;
-    height?: number;
-}
-interface ICords {
-    x?: number;
-    y?: number;
 }

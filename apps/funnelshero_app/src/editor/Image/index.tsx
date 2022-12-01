@@ -12,6 +12,7 @@ export const Image: FC<IProps> = ({
     borderRadius = "0px 0px 0px 0px",
     padding,
     margin,
+    rotate = 0,
 }) => {
     const {
         connectors: { connect, drag },
@@ -59,11 +60,13 @@ export const Image: FC<IProps> = ({
                 <Crop
                     width={width}
                     height={height}
+                    rotate={rotate}
                     onChange={(e) => {
                         setProp(
                             (props: IProps) => (
                                 (props.width = e.width),
-                                (props.height = e.height)
+                                (props.height = e.height),
+                                (props.rotate = e.rotate)
                             )
                         );
                     }}
@@ -76,6 +79,7 @@ export const Image: FC<IProps> = ({
                     borderRadius,
                     width,
                     height,
+                    transform: `rotate(${rotate}deg)`,
                 }}
             />
         </div>
@@ -126,6 +130,7 @@ interface IProps {
     rotation?: number | string;
     padding?: string;
     margin?: string;
+    rotate?: number;
 }
 
 interface IImageMenuProps {
