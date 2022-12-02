@@ -34,7 +34,7 @@ export const BorderRadius: FC<IProps> = ({ onChange, borderRadius }) => {
         <div className={s.container}>
             Corner radius
             <div className={s.row}>
-                <Icon type={"BorderRadius"} />
+                <Icon type={"BorderRadius"} className={s.icon} />
                 <Input
                     type="number"
                     placeholder={"90°"}
@@ -44,8 +44,8 @@ export const BorderRadius: FC<IProps> = ({ onChange, borderRadius }) => {
                     min={0}
                 />
             </div>
-            <div className={`${s.row} ${s.multiple_border_sides_container}`}>
-                <Icon type={"BorderRadius"} />
+            <div className={`${s.row}`}>
+                <Icon type={"AllBorderRadius"} className={s.icon} />
                 <Input
                     type="number"
                     placeholder={"90°"}

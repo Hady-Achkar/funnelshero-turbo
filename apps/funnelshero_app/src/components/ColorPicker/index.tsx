@@ -85,8 +85,8 @@ export const ColorPicker: FC<IProps> = ({
                     value={format}
                     onChange={(e) => setFormat(e.target.value)}
                 >
-                    <option value="rgb">rgb</option>
-                    <option value="#">hex</option>
+                    <option value="rgb">RGB</option>
+                    <option value="#">HEX</option>
                 </select>
                 {format === "rgb" ? (
                     <RGBInputGroup
