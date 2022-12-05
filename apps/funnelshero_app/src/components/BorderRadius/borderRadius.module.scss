@@ -7,6 +7,7 @@
 .row {
     display: flex;
     max-width: 240px;
+    align-items: center;
 }
 
 .input {
@@ -18,4 +19,8 @@
 
 .input input {
     font-size: 14px;
+}
+
+.icon {
+    margin-right: 10px;
 }

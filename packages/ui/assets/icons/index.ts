@@ -35,6 +35,7 @@ import FunnelIcon from "../icons/funnel.svg";
 import PasswordIcon from "../icons/password.svg";
 import BillingIcon from "../icons/billing.svg";
 import PurchaseIcon from "../icons/purchase.svg";
+import AllBorderRadius from "../icons/all-border-radius.svg";
 
 export {
     Search,
@@ -74,4 +75,5 @@ export {
     BorderRadius,
     NotificationIcon,
     AvatarIcon,
+    AllBorderRadius,
 };
