@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import s from "./funnel.module.scss";
 import { Editor, Frame, Element } from "@craftjs/core";
-import { ButtonE, Image, Text, InputE, HTML, Container } from "editor";
+import { EButton, Image, Text, InputE, EHTML, EContainer } from "editor";
 import { Scroll, Button, Icon } from "ui";
 import { Topbar, Sidebar, ToolsBar, Submit } from "components";
 
@@ -24,11 +24,11 @@ const Funnel: NextPage = () => {
                     }}
                     resolver={{
                         Image,
-                        ButtonE,
+                        EButton,
                         InputE,
                         Text,
-                        HTML,
-                        Container,
+                        EHTML,
+                        EContainer,
                     }}
                 >
                     <Sidebar
@@ -59,7 +59,6 @@ const Funnel: NextPage = () => {
                             </Frame>
                         </Scroll>
                     </div>
-
                     <ToolsBar activeCard={activeCard} />
                 </Editor>
             </div>

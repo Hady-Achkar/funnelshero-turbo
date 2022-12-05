@@ -2,7 +2,7 @@ import { FC } from "react";
 import s from "./containerContent.module.scss";
 import { Button } from "ui";
 import { Element, useEditor } from "@craftjs/core";
-import { Container } from "editor";
+import { EContainer } from "editor";
 
 export const ContainerContent: FC<IProps> = () => {
     const { connectors, query } = useEditor();
@@ -18,7 +18,7 @@ export const ContainerContent: FC<IProps> = () => {
                             backgroundColor={"#FF9B37"}
                             padding={"6px 20px 6px 20px"}
                             borderRadius={"16px 16px 16px 16px"}
-                            is={Container}
+                            is={EContainer}
                             canvas
                         />
                     );

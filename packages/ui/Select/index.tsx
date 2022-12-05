@@ -3,7 +3,6 @@ import React, {
     useEffect,
     useState,
     useMemo,
-    useRef,
     useLayoutEffect,
 } from "react";
 import { Icon } from "../Icon";
@@ -40,10 +39,15 @@ export const Select: FC<IProps> = ({
         return React.Children.map(children, (child) => {
             const activeClassName: string =
                 child.props?.id === selected?.id ? s.activeClassName : "";
+            let classNames = `${s.option} ${activeClassName}`;
+
+            if (child?.props?.className) {
+                classNames += child?.props?.className;
+            }
 
             if (React.isValidElement(child)) {
                 const passProps = {
-                    className: `${s.option} ${activeClassName} ${child.props?.className}`,
+                    className: classNames,
                     onClick: () => onSelectOption(child),
                     draggable: false,
                 };

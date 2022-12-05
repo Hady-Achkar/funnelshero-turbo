@@ -2,10 +2,10 @@ import { FC } from "react";
 import { useNode } from "@craftjs/core";
 import { Button, Input } from "ui";
 import { ColorPicker } from "components";
-import s from "./buttonE.module.scss";
+import s from "./eButton.module.scss";
 import { TypeInputChangeEvent } from "types";
 
-export const ButtonE: FC<IProps> = ({
+export const EButton: FC<IProps> = ({
     color = "#000000",
     text,
     className = "",
@@ -74,7 +74,7 @@ export const ButtonSettings = () => {
     );
 };
 
-ButtonE.craft = {
+EButton.craft = {
     displayName: "My Button Component",
     props: {
         color: { h: 0, s: 80, v: 68, a: 1 },

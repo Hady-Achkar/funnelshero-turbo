@@ -1,8 +1,8 @@
 import React, { FC, ReactHTML, ReactHTMLElement, useRef } from "react";
-import s from "./html.module.scss";
+import s from "./eHtml.module.scss";
 import { useNode, Node } from "@craftjs/core";
 
-export const HTML: FC<IProps> = ({ tagName = "span" }) => {
+export const EHTML: FC<IProps> = ({ tagName = "span" }) => {
     const {
         connectors: { connect, drag },
         isSelected,
@@ -20,7 +20,7 @@ export const HTML: FC<IProps> = ({ tagName = "span" }) => {
     );
 };
 
-HTML.craft = {
+EHTML.craft = {
     rules: {
         canDrag: (node: Node) => node.data.props.text != "Drag",
     },
