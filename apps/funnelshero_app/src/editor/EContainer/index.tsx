@@ -13,7 +13,7 @@ export const EContainer: FC<IProps> = ({
     height = 300,
     rotate = 0,
     children,
-    borderColor,
+    borderColor = "#f00000",
     borderWidth = 0,
 }) => {
     const {
@@ -88,10 +88,12 @@ export const ContainerSettings = () => {
         actions: { setProp },
         backgroundColor,
         borderWidth,
+        borderColor,
     } = useNode((node) => ({
         color: node.data.props.color,
         backgroundColor: node.data.props.backgroundColor,
         borderWidth: node.data.props.borderWidth,
+        borderColor: node.data.props.borderColor,
     }));
 
     return (
@@ -145,7 +147,7 @@ export const ContainerSettings = () => {
                             (props.borderColor = e)
                     )
                 }
-                color={"rgb(0,0,0)"}
+                color={borderColor}
             />
         </div>
     );
@@ -153,13 +155,13 @@ export const ContainerSettings = () => {
 
 EContainer.craft = {
     displayName: "Container",
-    props: {
-        color: { h: 0, s: 80, v: 68, a: 1 },
-        text: "Hi",
-    },
+    props: {},
     rules: {
         canDrop: () => true,
-        canDrag: () => true,
+        canDrag: (n) => {
+            console.log(n);
+            return true;
+        },
         canMoveIn: () => true,
         canMoveOut: () => true,
     },

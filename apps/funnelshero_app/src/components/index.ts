@@ -8,7 +8,7 @@ export * from "./Edges";
 export * from "./Settings";
 
 export * from "./ImageContent";
-export * from "./TitleContent";
+export * from "./TextContent";
 export * from "./VideoContent";
 export * from "./ButtonContent";
 export * from "./DividerContent";

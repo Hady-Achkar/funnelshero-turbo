@@ -1,5 +1,4 @@
 .container {
-    z-index: 501;
     position: relative;
 }
 
@@ -28,6 +27,10 @@
     padding: 8px;
     cursor: pointer;
     display: flex;
+    position: relative;
+    z-index: 9999 !important;
+    align-items: center;
+    gap: 0 10px;
 }
 
 .option:hover {
@@ -37,20 +40,24 @@
 .label_container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: white;
     border-radius: 6px;
     padding: 8px;
     cursor: pointer;
     box-sizing: border-box;
     border: 2px solid white;
+    width: 100%;
 }
 
 .label_container:hover {
     border: 2px solid #e2e1f5;
 }
+
 .label {
     display: flex;
     flex: 1;
+    align-items: center;
 }
 .label > * {
     flex: 1;

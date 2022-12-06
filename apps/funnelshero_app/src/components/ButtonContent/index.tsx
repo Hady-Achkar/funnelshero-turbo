@@ -1,6 +1,6 @@
 import { FC } from "react";
 import s from "./buttonContent.module.scss";
-import { ButtonE } from "editor";
+import { EButton } from "editor";
 import { Button } from "ui";
 import { Element, useEditor } from "@craftjs/core";
 
@@ -21,7 +21,7 @@ export const ButtonContent: FC<IProps> = () => {
                                 className={s.green}
                                 backgroundColor={"#7db603"}
                                 color={"#fff"}
-                                is={ButtonE}
+                                is={EButton}
                                 padding={"6px 20px 6px 20px"}
                                 borderRadius={"20px 20px 20px 20px"}
                                 canvas
@@ -40,7 +40,7 @@ export const ButtonContent: FC<IProps> = () => {
                                 className={s.red}
                                 padding={"6px 20px 6px 20px"}
                                 borderRadius={"20px 20px 20px 20px"}
-                                is={ButtonE}
+                                is={EButton}
                                 canvas
                             />
                         );
@@ -57,7 +57,7 @@ export const ButtonContent: FC<IProps> = () => {
                                 padding={"6px 20px 6px 20px"}
                                 borderRadius={"20px 20px 20px 20px"}
                                 className={s.blue_gradient}
-                                is={ButtonE}
+                                is={EButton}
                                 canvas
                             />
                         );

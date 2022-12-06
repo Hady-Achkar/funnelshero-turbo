@@ -1,11 +1,11 @@
 import { useNode, useEditor, Node } from "@craftjs/core";
 import { FC, useCallback } from "react";
-import s from "./imageE.module.scss";
+import s from "./eImage.module.scss";
 import { Button, Icon, Crop } from "ui";
 import { ElementTitle } from "components";
 import { insertNodeOnParent } from "utils";
 
-export const Image: FC<IProps> = ({
+export const EImage: FC<IProps> = ({
     src,
     alt,
     width = 100,
@@ -92,7 +92,7 @@ export const Image: FC<IProps> = ({
     );
 };
 
-Image.craft = {
+EImage.craft = {
     displayName: "Image",
     props: {},
     rules: {
