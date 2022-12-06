@@ -11,6 +11,7 @@ import TiptapText from "@tiptap/extension-text";
 import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
+import { ElementTitle } from "components";
 
 export const EText: FC<IProps> = ({ text }) => {
     const editor = Tiptap.useEditor({
@@ -42,21 +43,16 @@ export const EText: FC<IProps> = ({ text }) => {
 
     if (!editor) return null;
 
-    EText.craft = {
-        rules: {
-            canDrag: (node: Node) => node.data.props.text != "Drag",
-        },
-        related: {
-            settings: TextSettings,
-        },
-    };
-
     return (
         <div
             className={[s.container, isSelected ? "selected" : ""].join(" ")}
             ref={(ref) => connect(drag(ref))}
         >
-            {/* {isSelected ? <TextSettings editor={editor} /> : null} */}
+            {isSelected ? (
+                <ElementTitle>
+                    <TextSettings editor={editor} />
+                </ElementTitle>
+            ) : null}
             <Tiptap.EditorContent editor={editor} />
         </div>
     );
@@ -176,7 +172,15 @@ const TextSettings: FC<IMenuProps> = ({ editor }) => {
         </div>
     );
 };
-
+EText.craft = {
+    rules: {
+        canDrag: (node: Node) => node.data.props.text != "Drag",
+    },
+    related: {
+        settings: TextSettings,
+        toolbar: <div>123123</div>,
+    },
+};
 interface IMenuProps {
     editor: any;
 }

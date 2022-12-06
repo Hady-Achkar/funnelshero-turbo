@@ -5,7 +5,7 @@ import { Element, useEditor } from "@craftjs/core";
 import { EContainer } from "editor";
 
 export const ContainerContent: FC<IProps> = () => {
-    const { connectors, query } = useEditor();
+    const { connectors } = useEditor();
 
     return (
         <div className={s.container}>

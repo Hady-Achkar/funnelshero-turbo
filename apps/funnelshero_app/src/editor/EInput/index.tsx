@@ -4,7 +4,7 @@ import { Input, Icon } from "ui";
 import { useNode, useEditor, Node } from "@craftjs/core";
 
 export const EInput: FC<IProps> = forwardRef(
-    ({ placeholder, type = "text", frontIcon = "" }, ref) => {
+    ({ placeholder, type = "text", frontIcon = "", className = "" }, ref) => {
         const {
             connectors: { connect, drag },
         } = useNode((node: Node) => node);
@@ -14,7 +14,7 @@ export const EInput: FC<IProps> = forwardRef(
                 <Input
                     placeholder={placeholder}
                     ref={ref}
-                    className={s.input}
+                    className={`${s.input} ${className}`}
                     type={type}
                     frontIcon={
                         frontIcon ? (
@@ -49,6 +49,7 @@ interface IProps {
     className?: string;
     type?: TinputType;
     frontIcon?: string;
+    className?: string;
 }
 
 type TinputType = "number" | "email" | "text" | "date";
