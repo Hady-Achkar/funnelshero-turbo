@@ -1,10 +1,11 @@
 import { useNode, useEditor, Node } from "@craftjs/core";
 import { FC, useCallback } from "react";
-import s from "./imageE.module.scss";
+import s from "./eImage.module.scss";
 import { Button, Icon, Crop } from "ui";
+import { ElementTitle } from "components";
 import { insertNodeOnParent } from "utils";
 
-export const Image: FC<IProps> = ({
+export const EImage: FC<IProps> = ({
     src,
     alt,
     width = 100,
@@ -20,6 +21,7 @@ export const Image: FC<IProps> = ({
         isSelected,
         id,
         parent,
+        node,
     } = useNode((node: Node) => {
         return {
             isSelected: node.events.selected,
@@ -27,6 +29,7 @@ export const Image: FC<IProps> = ({
             isHovered: node.events.hovered,
             parent: node.data.parent,
             selectedNodeId: node.id,
+            node: node.data.displayName,
         };
     });
 
@@ -50,11 +53,14 @@ export const Image: FC<IProps> = ({
             style={{ margin, padding }}
         >
             {isSelected && (
-                <ImageMenu
-                    onDelete={onDelete}
-                    duplicateNode={duplicateNode}
-                    onDrag={drag}
-                />
+                <ElementTitle>
+                    {node}
+                    <Button
+                        className={s.menu_button}
+                        label={<Icon type={"move"} size={16} />}
+                        ref={(ref) => ref && drag(ref)}
+                    />
+                </ElementTitle>
             )}
             {isSelected && (
                 <Crop
@@ -86,30 +92,7 @@ export const Image: FC<IProps> = ({
     );
 };
 
-const ImageMenu: FC<IImageMenuProps> = ({
-    onDelete,
-    duplicateNode,
-    onDrag,
-}) => {
-    return (
-        <div className={s.menu}>
-            <Button className={s.menu_button} onClick={onDelete}>
-                <Icon type={"Trash"} size={18} />
-                Delete
-            </Button>
-            <Button className={s.menu_button} onClick={duplicateNode}>
-                <Icon type={"Duplicate"} size={18} />
-                Duplicate
-            </Button>
-            <Button className={s.menu_button} ref={(ref) => ref && onDrag(ref)}>
-                <Icon type={"Move"} size={18} />
-                Move
-            </Button>
-        </div>
-    );
-};
-
-Image.craft = {
+EImage.craft = {
     displayName: "Image",
     props: {},
     rules: {
@@ -131,12 +114,6 @@ interface IProps {
     padding?: string;
     margin?: string;
     rotate?: number;
-}
-
-interface IImageMenuProps {
-    onDelete?: () => void;
-    duplicateNode: () => void;
-    onDrag: TDrag;
 }
 
 type TDrag = <

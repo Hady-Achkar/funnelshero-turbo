@@ -2,9 +2,17 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import s from "./funnel.module.scss";
 import { Editor, Frame, Element } from "@craftjs/core";
-import { ButtonE, Image, Text, InputE, HTML, Container } from "editor";
-import { Scroll, Button, Icon } from "ui";
-import { Topbar, Sidebar, ToolsBar, Submit } from "components";
+import {
+    EButton,
+    EImage,
+    EText,
+    EInput,
+    EHTML,
+    EContainer,
+    ESelect,
+} from "editor";
+import { Scroll, Button } from "ui";
+import { Topbar, Sidebar, ToolsBar } from "components";
 
 const Funnel: NextPage = () => {
     const [activeCard, setActiveCard] = useState<string>("image");
@@ -23,12 +31,13 @@ const Funnel: NextPage = () => {
                         // console.log(e.getState());
                     }}
                     resolver={{
-                        Image,
-                        ButtonE,
-                        InputE,
-                        Text,
-                        HTML,
-                        Container,
+                        EImage,
+                        EButton,
+                        EInput,
+                        EText,
+                        EHTML,
+                        EContainer,
+                        ESelect,
                     }}
                 >
                     <Sidebar
@@ -59,7 +68,6 @@ const Funnel: NextPage = () => {
                             </Frame>
                         </Scroll>
                     </div>
-
                     <ToolsBar activeCard={activeCard} />
                 </Editor>
             </div>

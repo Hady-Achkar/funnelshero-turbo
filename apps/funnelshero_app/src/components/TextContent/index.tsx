@@ -1,22 +1,20 @@
 import { FC } from "react";
-import s from "./titleContent.module.scss";
+import s from "./textContent.module.scss";
 import { useEditor, Element } from "@craftjs/core";
-import { Text } from "editor";
+import { EText } from "editor";
 import { Button } from "ui";
 
-export const TitleContent: FC<IProps> = () => {
+export const TextContent: FC<IProps> = () => {
     const { connectors } = useEditor();
-
-    const handleChange = () => {};
 
     return (
         <div className={s.container}>
             <Button
-                label={"Title"}
+                label={"Text"}
                 ref={(ref: HTMLButtonElement) => {
                     connectors.create(
                         ref,
-                        <Element text={"Your text"} is={Text} canvas />
+                        <Element text={"Your text"} is={EText} canvas />
                     );
                 }}
             />

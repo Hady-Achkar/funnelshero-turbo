@@ -1,29 +1,41 @@
-import React, {
+import {
     FC,
     useEffect,
     useState,
     useMemo,
-    useRef,
     useLayoutEffect,
+    Children,
+    isValidElement,
+    cloneElement,
+    ReactElement,
 } from "react";
 import { Icon } from "../Icon";
 import s from "./select.module.scss";
+
+let id = 0;
 
 export const Select: FC<IProps> = ({
     children,
     select = "",
     placeholder = "placeholder",
-    icon,
-    bodyClassName = "",
+    icon = () => {},
     labelClassName = "",
     onChange,
+    className = "",
     name,
 }) => {
     const [show, setShow] = useState<boolean>(false);
     const [selected, setSelected] = useState<ISelected | null>(null);
 
+    useEffect(() => {
+        ++id;
+    }, []);
+    const containerId = id.toString(2);
     useLayoutEffect(() => {
-        React.Children.map(children, (child) => {
+        Children.forEach(children, (child) => {
+            if (!isValidElement(child)) {
+                return null;
+            }
             if (
                 child.props?.id === selected?.id ||
                 child.props?.id === select
@@ -37,27 +49,33 @@ export const Select: FC<IProps> = ({
     }, [select]);
 
     const childrenWithProps = useMemo(() => {
-        return React.Children.map(children, (child) => {
+        return Children.map(children, (child) => {
+            if (!isValidElement(child)) {
+                return null;
+            }
             const activeClassName: string =
                 child.props?.id === selected?.id ? s.activeClassName : "";
+            let classNames = `${s.option} ${activeClassName}`;
 
-            if (React.isValidElement(child)) {
-                const passProps = {
-                    className: `${s.option} ${activeClassName} ${child.props?.className}`,
-                    onClick: () => onSelectOption(child),
-                    draggable: false,
-                };
-                return React.cloneElement(child, passProps);
+            if (child?.props?.className) {
+                classNames += child?.props?.className;
             }
-            return child;
+            const passProps = {
+                className: classNames,
+                onClick: () => onSelectOption(child),
+                draggable: false,
+            };
+            return cloneElement(child, passProps);
         });
     }, [selected]);
 
     useEffect(() => {
         const onMouseDown = (e: MouseEvent) => {
-            if (e.target instanceof Element && show) {
+            if (e.target && show) {
                 const _TARGET = e?.target?.closest("." + s.container);
-                if (_TARGET === null) setShow(false);
+
+                if (_TARGET === null || _TARGET?.id !== containerId)
+                    setShow(false);
             }
         };
         window.addEventListener("mousedown", onMouseDown);
@@ -82,14 +100,20 @@ export const Select: FC<IProps> = ({
     };
 
     return (
-        <div className={s.container}>
-            <div
+        <div className={`${s.container} ${className}`} id={containerId}>
+            <button
                 className={`${s.label_container} ${labelClassName}`}
-                onClick={() => setShow(!show)}
+                onClick={() => {
+                    setShow(!show);
+                }}
             >
                 <div className={s.label}>{selected?.child || placeholder}</div>
-                {icon || <Icon type={"ChevronDown"} feather={true} />}
-            </div>
+                {icon && typeof icon === "typeof ico" ? (
+                    icon(show)
+                ) : (
+                    <Icon type={"ChevronDown"} feather={true} />
+                )}
+            </button>
             {show && <div className={s.body}>{childrenWithProps}</div>}
         </div>
     );
@@ -108,6 +132,7 @@ interface IProps {
     name?: string;
     labelClassName?: string;
     placeholder?: string;
+    className?: string;
     icon?: (icon: React.ReactNode) => React.ReactNode | React.ReactNode[];
     onChange?: (e: ITarget) => void;
 }

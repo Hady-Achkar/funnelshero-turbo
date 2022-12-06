@@ -3,7 +3,7 @@ import s from "./inputE.module.scss";
 import { Input, Icon } from "ui";
 import { useNode, useEditor, Node } from "@craftjs/core";
 
-export const InputE: FC<IProps> = forwardRef(
+export const EInput: FC<IProps> = forwardRef(
     ({ placeholder, type = "text", frontIcon = "" }, ref) => {
         const {
             connectors: { connect, drag },
@@ -27,7 +27,7 @@ export const InputE: FC<IProps> = forwardRef(
     }
 );
 
-InputE.craft = {
+EInput.craft = {
     displayName: "Input",
     props: {
         placeholder: "Placeholder",

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import s from "./imageContent.module.scss";
 import { Button } from "ui";
-import { Image } from "editor";
+import { EImage } from "editor";
 import { useEditor, Element } from "@craftjs/core";
 
 export const ImageContent: FC<IProps> = ({}) => {
@@ -38,7 +38,7 @@ export const ImageContent: FC<IProps> = ({}) => {
                                 src={
                                     "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
                                 }
-                                is={Image}
+                                is={EImage}
                                 canvas
                             />
                         );
@@ -61,7 +61,7 @@ export const ImageContent: FC<IProps> = ({}) => {
                                 src={
                                     "https://wallpapershome.com/images/pages/pic_h/21486.jpg"
                                 }
-                                is={Image}
+                                is={EImage}
                                 canvas
                             />
                         );

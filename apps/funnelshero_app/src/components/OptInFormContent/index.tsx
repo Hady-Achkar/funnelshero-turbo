@@ -1,6 +1,6 @@
 import { FC } from "react";
 import s from "./optInFormContent.module.scss";
-import { InputE } from "editor";
+import { EInput, ESelect } from "editor";
 import { Button, Icon } from "ui";
 import { Element, useEditor } from "@craftjs/core";
 
@@ -15,23 +15,23 @@ export const OptInFormContent: FC<IProps> = () => {
                 <Button
                     label={"Simple"}
                     className={s.input_sample}
-                    ref={(ref: HTMLDivElement) => {
+                    ref={(ref: HTMLButtonElement) => {
                         connectors.create(
                             ref,
-                            <Element placeholder="Simple " is={InputE} canvas />
+                            <Element placeholder="Simple " is={EInput} canvas />
                         );
                     }}
                 />
                 <Button
                     className={s.input_sample}
-                    ref={(ref: HTMLDivElement) => {
+                    ref={(ref: HTMLButtonElement) => {
                         connectors.create(
                             ref,
                             <Element
                                 placeholder="Date input"
                                 frontIcon="Calendar"
                                 type="date"
-                                is={InputE}
+                                is={EInput}
                                 canvas
                             />
                         );
@@ -42,14 +42,14 @@ export const OptInFormContent: FC<IProps> = () => {
                 </Button>
                 <Button
                     className={s.input_sample}
-                    ref={(ref: HTMLDivElement) => {
+                    ref={(ref: HTMLButtonElement) => {
                         connectors.create(
                             ref,
                             <Element
                                 placeholder="Email input"
                                 frontIcon="Mail"
                                 type="email"
-                                is={InputE}
+                                is={EInput}
                                 canvas
                             />
                         );
@@ -60,13 +60,13 @@ export const OptInFormContent: FC<IProps> = () => {
                 </Button>
                 <Button
                     className={s.input_sample}
-                    ref={(ref: HTMLDivElement) => {
+                    ref={(ref: HTMLButtonElement) => {
                         connectors.create(
                             ref,
                             <Element
                                 placeholder="User input"
                                 frontIcon="User"
-                                is={InputE}
+                                is={EInput}
                                 canvas
                             />
                         );

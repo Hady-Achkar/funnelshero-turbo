@@ -1,17 +1,11 @@
-import React, {
-    FC,
-    useEffect,
-    useLayoutEffect,
-    useMemo,
-    useState,
-} from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import s from "./toolsBar.module.scss";
 import { MuiltipleSwitcher, IMuiltipleSwitcherEventType, Tabs } from "ui";
 import { SearchInput } from "components";
 import { useEditor } from "@craftjs/core";
 import {
     ImageContent,
-    TitleContent,
+    TextContent,
     ButtonContent,
     VideoContent,
     DividerContent,
@@ -54,7 +48,7 @@ export const ToolsBar: FC<IProps> = ({ activeCard }) => {
         return {
             image: <ImageContent />,
             video: <VideoContent />,
-            text: <TitleContent />,
+            text: <TextContent />,
             button: <ButtonContent />,
             divider: <DividerContent />,
             paragraph: <ParagraphContent />,
