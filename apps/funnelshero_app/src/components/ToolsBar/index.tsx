@@ -18,6 +18,7 @@ import {
     Pages,
     ContainerContent,
     Settings,
+    QuizzContent,
 } from "components";
 
 export const ToolsBar: FC<IProps> = ({ activeCard }) => {
@@ -56,6 +57,7 @@ export const ToolsBar: FC<IProps> = ({ activeCard }) => {
             questionBox: <QuestionBoxContent />,
             customHTMLBlock: <HtmlBlockContent />,
             container: <ContainerContent />,
+            quizz: <QuizzContent />,
         };
     }, []);
 

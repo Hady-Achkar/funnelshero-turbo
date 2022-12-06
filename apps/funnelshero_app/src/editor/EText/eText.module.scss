@@ -11,12 +11,6 @@
 
 .settings {
     display: flex;
-    border: 1px solid $purple;
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    background-color: white;
-    padding: 6px;
     & > span {
         margin-left: 10px;
         display: flex;
