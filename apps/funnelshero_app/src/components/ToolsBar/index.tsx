@@ -12,7 +12,7 @@ import {
     ParagraphContent,
     OptInFormContent,
     QuestionBoxContent,
-    HtmlBlockContent,
+    // HtmlBlockContent,
     HTMLBlock,
     Design,
     Pages,
@@ -55,13 +55,16 @@ export const ToolsBar: FC<IProps> = ({ activeCard }) => {
             paragraph: <ParagraphContent />,
             optInForm: <OptInFormContent />,
             questionBox: <QuestionBoxContent />,
-            customHTMLBlock: <HtmlBlockContent />,
             container: <ContainerContent />,
             quizz: <QuizzContent />,
         };
     }, []);
 
-    const memoSwitchColor = useMemo(() => {
+    const onChangeSwitcher = (e: IMuiltipleSwitcherEventType) => {
+        setSelectedSwitcher(e.target.index);
+    };
+
+    const memoSwitch = useMemo(() => {
         const _DATA = [
             {
                 label: "Design",
@@ -82,19 +85,11 @@ export const ToolsBar: FC<IProps> = ({ activeCard }) => {
                 id: "htmlBlock",
             };
         }
-        return _DATA;
-    }, [activeCard]);
-
-    const onChangeSwitcher = (e: IMuiltipleSwitcherEventType) => {
-        setSelectedSwitcher(e.target.index);
-    };
-
-    const memoSwither = useMemo(() => {
         return (
             <MuiltipleSwitcher
-                defaultSelected=""
+                defaultSelected={activeCard}
                 containerClass={s.switch_container}
-                data={memoSwitchColor}
+                data={_DATA}
                 onChange={onChangeSwitcher}
             />
         );
@@ -103,7 +98,7 @@ export const ToolsBar: FC<IProps> = ({ activeCard }) => {
     return (
         <div className={s.settings_content}>
             <div className={s.body}>
-                <>{memoSwither}</>
+                <>{memoSwitch}</>
                 <div className={["title16", s.title].join(" ")}>Search</div>
                 <SearchInput placeholder={"Search Image templates"} />
                 <Tabs select={selectedSwitcher}>

@@ -122,7 +122,7 @@ export const Crop: FC<IProps> = ({ width, height, rotate = 0, onChange }) => {
         []
     );
 
-    const onRotating = (e: React.MouseEvent): void => {
+    const onRotating = (e: MouseEvent): void => {
         if (startC.current.x) {
             let center_x = 0 + width / 2;
             let center_y = 0 + height / 2;
@@ -137,7 +137,7 @@ export const Crop: FC<IProps> = ({ width, height, rotate = 0, onChange }) => {
                     width: _width.current,
                     height: _height.current,
                 });
-            setDimensions((prev) => ({
+            setDimensions((prev: IDimensions) => ({
                 ...prev,
                 rotate: degree,
             }));

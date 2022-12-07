@@ -13,7 +13,6 @@ window.addEventListener("click", (e: React.MouseEvent) => {
 });
 
 let timer: NodeJS.Timer;
-
 interface IProps {
     visibility: boolean;
     closeBtnEnabled: boolean;
@@ -22,6 +21,7 @@ interface IProps {
     animationTiming: number;
     children: React.ReactNode | React.ReactNode[];
 }
+
 export const Modal: FC<IProps> = ({
     visibility,
     setVisibility,

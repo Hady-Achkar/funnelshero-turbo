@@ -10,6 +10,7 @@ import {
     EHTML,
     EContainer,
     ESelect,
+    EVideo,
 } from "editor";
 import { Scroll, Button } from "ui";
 import { Topbar, Sidebar, ToolsBar } from "components";
@@ -38,6 +39,7 @@ const Funnel: NextPage = () => {
                         EHTML,
                         EContainer,
                         ESelect,
+                        EVideo,
                     }}
                 >
                     <Sidebar

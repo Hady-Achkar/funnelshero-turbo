@@ -3,13 +3,6 @@
     display: inline-flex;
 }
 
-.selected_container {
-    border: 1px solid skyblue;
-    &:hover {
-        border: 1px solid rgb(81, 162, 194);
-    }
-}
-
 .line_container {
     width: 100%;
     padding: 8px 0;
@@ -20,10 +13,7 @@
     width: 100%;
     align-items: center;
 }
-.settings {
-    display: grid;
-    gap: 16px 0;
-}
+
 .menu_button {
     display: flex;
     white-space: nowrap;
