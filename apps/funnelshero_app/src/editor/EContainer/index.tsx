@@ -39,7 +39,6 @@ export const EContainer: FC<IProps> = ({
                 margin,
             }}
         >
-            {children}
             {isSelected && (
                 <Crop
                     width={width}
@@ -68,14 +67,16 @@ export const EContainer: FC<IProps> = ({
                     borderWidth,
                     borderStyle: "solid",
                 }}
-            />
+            >
+                {children}
+            </div>
             {isSelected && (
                 <ElementTitle>
                     {node.name}
                     <Button
                         className={s.menu_button}
                         label={<Icon type={"move"} size={16} />}
-                        ref={(ref) => ref && drag(ref)}
+                        ref={(ref: HTMLButtonElement) => ref && drag(ref)}
                     />
                 </ElementTitle>
             )}
@@ -97,7 +98,7 @@ export const ContainerSettings = () => {
     }));
 
     return (
-        <div className={s.settings}>
+        <>
             <div>Fill</div>
             <ColorPicker
                 color={backgroundColor}
@@ -149,7 +150,7 @@ export const ContainerSettings = () => {
                 }
                 color={borderColor}
             />
-        </div>
+        </>
     );
 };
 
@@ -157,15 +158,10 @@ EContainer.craft = {
     displayName: "Container",
     props: {},
     rules: {
-        canDrop: (n) => {
-            console.log(n);
-            return true;
-        },
-        canDrag: (n) => {
-            return true;
-        },
-        canMoveIn: () => true,
-        canMoveOut: () => true,
+        // canDrop: () => true,
+        // canDrag: () => true,
+        // canMoveIn: () => true,
+        // canMoveOut: () => true,
     },
     related: {
         settings: ContainerSettings,

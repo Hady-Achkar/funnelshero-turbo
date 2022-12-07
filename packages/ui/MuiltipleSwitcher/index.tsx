@@ -80,6 +80,7 @@ export const MuiltipleSwitcher: FC<IProps> = ({
         label: data[0].label,
         index: 0,
     });
+
     const container = useRef<HTMLDivElement>(null);
     const animatedBlock = useRef<HTMLDivElement>(null);
 
@@ -94,7 +95,7 @@ export const MuiltipleSwitcher: FC<IProps> = ({
             animatedBlock.current.style.width = "0px";
             animatedBlock.current.style.height = "0px";
         }
-    }, [containerId, disabled]);
+    }, [containerId, disabled, defaultSelected]);
 
     useLayoutEffect(() => {
         if (animatedBlock.current) {
@@ -113,7 +114,7 @@ export const MuiltipleSwitcher: FC<IProps> = ({
             });
             animate(selected?.id);
         }
-    }, [selected]);
+    }, [selected, defaultSelected]);
 
     const animate = (id: number | string) => {
         if (container.current) {

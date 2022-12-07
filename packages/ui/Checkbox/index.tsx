@@ -2,27 +2,29 @@ import { FC } from "react";
 import s from "./checkbox.module.scss";
 
 interface IProps {
-    label?: string;
+    label?: string | undefined;
     disabled?: boolean;
-    onChange?: (chacked: boolean, name: string | undefined) => void;
+    onChange?: (chacked: boolean, name: string | undefined) => void | undefined;
     name?: string;
     rounded?: boolean;
     className?: string;
+    checked?: boolean;
 }
 
 export const Checkbox: FC<IProps> = ({
     label,
     disabled = false,
     onChange,
-    name,
+    name = "",
     rounded = false,
-    className,
+    className = "",
+    checked = false,
     ...props
 }) => {
     const onChangeInput = (e: React.ChangeEventHandler<HTMLInputElement>) => {
-        onChange && onChange(e.target.chacked, name);
+        onChange && onChange(e);
     };
-    
+
     return (
         <div className={s.container}>
             {label ? (
@@ -37,6 +39,7 @@ export const Checkbox: FC<IProps> = ({
                     <input
                         type="checkbox"
                         name={name}
+                        defaultChecked={checked}
                         disabled={disabled}
                         onChange={onChangeInput}
                     />
@@ -48,6 +51,7 @@ export const Checkbox: FC<IProps> = ({
                     name={name}
                     disabled={disabled}
                     onChange={onChangeInput}
+                    defaultChecked={checked}
                     {...props}
                 />
             )}

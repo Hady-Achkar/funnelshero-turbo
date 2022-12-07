@@ -15,7 +15,6 @@ export * from "./DividerContent";
 export * from "./ParagraphContent";
 export * from "./OptInFormContent";
 export * from "./QuestionBoxContent";
-export * from "./HtmlBlockContent";
 export * from "./ContainerContent";
 export * from "./QuizzContent";
 

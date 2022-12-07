@@ -30,3 +30,7 @@ export interface IDimensions {
     height?: number;
     rotate?: number;
 }
+export interface IVideoConvertType {
+    blob: Blob;
+    duration: number;
+}

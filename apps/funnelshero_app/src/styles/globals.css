@@ -14,38 +14,38 @@ a {
 }
 
 .selected {
-    border: 2px dashed green;
+    border: 1px solid rgb(130, 206, 236);
     padding: 0;
 }
 
-.width100{
+.width100 {
     width: 100%;
 }
 
-.height100{
+.height100 {
     height: 100vh;
 }
 
-.flex{
+.flex {
     display: flex;
 }
 
-.align_center{
+.align_center {
     align-items: center;
 }
 
-.center{
+.center {
     justify-content: center;
 }
 
-.flex_end{
+.flex_end {
     justify-content: flex-end;
 }
 
-.space_between{
+.space_between {
     justify-content: space-between;
 }
 
-.column{
+.column {
     flex-direction: column;
 }

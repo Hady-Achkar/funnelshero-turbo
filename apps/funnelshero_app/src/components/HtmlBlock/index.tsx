@@ -1,7 +1,7 @@
 import { FC, useMemo } from "react";
 import s from "./htmlBlock.module.scss";
 import { Button } from "ui";
-import { HTML } from "editor";
+import { EHTML } from "editor";
 import { Element, useEditor } from "@craftjs/core";
 
 export const HTMLBlock: FC<IProps> = () => {
@@ -117,7 +117,7 @@ export const HTMLBlock: FC<IProps> = () => {
                         ref={(ref: HTMLButtonElement) => {
                             connectors.create(
                                 ref,
-                                <Element tagName={tag} is={HTML} canvas />
+                                <Element tagName={tag} is={EHTML} canvas />
                             );
                         }}
                     />
