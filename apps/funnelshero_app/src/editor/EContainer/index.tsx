@@ -158,10 +158,10 @@ EContainer.craft = {
     displayName: "Container",
     props: {},
     rules: {
-        // canDrop: () => true,
-        // canDrag: () => true,
-        // canMoveIn: () => true,
-        // canMoveOut: () => true,
+        canDrop: () => true,
+        canDrag: () => true,
+        canMoveIn: () => true,
+        canMoveOut: () => true,
     },
     related: {
         settings: ContainerSettings,

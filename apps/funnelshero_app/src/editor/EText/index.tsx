@@ -1,9 +1,9 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { useNode, Node } from "@craftjs/core";
 import * as Tiptap from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import s from "./eText.module.scss";
-import { Button, Icon } from "ui";
+import { Button, Icon, Select } from "ui";
 import Document from "@tiptap/extension-document";
 import Heading from "@tiptap/extension-heading";
 import Paragraph from "@tiptap/extension-paragraph";
@@ -12,6 +12,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import { ElementTitle } from "components";
+import TextStyle from "@tiptap/extension-text-style";
 
 export const EText: FC<IProps> = ({ text }) => {
     const editor = Tiptap.useEditor({
@@ -26,6 +27,8 @@ export const EText: FC<IProps> = ({ text }) => {
             }),
             Link,
             Underline,
+            TextStyleExtended,
+            TextStyle,
         ],
         content: text,
     });
@@ -46,7 +49,7 @@ export const EText: FC<IProps> = ({ text }) => {
     return (
         <div
             className={[s.container, isSelected ? "selected" : ""].join(" ")}
-            ref={(ref) => connect(drag(ref))}
+            ref={(ref: HTMLDivElement) => connect(drag(ref))}
         >
             {isSelected ? (
                 <ElementTitle>
@@ -59,8 +62,29 @@ export const EText: FC<IProps> = ({ text }) => {
 };
 
 const TextSettings: FC<IMenuProps> = ({ editor }) => {
+    const generateFontSize = (): number[] => {
+        const data: number[] = [];
+        for (let i: number = 6; i <= 76; i++) {
+            data.push(i);
+        }
+        return data;
+    };
+
     return (
         <div className={s.settings}>
+            <Select
+                name="fontSize"
+                onChange={(e) => editor.commands.setFontSize(e.target.value)}
+                labelClassName={s.font_size_select}
+            >
+                {generateFontSize().map((item: number) => {
+                    return (
+                        <div id={item.toString()} key={item.toString()}>
+                            {item}
+                        </div>
+                    );
+                })}
+            </Select>
             <Button
                 onClick={() =>
                     editor?.chain().focus().setTextAlign("justify").run()
@@ -172,6 +196,7 @@ const TextSettings: FC<IMenuProps> = ({ editor }) => {
         </div>
     );
 };
+
 EText.craft = {
     rules: {
         canDrag: (node: Node) => node.data.props.text != "Drag",
@@ -181,6 +206,7 @@ EText.craft = {
         toolbar: <div>123123</div>,
     },
 };
+
 interface IMenuProps {
     editor: any;
 }
@@ -188,3 +214,37 @@ interface IMenuProps {
 interface IProps {
     text: string;
 }
+
+const TextStyleExtended = TextStyle.extend({
+    addAttributes() {
+        return {
+            ...this.parent?.(),
+            fontSize: {
+                default: null,
+                parseHTML: (element: HTMLElement) => {
+                    return element.style.fontSize.replace("px", "");
+                },
+                renderHTML: (attributes: React.CSSProperties) => {
+                    if (!attributes["fontSize"]) {
+                        return {};
+                    }
+
+                    return {
+                        style: `font-size: ${attributes["fontSize"]}px`,
+                    };
+                },
+            },
+        };
+    },
+
+    addCommands() {
+        return {
+            ...this.parent?.(),
+            setFontSize:
+                (fontSize: string) =>
+                ({ commands }) => {
+                    return commands.setMark(this.name, { fontSize: fontSize });
+                },
+        };
+    },
+});

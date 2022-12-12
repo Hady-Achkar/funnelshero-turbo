@@ -6,3 +6,4 @@ export * from "./EVideo";
 export * from "./EHTML";
 export * from "./EContainer";
 export * from "./ESelect";
+export * from "./EIcon";

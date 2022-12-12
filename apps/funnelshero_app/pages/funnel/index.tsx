@@ -11,6 +11,7 @@ import {
     EContainer,
     ESelect,
     EVideo,
+    EIcon,
 } from "editor";
 import { Scroll, Button } from "ui";
 import { Topbar, Sidebar, ToolsBar } from "components";
@@ -40,6 +41,7 @@ const Funnel: NextPage = () => {
                         EContainer,
                         ESelect,
                         EVideo,
+                        EIcon,
                     }}
                 >
                     <Sidebar

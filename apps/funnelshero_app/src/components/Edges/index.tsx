@@ -3,33 +3,31 @@ import s from "./edges.module.scss";
 import { IEdges } from "interfaces";
 import { mergeElements } from "utils";
 interface IProps {
-    onChange: (edges: IEdges) => void;
+    onChange: (edges: IOnChangeArgument) => void;
+    padding: string;
+    margin: string;
+}
+interface IOnChangeArgument {
     padding: string;
     margin: string;
 }
 
 export const Edges: FC<IProps> = ({ onChange, padding, margin }) => {
     const [edge, setEdge] = useState<IEdges>({
-        padding:
-            typeof padding === "string"
-                ? padding.split("px").splice(0, 4)
-                : ["0", "0", "0", "0"],
-        margin:
-            typeof margin === "string"
-                ? margin.split("px").splice(0, 4)
-                : ["0", "0", "0", "0"],
+        padding: padding
+            ? padding.split("px").splice(0, 4)
+            : ["0", "0", "0", "0"],
+        margin: margin ? margin.split("px").splice(0, 4) : ["0", "0", "0", "0"],
     });
 
     useEffect(() => {
         setEdge({
-            padding:
-                typeof padding === "string"
-                    ? padding.split("px").splice(0, 4)
-                    : ["0", "0", "0", "0"],
-            margin:
-                typeof margin === "string"
-                    ? margin.split("px").splice(0, 4)
-                    : ["0", "0", "0", "0"],
+            padding: padding
+                ? padding.split("px").splice(0, 4)
+                : ["0", "0", "0", "0"],
+            margin: margin
+                ? margin.split("px").splice(0, 4)
+                : ["0", "0", "0", "0"],
         });
     }, [padding, margin]);
 
@@ -39,13 +37,16 @@ export const Edges: FC<IProps> = ({ onChange, padding, margin }) => {
         const edgeClone: IEdges = structuredClone(edge);
         const edgeType: string = e.target.name;
 
-        edgeClone[edgeType][e.target.dataset.side] = e.target.value;
+        if (e.target?.dataset?.side) {
+            edgeClone[edgeType as keyof typeof edgeClone][
+                +e.target.dataset.side
+            ] = e.target.value;
 
-        const margin = mergeElements(edgeClone.margin, "px");
-        const padding = mergeElements(edgeClone.padding, "px");
-
-        onChange({ margin, padding });
-        setEdge(edgeClone);
+            const margin = mergeElements(edgeClone.margin, "px");
+            const padding = mergeElements(edgeClone.padding, "px");
+            onChange({ margin, padding });
+            setEdge(edgeClone);
+        }
     };
 
     return (

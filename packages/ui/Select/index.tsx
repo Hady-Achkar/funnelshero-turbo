@@ -7,7 +7,6 @@ import {
     Children,
     isValidElement,
     cloneElement,
-    ReactElement,
 } from "react";
 import { Icon } from "../Icon";
 import s from "./select.module.scss";
@@ -108,7 +107,7 @@ export const Select: FC<IProps> = ({
                 }}
             >
                 <div className={s.label}>{selected?.child || placeholder}</div>
-                {icon && typeof icon === "typeof ico" ? (
+                {icon && typeof icon === "function" ? (
                     icon(show)
                 ) : (
                     <Icon type={"ChevronDown"} feather={true} />

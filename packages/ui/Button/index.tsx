@@ -1,4 +1,4 @@
-import React, { FC, forwardRef } from "react";
+import React, { forwardRef } from "react";
 import s from "./button.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";

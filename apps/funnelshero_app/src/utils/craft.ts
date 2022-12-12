@@ -1,11 +1,11 @@
-import { useNode, useEditor, Node, FreshNode } from "@craftjs/core";
+import { Node, FreshNode } from "@craftjs/core";
 
 export const insertNodeOnParent = (
     nodeId: string,
     parentId: string,
     indexToInsert: number,
-    query: any,
-    actions: any
+    query?: any,
+    actions?: any
 ) => {
     const node: Node = query.node(nodeId).get();
     const freshNode: FreshNode = {
