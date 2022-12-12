@@ -35,7 +35,7 @@ export const VideoContent: FC<IProps> = () => {
                     if (result) {
                         setData({
                             url: result as string,
-                            duration: res.duration,
+                            duration: Math.floor(res.duration) / 60,
                         });
                     }
                 });
@@ -88,7 +88,14 @@ export const VideoContent: FC<IProps> = () => {
                         )}
                         <div className={s.duration}>
                             {
-                                data.duration
+                                data.duration &&
+                                    data.duration.toString().split(".")[0] +
+                                        "." +
+                                        data.duration
+                                            .toString()
+                                            .split(".")[1]
+                                            .slice(0, 2) +
+                                        "s"
                                 // && parseNumberToFloat(data.duration)
                             }
                         </div>

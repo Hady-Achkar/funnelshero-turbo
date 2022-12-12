@@ -1,13 +1,13 @@
 export * from "./colorConverter";
 export * from "./craft";
-import { IVideoConvertType } from "utils";
+import { IVideoConvertType } from "interfaces";
 
-export const mergeElements = (array: string[] | number[], pattern: string) => {
+export const mergeElements = (array: string[], pattern: string) => {
     let data: string = "";
     for (let i: number = 0; i < array.length; i++) {
-        data += `${array[i]}${pattern} `;
+        data += `${array[i].trim()}${pattern} `;
     }
-    return data;
+    return data.trim();
 };
 
 export const getHEXColor = (color: string): string | undefined => {
@@ -24,7 +24,7 @@ export const HEXAlpha = (color: string, opacity: number): string => {
 export function getVideoFrame(
     file: string,
     seekTo: number = 0.0
-): IVideoConvertType {
+): Promise<IVideoConvertType> {
     return new Promise((resolve, reject) => {
         const videoPlayer = document.createElement("video");
         videoPlayer.setAttribute("src", file);
@@ -49,14 +49,16 @@ export function getVideoFrame(
                     document.createElement("canvas");
                 canvas.width = videoPlayer.videoWidth;
                 canvas.height = videoPlayer.videoHeight;
-                // draw the video frame to canvas
+                // draw the video frame to canvasx
                 const ctx = canvas.getContext("2d");
                 ctx?.drawImage(videoPlayer, 0, 0, canvas.width, canvas.height);
                 // return the canvas image as a blob
 
                 ctx?.canvas.toBlob(
                     (blob) => {
-                        resolve({ blob, duration: videoPlayer.duration });
+                        if (blob) {
+                            resolve({ blob, duration: videoPlayer.duration });
+                        }
                     },
                     "image/jpeg",
                     0.75

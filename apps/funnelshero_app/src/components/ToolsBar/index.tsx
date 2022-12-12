@@ -12,7 +12,6 @@ import {
     ParagraphContent,
     OptInFormContent,
     QuestionBoxContent,
-    // HtmlBlockContent,
     HTMLBlock,
     Design,
     Pages,

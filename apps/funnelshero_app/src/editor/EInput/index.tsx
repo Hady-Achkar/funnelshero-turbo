@@ -1,31 +1,40 @@
-import { FC, forwardRef } from "react";
+import { forwardRef, FC, ReactNode } from "react";
 import s from "./inputE.module.scss";
 import { Input, Icon } from "ui";
-import { useNode, useEditor, Node } from "@craftjs/core";
+import { useNode, Node } from "@craftjs/core";
 
-export const EInput: FC<IProps> = forwardRef(
-    ({ placeholder, type = "text", frontIcon = "", className = "" }, ref) => {
-        const {
-            connectors: { connect, drag },
-        } = useNode((node: Node) => node);
+export const EInput: FC<IProps> = ({
+    placeholder,
+    type = "text",
+    frontIcon = "",
+    className = "",
+    margin,
+    padding,
+    children,
+}) => {
+    const {
+        connectors: { connect, drag },
+    } = useNode((node: Node) => node);
 
-        return (
-            <div style={{ display: "inline-flex" }}>
-                <Input
-                    placeholder={placeholder}
-                    ref={ref}
-                    className={`${s.input} ${className}`}
-                    type={type}
-                    frontIcon={
-                        frontIcon ? (
-                            <Icon type={frontIcon} feather={true} size={20} />
-                        ) : null
-                    }
-                />
-            </div>
-        );
-    }
-);
+    return (
+        <Input
+            style={{
+                margin,
+                padding,
+            }}
+            ref={(ref: HTMLInputElement) => connect(drag(ref))}
+            placeholder={placeholder}
+            className={`${s.input} ${className}`}
+            type={type}
+            frontIcon={
+                frontIcon ? (
+                    <Icon type={frontIcon} feather={true} size={20} />
+                ) : null
+            }
+            children={children}
+        />
+    );
+};
 
 EInput.craft = {
     displayName: "Input",
@@ -35,12 +44,9 @@ EInput.craft = {
         frontIcon: "",
     },
     rules: {
-        canDrag: (node: { data: { props: { text: string } } }) => true,
-        canMoveIn: (incoming: Node[], self: Node) => true,
-        canMoveOut: (outgoing: Node[], self: Node) => true,
-    },
-    related: {
-        // settings: ImageSettings,
+        canDrag: () => true,
+        canMoveIn: () => true,
+        canMoveOut: () => true,
     },
 };
 
@@ -49,7 +55,9 @@ interface IProps {
     className?: string;
     type?: TinputType;
     frontIcon?: string;
-    className?: string;
+    margin?: string;
+    padding?: string;
+    children?: ReactNode | ReactNode[];
 }
 
 type TinputType = "number" | "email" | "text" | "date";

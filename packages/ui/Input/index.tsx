@@ -56,6 +56,8 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
             disabled = false,
             rounded = false,
             maxLength,
+            style = {},
+            children,
             ...props
         },
         ref
@@ -181,15 +183,10 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
 
         return (
             <div
-                style={{
-                    flex: 1,
-                    width: "auto",
-                }}
+                ref={ref as React.RefObject<HTMLInputElement>}
+                style={{ width: "auto" }}
             >
-                <label
-                    className={s.label_container}
-                    ref={ref as React.RefObject<HTMLLabelElement>}
-                >
+                <label className={s.label_container}>
                     {label && <div className={s.label}>{label}</div>}
                     <div
                         className={[
@@ -205,7 +202,7 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                             className,
                         ].join(" ")}
                     >
-                        {frontIcon}
+                        {frontIcon || children}
                         <input
                             type={
                                 type === "password"
@@ -309,6 +306,8 @@ interface IProps {
     disabled?: boolean;
     rounded?: boolean;
     maxLength?: number;
+    style?: React.CSSProperties;
+    children?: React.ReactNode | React.ReactNode[];
 }
 
 interface IButtons {

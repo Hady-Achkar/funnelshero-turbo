@@ -23,6 +23,7 @@ export const EImage: FC<IProps> = ({
         parent,
         node,
     } = useNode((node: Node) => {
+        console.log(node);
         return {
             isSelected: node.events.selected,
             isDragged: node.events.dragged,
@@ -33,18 +34,16 @@ export const EImage: FC<IProps> = ({
         };
     });
 
-    const { actions, query } = useEditor((state) => ({
-        selectedNodeId: state.events.selected.keys().next().value,
-    }));
+    // const { actions, query } = useEditor((state) => state);
 
-    const duplicateNode = useCallback(() => {
-        const parentNode = query.node(parent).get();
-        const indexToAdd = parentNode.data.nodes.indexOf(id) + 1;
+    // const duplicateNode = useCallback(() => {
+    //     const parentNode = query.node(parent).get();
+    //     const indexToAdd = parentNode.data.nodes.indexOf(id) + 1;
 
-        insertNodeOnParent(id, parent, indexToAdd, query, actions);
-    }, [id, parent, query]);
+    //     insertNodeOnParent(id, parent, indexToAdd, query, actions);
+    // }, [id, parent, query]);
 
-    const onDelete = () => actions.delete(id);
+    // const onDelete = () => actions.delete(id);
 
     return (
         <div
@@ -100,7 +99,7 @@ EImage.craft = {
         canMoveIn: (incoming: Node[], self: Node) => true,
         canMoveOut: (outgoing: Node[], self: Node) => true,
     },
-    related: {},
+    // related: {},
 };
 
 interface IProps {
@@ -116,15 +115,15 @@ interface IProps {
     rotate?: number;
 }
 
-type TDrag = <
-    B extends
-        | HTMLElement
-        | React.ReactElement<
-              any,
-              | string
-              | ((props: any) => React.ReactElement<any, any>)
-              | (new (props: any) => React.Component<any, any, any>)
-          >
->(
-    element: B
-) => B;
+// type TDrag = <
+//     B extends
+//         | HTMLElement
+//         | React.ReactElement<
+//               any,
+//               | string
+//               | ((props: any) => React.ReactElement<any, any>)
+//               | (new (props: any) => React.Component<any, any, any>)
+//           >
+// >(
+//     element: B
+// ) => B;
