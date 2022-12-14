@@ -16,8 +16,6 @@ export const ContainerContent: FC<IProps> = () => {
                         ref,
                         <Element
                             backgroundColor={"#FF9B37"}
-                            padding={"6px 20px 6px 20px"}
-                            borderRadius={"16px 16px 16px 16px"}
                             is={EContainer}
                             canvas
                         />

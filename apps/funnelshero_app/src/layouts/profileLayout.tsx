@@ -1,9 +1,10 @@
-import ProfileTopBar from "@components/ProfileTopBar"
-import Image from "next/image"
-import Link from "next/link"
-import { Icon } from "ui"
-import s from './layouts.module.scss'
-import AvatarImage from '../assets/images/Avatar.png'
+import ProfileTopBar from "@components/ProfileTopBar";
+import Image from "next/image";
+import Link from "next/link";
+import { Icon } from "ui";
+import s from "./layouts.module.scss";
+import AvatarImage from "../assets/images/Avatar.png";
+
 const ProfileLayout = ({ children }: { children: JSX.Element }) => (
     <>
         <ProfileTopBar />
@@ -15,7 +16,8 @@ const ProfileLayout = ({ children }: { children: JSX.Element }) => (
                         layout={"fixed"}
                         alt="logo"
                         width="50"
-                        height="50" />
+                        height="50"
+                    />
                     <div>
                         <p>Name surname</p>
                         <p>email address</p>
@@ -58,7 +60,8 @@ const ProfileLayout = ({ children }: { children: JSX.Element }) => (
                         layout={"fixed"}
                         alt="logo"
                         width="50"
-                        height="50" />
+                        height="50"
+                    />
                     <div>
                         <p>Name surname</p>
                         <p>email address</p>
@@ -66,12 +69,16 @@ const ProfileLayout = ({ children }: { children: JSX.Element }) => (
                 </div>
                 <hr />
                 <ul className={s.list}>
-                    <li className={s.list_item}><Link href={'/'}>Account settings</Link></li>
-                    <li className={s.list_item}><Link href={'/'}>Sign out</Link></li>
+                    <li className={s.list_item}>
+                        <Link href={"/"}>Account settings</Link>
+                    </li>
+                    <li className={s.list_item}>
+                        <Link href={"/"}>Sign out</Link>
+                    </li>
                 </ul>
             </div>
         </div>
     </>
-)
+);
 
-export default ProfileLayout
+export default ProfileLayout;

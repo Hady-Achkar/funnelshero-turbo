@@ -71,7 +71,11 @@
 
 .error {
     margin-top: 5px;
-    color: $red;
+    color: rgba(220, 38, 38, 0.7);
+    font-size: 12px;
+    // white-space: ;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .rounded {
@@ -83,4 +87,8 @@
         border-radius: 50px;
         border: 2px solid $red !important;
     }
+}
+
+.input_error {
+    color: rgba(220, 38, 38, 0.7);
 }

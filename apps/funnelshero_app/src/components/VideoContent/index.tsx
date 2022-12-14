@@ -12,17 +12,6 @@ interface IData {
     url?: string;
     duration?: number;
 }
-// const parseNumberToFloat = (num: number): number => {
-//     const str = num.toString();
-//     let i: number = 0;
-//     let data: string = "";
-//     while (i < num) {
-//         if (str[i] !== ".") {
-//             i++;
-//         }
-//     }
-//     return 0;
-// };
 
 export const VideoContent: FC<IProps> = () => {
     const { connectors } = useEditor();
