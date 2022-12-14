@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  funnel-postgres:
+    image: postgres
+    ports:
+      - 5435:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=funnelshero
+    volumes:
+      - ~/psql-data-funnels:/var/lib/postgresql/data
+  funnels-hero-server:
+    build: .
+    ports:
+      - "80:3030"
+    environment:
+      - DATABASE_URL=postgresql://postgres:123@funnel-postgres:5432/funnelshero

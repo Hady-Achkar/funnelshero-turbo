@@ -1,0 +1,5 @@
+export { default as CreateFunnel } from './CreateFunnel'
+export { default as UpdateFunnel } from './UpdateFunnel'
+export { default as DeleteFunnel } from './DeleteFunnel'
+export { default as GetAllFunnels } from './GetAllFunnels'
+export { default as GetFunnelById } from './GetFunnelById'
