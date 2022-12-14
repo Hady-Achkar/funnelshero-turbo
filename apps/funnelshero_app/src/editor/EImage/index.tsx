@@ -23,7 +23,6 @@ export const EImage: FC<IProps> = ({
         parent,
         node,
     } = useNode((node: Node) => {
-        console.log(node);
         return {
             isSelected: node.events.selected,
             isDragged: node.events.dragged,

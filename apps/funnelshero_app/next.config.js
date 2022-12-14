@@ -9,7 +9,7 @@ const nextConfig = withTM({
     swcMinify: true,
     optimizeFonts: true,
     env: {
-        APP_URL: "https://jsonplaceholder.typicode.com",
+        APP_URL: "http://ec2-18-134-205-127.eu-west-2.compute.amazonaws.com",
         MONGO_URL: "mongodb://",
     },
     sassOptions: {

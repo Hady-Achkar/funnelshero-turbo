@@ -22,7 +22,8 @@
             "@store/*": ["store/*"],
             "@styles/*": ["styles/*"],
             "@utils/*": ["utils/*"],
-            "@prototypes/*": ["prototypes/*"]
+            "@prototypes/*": ["prototypes/*"],
+            "@api/*": ["api/*"]
         }
     },
     "include": [

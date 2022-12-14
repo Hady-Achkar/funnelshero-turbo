@@ -1,3 +1,4 @@
+export * from "./request";
 export interface IEdges {
     padding: string[];
     margin: string[];

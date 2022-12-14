@@ -5,7 +5,7 @@ import s from "./input.module.scss";
 let typingTimer: NodeJS.Timeout; //timer identifier
 let doneTypingInterval: number = 360;
 
-const regex: IRegex = {
+const regexConfig: IRegex = {
     //min 8 character, 1 number, 1 UPPERCASE, 1 lowercase, 1 special character
     password: {
         validation: new RegExp(
@@ -30,10 +30,10 @@ const regex: IRegex = {
 };
 
 const validateField = (
-    fieldName: string | undefined,
+    fieldName: TValidationKey,
     text: string | number
 ): boolean =>
-    fieldName ? regex[fieldName].validation.test(text.toString()) : false;
+    fieldName ? regexConfig[fieldName].validation.test(text.toString()) : false;
 
 export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
     (
@@ -47,14 +47,14 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
             label,
             errorMassage = null,
             onChange = () => {},
-            validate = false,
+            validationKey,
             frontIcon = <></>,
             buttons = [],
             buttonsArgs = {},
             min,
             max,
             disabled = false,
-            rounded = false,
+            variant = "",
             maxLength,
             style = {},
             children,
@@ -70,10 +70,10 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
         useLayoutEffect(() => setDefaultValue(value), [value]);
 
         useLayoutEffect(() => {
-            if (validate && defaultValue) {
-                name &&
-                    setIsValid(validateField(name, defaultValue.toString()));
-                // return onChange && onChange(text, validateField(name, defaultValue))
+            if (validationKey && defaultValue) {
+                setIsValid(
+                    validateField(validationKey, defaultValue.toString())
+                );
             }
             setIsValid(true);
         }, []);
@@ -110,37 +110,31 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
             if (onFinish) {
                 if (text) {
                     clearTimeout(typingTimer);
-                    if (validate) {
-                        const _isValid = validateField(name, text);
+                    if (validationKey) {
+                        const _isValid = validateField(validationKey, text);
 
                         setIsValid(_isValid);
                         return (typingTimer = setTimeout(
-                            () => onFinish(e, label, _isValid),
+                            () => onFinish(e, _isValid),
                             doneTypingInterval
                         ));
                     }
                     return (typingTimer = setTimeout(
-                        () => onFinish(e, label),
+                        () => onFinish(e, false),
                         doneTypingInterval
                     ));
                 }
             }
 
-            if (validate && text) {
-                const _isValid = validateField(name, text);
+            if (validationKey && text) {
+                const _isValid = validateField(validationKey, text);
                 setIsValid(_isValid);
-                if (_isValid) {
-                    return onChange(e, label, _isValid);
-                } else {
-                    return onChange({
-                        target: {
-                            name: e.target.name,
-                            value: false,
-                        },
-                    });
+                if (!_isValid) {
+                    e.target.value = "";
                 }
+                return onChange(e, _isValid);
             }
-            return onChange(e, label);
+            return onChange(e, false);
         };
 
         if (type === "textarea") {
@@ -192,8 +186,8 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                         className={[
                             s.container,
                             disabled ? s.container_disabled : "",
-                            rounded
-                                ? validate
+                            variant === "rounded"
+                                ? validationKey
                                     ? !isValid
                                         ? [s.rounded_error]
                                         : s.rounded
@@ -212,7 +206,10 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                                     : type
                             }
                             maxLength={maxLength}
-                            className={[s.input].join(" ")}
+                            className={[
+                                s.input,
+                                validationKey && !isValid ? s.input_error : "",
+                            ].join(" ")}
                             placeholder={placeholder}
                             value={defaultValue}
                             name={name}
@@ -253,9 +250,10 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                     </div>
                 </label>
 
-                {validate && !isValid && (
+                {validationKey && !isValid && (
                     <div className={[s.error].join(" ")}>
-                        {errorMassage || (name && regex[name].errorMessage)}
+                        {errorMassage ||
+                            (name && regexConfig[validationKey].errorMessage)}
                     </div>
                 )}
             </div>
@@ -269,42 +267,36 @@ interface IValidator {
 }
 
 interface IRegex {
-    [key: string]: IValidator;
+    password: IValidator;
+    email: IValidator;
+    phone: IValidator;
 }
 
-interface ITarget {
-    target: {
-        name: string;
-        value: any;
-    };
-}
-
+type TValidationKey = keyof IRegex;
 interface IProps {
     type?: string;
     name?: string | undefined;
     placeholder?: string;
     onFinish?: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | ITarget,
-        label?: string,
-        isValid?: boolean
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        isValid: boolean
     ) => void;
     onChange?: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | ITarget,
-        label?: string,
-        isValid?: boolean
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        isValid: boolean
     ) => void;
     className?: string;
     value?: string | number;
     label?: string;
     errorMassage?: string;
-    validate?: boolean;
+    validationKey?: TValidationKey;
     frontIcon?: ReactElement | FC | null;
     buttons?: IButtons[];
     buttonsArgs?: IButtonArguments;
     min?: number;
     max?: number;
     disabled?: boolean;
-    rounded?: boolean;
+    variant?: string;
     maxLength?: number;
     style?: React.CSSProperties;
     children?: React.ReactNode | React.ReactNode[];

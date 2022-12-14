@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import s from "./funnel.module.scss";
 import { Editor, Frame, Element } from "@craftjs/core";
 import {
@@ -30,7 +30,8 @@ const Funnel: NextPage = () => {
             <div className={s.block}>
                 <Editor
                     onNodesChange={(e) => {
-                        // console.log(e.getState());
+                        // console.log(e.getNodes());
+                        // console.log(document.getElementsByClassName(s.root)[0]);
                     }}
                     resolver={{
                         EImage,
