@@ -1,13 +1,13 @@
-import ProfileLayout from "layouts/profileLayout"
+import ProfileLayout from "@layouts/ProfileLayout";
 
-const Profile = () =>{
-    return(
+const Profile = () => {
+    return (
         <>
             <ProfileLayout>
                 <></>
             </ProfileLayout>
         </>
-    )
-}
+    );
+};
 
-export default Profile
+export default Profile;

@@ -28,13 +28,22 @@
     border: 1px solid #9e97f6;
     color: #383838;
 }
+
 .secondary:focus {
     border-color: #6b61ef;
 }
+
 .secondary[disabled] {
     border-color: #d0d5dd;
     cursor: not-allowed;
 }
+
+.link {
+    color: #9e97f6;
+    text-decoration: underline;
+    padding: 0 !important;
+}
+
 .large {
     padding: 16px 47px;
 }

@@ -3,24 +3,26 @@ import { ChangeEvent, useEffect, useState } from "react";
 import s from "./home.module.scss";
 import { Submit } from "../src/components";
 import Head from "next/head";
-import { Checkbox, Input } from "ui";
-import SignLayout from "layouts/signLayout";
+import { Checkbox, Input, Button } from "ui";
+import { SignLayout } from "layouts";
 import Link from "next/link";
 import authApi from "@api/authApi";
 import { ILoginBody } from "interfaces";
 
 const Home: NextPage = () => {
-    const [body, setBody] = useState<ILoginBody | null>(null);
-    const [isValid, setIsValid] = useState<{ [key: string]: boolean } | null>(
-        null
-    );
+    const [body, setBody] = useState<ILoginBody>({
+        password: "",
+        email: "",
+    });
 
     const onChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
         isValid: boolean
     ) => {
-        // setIsValid(prev=>)
-        console.log(e.target.value, isValid);
+        setBody((prev: ILoginBody) => ({
+            ...prev,
+            [e.target.name]: isValid ? e.target.value : "",
+        }));
     };
 
     const onSubmit = () => {
@@ -28,6 +30,10 @@ const Home: NextPage = () => {
             .login({ password: "232", email: "asdasd@gmail.com" })
             .then((res) => console.log(res))
             .catch((e) => console.log(e));
+    };
+
+    const disableSubmitButton = () => {
+        return Object.values(body).some((e) => e == "");
     };
 
     return (
@@ -51,7 +57,7 @@ const Home: NextPage = () => {
                                     placeholder={"Email"}
                                     validationKey={"email"}
                                     name={"email"}
-                                    onChange={onChange}
+                                    onFinish={onChange}
                                 />
                                 <Input
                                     variant={"rounded"}
@@ -59,7 +65,7 @@ const Home: NextPage = () => {
                                     placeholder={"Password"}
                                     validationKey={"password"}
                                     name={"password"}
-                                    onChange={onChange}
+                                    onFinish={onChange}
                                 />
                             </div>
                             <div className={s.flex_end}>
@@ -74,13 +80,17 @@ const Home: NextPage = () => {
                                 className={s.login_btn}
                                 label={"Login"}
                                 onClick={onSubmit}
+                                disabled={!body || disableSubmitButton()}
                             />
                             <div className={s.create_accound}>
                                 <p>
                                     Don’t have an account?
-                                    <Link href={"/"}>
-                                        <a>Create an Account</a>
-                                    </Link>
+                                    <Submit
+                                        variant="link"
+                                        href={"/register"}
+                                        label={"Create an Account"}
+                                        className={s.create_an_account_btn}
+                                    />
                                 </p>
                             </div>
                         </div>
