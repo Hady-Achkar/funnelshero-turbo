@@ -3,20 +3,20 @@ import {prisma} from '../../lib'
 
 export default async (req: Request, res: Response) => {
 	try {
-		const pageId = Number(req.params.id);
-    const page = await prisma.page.findUnique({
-      where: {
-        pageId,
-      },
-    });
+		const pageId = Number(req.params.id)
+		const page = await prisma.page.findUnique({
+			where: {
+				pageId,
+			},
+		})
 
-    if (!page) {
-      return res.status(404).json({
-        error: 'Page not found',
-      });
-    }
+		if (!page) {
+			return res.status(404).json({
+				error: 'Page not found',
+			})
+		}
 
-    res.json(page);
+		res.json(page)
 	} catch (err) {
 		console.error(err)
 		if (err instanceof Error) {
