@@ -1,4 +1,4 @@
-import ProfileLayout from "layouts/profileLayout";
+import ProfileLayout from "@layouts/ProfileLayout";
 import s from "./funnels.module.scss";
 import funelImg from "../src/assets/images/funnel.png";
 import Image from "next/image";

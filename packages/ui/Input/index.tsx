@@ -106,18 +106,22 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                 text = e.target.value;
             }
             setDefaultValue(text || "");
-
             if (onFinish) {
                 if (text) {
                     clearTimeout(typingTimer);
                     if (validationKey) {
+                        if (validationKey === "email") {
+                            e.target.value = e.target.value.toLowerCase();
+                            text = e.target.value.toLowerCase();
+                            setDefaultValue(e.target.value);
+                        }
                         const _isValid = validateField(validationKey, text);
-
                         setIsValid(_isValid);
-                        return (typingTimer = setTimeout(
-                            () => onFinish(e, _isValid),
-                            doneTypingInterval
-                        ));
+
+                        return (typingTimer = setTimeout(() => {
+                            onFinish(e, _isValid);
+                        }, doneTypingInterval));
+                        return;
                     }
                     return (typingTimer = setTimeout(
                         () => onFinish(e, false),
@@ -127,8 +131,14 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
             }
 
             if (validationKey && text) {
+                if (validationKey === "email") {
+                    e.target.value = e.target.value.toLowerCase();
+                    text = e.target.value.toLowerCase();
+                    setDefaultValue(e.target.value);
+                }
                 const _isValid = validateField(validationKey, text);
                 setIsValid(_isValid);
+
                 if (!_isValid) {
                     e.target.value = "";
                 }

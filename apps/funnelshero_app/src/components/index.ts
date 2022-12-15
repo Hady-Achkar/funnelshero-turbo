@@ -6,6 +6,7 @@ export * from "./SignTopBar";
 export * from "./ToolsBar";
 export * from "./Edges";
 export * from "./Settings";
+export * from "./Steper";
 
 export * from "./ImageContent";
 export * from "./TextContent";
@@ -24,3 +25,4 @@ export * from "./HtmlBlock";
 export * from "./BorderRadius";
 export * from "./ColorPicker";
 export * from "./ElementTitle";
+export * from "./ProfileTopBar";

@@ -23,6 +23,7 @@
             "@styles/*": ["styles/*"],
             "@utils/*": ["utils/*"],
             "@prototypes/*": ["prototypes/*"],
+            "@layouts/*": ["layouts/*"],
             "@api/*": ["api/*"]
         }
     },
