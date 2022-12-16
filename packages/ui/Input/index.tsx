@@ -121,7 +121,6 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                         return (typingTimer = setTimeout(() => {
                             onFinish(e, _isValid);
                         }, doneTypingInterval));
-                        return;
                     }
                     return (typingTimer = setTimeout(
                         () => onFinish(e, false),

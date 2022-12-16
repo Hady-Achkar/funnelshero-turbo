@@ -32,9 +32,7 @@ const Home: NextPage = () => {
             .catch((e) => console.log(e));
     };
 
-    const disableSubmitButton = () => {
-        return Object.values(body).some((e) => e == "");
-    };
+    const disableSubmitButton = () => Object.values(body).some((e) => e == "");
 
     return (
         <div>
@@ -80,7 +78,7 @@ const Home: NextPage = () => {
                                 className={s.login_btn}
                                 label={"Login"}
                                 onClick={onSubmit}
-                                disabled={!body || disableSubmitButton()}
+                                disabled={disableSubmitButton()}
                             />
                             <div className={s.create_accound}>
                                 <p>

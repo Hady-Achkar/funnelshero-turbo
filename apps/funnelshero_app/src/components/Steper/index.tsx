@@ -19,20 +19,24 @@ export const Steper: FC<IProps> = ({ activeStep }) => {
         ];
     }, []);
 
-    console.log(activeStep);
     return (
         <div className={s.container}>
             {memoData.map((step: IStep, index: number) => {
                 return (
-                    <div
-                        key={index}
-                        className={`${s.block} ${activeStep === index}`}
-                    >
+                    <div key={index} className={`${s.block}`}>
                         <span className={s.number}>{index + 1}</span>
                         <div>
                             <div className={s.title}>
                                 {step.title}
-                                <div className={`${s.line}`} />
+                                {memoData.length - 1 !== index && (
+                                    <div
+                                        className={`${s.line} ${
+                                            activeStep === index
+                                                ? s.active
+                                                : s.normal
+                                        }`}
+                                    />
+                                )}
                             </div>
                             <div className={s.subtitle}>{step.subtitle}</div>
                         </div>
