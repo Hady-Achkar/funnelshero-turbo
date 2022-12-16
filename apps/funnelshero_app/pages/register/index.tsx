@@ -41,7 +41,15 @@ const Register: FC = () => {
                 label={"I confirm all Term and conditions and Privacy policies"}
                 className={s.checkbox}
             />
-            <Submit label={"Next step"} size={"large"} />
+            <Submit
+                label={"Next step"}
+                href={"/register/plan"}
+                size={"large"}
+            />
+            <div className={s.bottom_block}>
+                Already have an account?{" "}
+                <Submit label={"Sign in"} variant={"link"} href={"/"} />
+            </div>
         </RegisterLayout>
     );
 };

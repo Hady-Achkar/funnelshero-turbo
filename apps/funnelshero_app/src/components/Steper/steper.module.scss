@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: repeat(3, 296px);
     gap: 0 12px;
+
     & > .block {
         display: flex;
         grid-template-columns: auto, 1fr;
@@ -30,8 +31,13 @@
             gap: 0 12px;
             & > .line {
                 height: 1px;
-                background-color: #f0f0f0;
                 width: 100%;
+            }
+            & > .normal {
+                background-color: #e6e5e5;
+            }
+            & > .active {
+                background-color: $purple;
             }
         }
         & .subtitle {
