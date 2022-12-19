@@ -3,6 +3,8 @@ import {EditUser} from '../controllers'
 import {authenticateUser} from '../middlewares'
 import multer from 'multer';
 import { resizePicture } from '../middlewares/resizePicture';
+import * as validate from '../middlewares/validate';
+import { userEditSchema } from '../validators/editUser';
 
 const allowedFileFormats = ['image/png', 'image/jpg', 'image/jpeg'];
 
@@ -24,5 +26,5 @@ const uploadPicture = multer({
 
 const router = express()
 
-router.route('/me').put(authenticateUser, uploadPicture.single('picture'), resizePicture, EditUser)
+router.route('/me').put(authenticateUser, uploadPicture.single('picture'), resizePicture, validate.schema(userEditSchema),  EditUser)
 export default router

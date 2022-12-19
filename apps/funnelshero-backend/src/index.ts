@@ -29,12 +29,6 @@ const main = async () => {
 		}),
 	)
 	app.use(morgan('dev'))
-	app.use(
-		fileUpload({
-			limits: {},
-		}),
-	)
-	app.use(multer().single(''))
 
 	app.use('/', async (req, _, next) => {
 		try {
@@ -46,7 +40,7 @@ const main = async () => {
 			console.log(error)
 		}
 	})
-	app.use(bodyParser.json())
+	
 	app.use('/auth', AuthRouter)
 	app.use('/users', UserRouter)
 	app.use('/funnels', FunnelRouter)

@@ -17,7 +17,7 @@ async function resizePicture(req: Request, res: Response, next: NextFunction) {
 
     await sharp(req.file.buffer)
       .resize(128)
-      .toFile(path.join(__dirname, '..', 'public', 'profile-pictures', fileName));
+      .toFile(path.join(__dirname, '..', '..', 'public', 'profile-pictures', fileName));
 
     req.body.picture = filePath;
 
