@@ -2,8 +2,9 @@ import {Request, Response} from 'express'
 import {prisma} from '../../lib'
 
 interface EditUserDto {
-	first_name?: string
-	last_name?: string
+	firstName?: string
+	lastName?: string
+	picture?: string
 }
 
 interface AuthRequest extends Request {
@@ -15,17 +16,21 @@ interface AuthRequest extends Request {
 	}
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: AuthRequest, res: Response) => {
 	try {
-		console.log(6);
 		const updateData: EditUserDto = {}
 
 		if (req.body.firstName) {
-			updateData.first_name = req.body.firstName
+			updateData.firstName = req.body.firstName
 		}
 
 		if (req.body.lastName) {
-			updateData.last_name = req.body.lastName
+			updateData.lastName = req.body.lastName
+		}
+
+		if (req.body.picture) {
+			updateData.picture = req.body.picture
 		}
 
     const userId: number | undefined = req.user && req.user._id;
