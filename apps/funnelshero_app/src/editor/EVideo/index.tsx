@@ -1,8 +1,9 @@
 import { ChangeEvent, FC } from "react";
 import s from "./eVideo.module.scss";
-import { useNode } from "@craftjs/core";
+import { useNode, Node } from "@craftjs/core";
 import { Crop, Button, Icon, Checkbox } from "ui";
 import { ElementTitle } from "components";
+import { IDimensions } from "@interfaces/index";
 
 export const EVideo: FC<IProps> = ({
     src,
@@ -13,7 +14,7 @@ export const EVideo: FC<IProps> = ({
     padding,
     margin,
     borderRadius,
-    rotate,
+    rotate = 0,
 }) => {
     const {
         connectors: { connect, drag },
@@ -57,12 +58,8 @@ export const EVideo: FC<IProps> = ({
                     width={width}
                     height={height}
                     rotate={rotate}
-                    onChange={(e: {
-                        width: number | undefined;
-                        height: number | undefined;
-                        rotate: number | undefined;
-                    }) => {
-                        setProp(
+                    onChange={(e: IDimensions) => {
+                        return setProp(
                             (props: IProps) => (
                                 (props.width = e.width),
                                 (props.height = e.height),
@@ -90,12 +87,12 @@ export const EVideoSettings = () => {
     const {
         actions: { setProp },
         enableControls,
-    } = useNode((node) => {
+    } = useNode((node: Node) => {
         return {
             enableControls: node.data.props.enableControls,
         };
     });
-
+    console.log(enableControls);
     return (
         <>
             <Checkbox

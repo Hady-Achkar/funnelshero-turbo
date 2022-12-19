@@ -88,6 +88,6 @@ export const BorderRadius: FC<IProps> = ({ onChange, borderRadius }) => {
 };
 
 interface IProps {
-    onChange: (borders: string) => void;
+    onChange: (borders: string, isValid: boolean) => void;
     borderRadius: string;
 }

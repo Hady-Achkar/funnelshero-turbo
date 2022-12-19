@@ -5,7 +5,9 @@ const withVideos = require('next-videos')
 
 const nextConfig = withTM({
     // reactStrictMode: true,
-
+    images: {
+        domains: ['http://flags.fmcdn.net'],
+    },
     swcMinify: true,
     optimizeFonts: true,
     env: {

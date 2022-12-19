@@ -3,6 +3,7 @@ import s from "./eContainer.module.scss";
 import { useNode } from "@craftjs/core";
 import { ColorPicker, ElementTitle } from "components";
 import { Icon, Button, Crop, Select } from "ui";
+import { IDimensions } from "interfaces";
 
 export const EContainer: FC<IProps> = ({
     borderRadius,
@@ -44,7 +45,7 @@ export const EContainer: FC<IProps> = ({
                     width={width}
                     height={height}
                     rotate={rotate}
-                    onChange={(e) => {
+                    onChange={(e: IDimensions) => {
                         setProp(
                             (props: IProps) => (
                                 (props.width = e.width),

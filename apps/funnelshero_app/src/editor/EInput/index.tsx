@@ -1,4 +1,4 @@
-import { forwardRef, FC, ReactNode } from "react";
+import { forwardRef, FC, ReactNode, HtmlHTMLAttributes } from "react";
 import s from "./inputE.module.scss";
 import { Input, Icon } from "ui";
 import { useNode, Node } from "@craftjs/core";

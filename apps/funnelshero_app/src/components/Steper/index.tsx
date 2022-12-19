@@ -24,7 +24,15 @@ export const Steper: FC<IProps> = ({ activeStep }) => {
             {memoData.map((step: IStep, index: number) => {
                 return (
                     <div key={index} className={`${s.block}`}>
-                        <span className={s.number}>{index + 1}</span>
+                        <span
+                            className={`${s.number} ${
+                                activeStep === index
+                                    ? s.active_number
+                                    : s.noraml_number
+                            }`}
+                        >
+                            {index + 1}
+                        </span>
                         <div>
                             <div className={s.title}>
                                 {step.title}

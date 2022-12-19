@@ -17,7 +17,7 @@ export const Select: FC<IProps> = ({
     children,
     select = "",
     placeholder = "placeholder",
-    icon = () => {},
+    icon,
     labelClassName = "",
     onChange,
     className = "",
@@ -29,6 +29,7 @@ export const Select: FC<IProps> = ({
     useEffect(() => {
         ++id;
     }, []);
+
     const containerId = id.toString(2);
     useLayoutEffect(() => {
         Children.forEach(children, (child) => {

@@ -186,7 +186,7 @@ interface IProps {
     width: number;
     height: number;
     rotate: number;
-    onChange: (dimensions: IDimensions) => void;
+    onChange: ((dimensions: IDimensions) => void) | undefined;
 }
 
 interface IDimensions {
