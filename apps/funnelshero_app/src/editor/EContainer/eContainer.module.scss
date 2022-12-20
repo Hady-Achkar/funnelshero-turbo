@@ -1,0 +1,28 @@
+.container {
+    position: relative;
+    display: inline-flex;
+}
+
+.line_container {
+    width: 100%;
+    padding: 8px 0;
+}
+
+.line_container > div {
+    background-color: $orange;
+    width: 100%;
+    align-items: center;
+}
+
+.menu_button {
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+    grid-gap: 0 10px;
+    &:not(:last-child) {
+        border-right: 1px solid $purple;
+    }
+    &:hover {
+        color: $purple;
+    }
+}

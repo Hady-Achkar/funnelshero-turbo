@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px 0;
+}
+
+.container_example {
+    width: 200px;
+    height: 200px;
+    background-color: #fffdde;
+    border-radius: 16px;
+}
+
+.quizz_btn {
+    background-color: #9e97f6;
+    border-radius: 16px;
+    padding: 6px 20px;
+    color: white;
+    width: auto;
+    display: inline;
+}
+.quizz_input {
+    background-color: #9747ff !important;
+
+    height: 34px;
+    border-radius: 6px !important;
+    & input {
+        color: white !important;
+    }
+}
+
+.icon_container {
+    height: 100%;
+    max-height: 300px;
+}

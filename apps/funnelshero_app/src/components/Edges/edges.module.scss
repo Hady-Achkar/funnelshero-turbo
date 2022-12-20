@@ -1,0 +1,29 @@
+.container {
+    border-color: $purple;
+    border-style: solid;
+    display: grid;
+    padding: 6px;
+}
+
+.row {
+    display: flex;
+}
+
+.padding_container {
+    flex: 1;
+    padding: 6px;
+}
+
+.input {
+    width: min-content;
+    max-width: 50px;
+    outline: none;
+    padding: 6px;
+    text-align: center;
+}
+
+.block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

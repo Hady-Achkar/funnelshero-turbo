@@ -3,15 +3,13 @@ import s from "./button.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-interface IProps {
+interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     label?: string | JSX.Element;
     className?: string;
     activeClass?: string;
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
     disabled?: boolean;
-    children?: React.ReactChild | React.ReactChild[];
-    variant?: string;
-    size?: string;
+    children?: React.ReactNode | React.ReactNode[];
     href?: string;
     goBack?: boolean;
     style?: React.CSSProperties;
@@ -26,8 +24,6 @@ export const Button = forwardRef<HTMLButtonElement, IProps>(
             activeClass = "",
             onClick = () => {},
             disabled = false,
-            variant = "primary",
-            size = "normal",
             href,
             goBack = false,
             style,
@@ -42,12 +38,7 @@ export const Button = forwardRef<HTMLButtonElement, IProps>(
                 <Link href={href}>
                     <button
                         ref={ref}
-                        className={[
-                            s.container,
-                            s[variant],
-                            s[size],
-                            className,
-                        ].join(" ")}
+                        className={[s.container, className].join(" ")}
                         onClick={(e) =>
                             disabled
                                 ? e.preventDefault()
@@ -70,13 +61,11 @@ export const Button = forwardRef<HTMLButtonElement, IProps>(
                 className={[s.container, className].join(" ")}
                 onClick={(e) => {
                     disabled ? e.preventDefault() : onClick && onClick(e);
-                    if (goBack) {
-                        router.back();
-                    }
+                    if (goBack) router.back();
                 }}
-                {...props}
                 disabled={disabled}
                 style={style}
+                {...props}
             >
                 {label}
                 {children}

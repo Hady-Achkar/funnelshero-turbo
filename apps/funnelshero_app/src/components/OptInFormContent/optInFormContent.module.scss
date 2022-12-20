@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 8px 0;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 18px 0;
+}
+
+.input_sample {
+    background-color: $light-gray;
+    padding: 8px;
+    display: flex;
+    justify-content: flex-start;
+    grid-gap: 0 10px;
+    align-items: center;
+}

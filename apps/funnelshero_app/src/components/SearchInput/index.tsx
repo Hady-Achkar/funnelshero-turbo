@@ -26,16 +26,18 @@ export const SearchInput: FC<IProps> = ({
     ...props
 }) => {
     return (
-        <Input
-            buttons={[{ label: <Icon type={"Search"} /> }]}
-            value={value}
-            label={label}
-            className={className}
-            name={name}
-            onChange={onChange}
-            onFinish={onFinish}
-            placeholder={placeholder}
-            {...props}
-        />
+        <div className={s.container}>
+            <Input
+                buttons={[{ label: <Icon type={"Search"} /> }]}
+                value={value}
+                label={label}
+                className={className}
+                name={name}
+                onChange={onChange}
+                onFinish={onFinish}
+                placeholder={placeholder}
+                {...props}
+            />
+        </div>
     );
 };

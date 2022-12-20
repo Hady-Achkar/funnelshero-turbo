@@ -20,7 +20,11 @@
             "@assets/*": ["assets/*"],
             "@interfaces/*": ["interfaces/*"],
             "@store/*": ["store/*"],
-            "@styles/*": ["styles/*"]
+            "@styles/*": ["styles/*"],
+            "@utils/*": ["utils/*"],
+            "@prototypes/*": ["prototypes/*"],
+            "@layouts/*": ["layouts/*"],
+            "@api/*": ["api/*"]
         }
     },
     "include": [
@@ -28,7 +32,7 @@
         "**/*.ts",
         "**/*.tsx",
         "pages/index.jsx",
-        "./custom.d.ts"
+        "next.config.js"
     ],
     "exclude": ["node_modules"]
 }
