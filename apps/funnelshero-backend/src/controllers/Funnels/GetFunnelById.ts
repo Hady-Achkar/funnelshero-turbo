@@ -3,23 +3,23 @@ import {prisma} from '../../lib'
 
 export default async (req: Request, res: Response) => {
 	try {
-		const funnelId = Number(req.params.id);
-    const funnel = await prisma.funnel.findUnique({
-      where: {
-        funnelId,
-      },
-      include: {
-        pages: true,
-      },
-    });
+		const funnelId = Number(req.params.id)
+		const funnel = await prisma.funnel.findUnique({
+			where: {
+				funnelId,
+			},
+			include: {
+				pages: true,
+			},
+		})
 
-    if (!funnel) {
-      return res.status(404).json({
-        error: 'Funnel not found',
-      });
-    }
+		if (!funnel) {
+			return res.status(404).json({
+				error: 'Funnel not found',
+			})
+		}
 
-    res.json(funnel);
+		res.json(funnel)
 	} catch (err) {
 		console.error(err)
 		if (err instanceof Error) {
