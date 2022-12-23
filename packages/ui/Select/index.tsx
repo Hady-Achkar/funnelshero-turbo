@@ -117,12 +117,12 @@ export const Select: FC<IProps> = ({
                     {icon && typeof icon === "function" ? (
                         icon(show)
                     ) : (
-                        <Icon type={"ChevronDown"} feather={true} />
+                        <Icon type={show ? "ChevronDown" : 'ChevronUp'} color={'rgba(0,0,0,.3)'} feather={true} />
                     )}
                 </>
             </button>
             {show && <div className={s.body}><>
-            {childrenWithProps}</></div>}
+                {childrenWithProps}</></div>}
         </div>
     );
 };

@@ -8,8 +8,7 @@ interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     activeClass?: string;
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
     disabled?: boolean;
-    // children?: React.ReactChild | JSX.Element| string;
-    children?:string |  React.ReactChild ;
+    children?: string | React.ReactChild;
     href?: string;
     goBack?: boolean;
     style?: React.CSSProperties;
@@ -19,7 +18,7 @@ interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = forwardRef<HTMLButtonElement, IProps>(
     (
         {
-            label =null,
+            label = null,
             className = "",
             children = <></>,
             activeClass = "",
@@ -51,7 +50,9 @@ export const Button = forwardRef<HTMLButtonElement, IProps>(
                         style={style}
                         {...props}
                     >
-                        {children}
+                        <>
+                            {label || children}
+                        </>
                     </button>
                 </Link>
             );
@@ -69,7 +70,9 @@ export const Button = forwardRef<HTMLButtonElement, IProps>(
                 style={style}
                 {...props}
             >
-                {children}
+                <>
+                    {label || children}
+                </>
             </button>
         );
     }

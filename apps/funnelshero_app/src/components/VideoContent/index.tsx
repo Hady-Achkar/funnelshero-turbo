@@ -32,7 +32,7 @@ export const VideoContent: FC<IProps> = () => {
             .catch((e: Error) => console.log(e));
     }, []);
 
-    const onChnageSelect = () => {};
+    const onChnageSelect = () => { };
 
     return (
         <div className={s.container}>
@@ -69,25 +69,25 @@ export const VideoContent: FC<IProps> = () => {
                         }}
                     >
                         <>
-                          {data.url && (
-                            <Image
-                                src={data.url}
-                                objectFit={"cover"}
-                                layout={"fill"}
-                            />
-                        )}
-                        <div className={s.duration}>
-                            {
-                                data.duration &&
+                            {data.url && (
+                                <Image
+                                    src={data.url}
+                                    objectFit={"cover"}
+                                    layout={"fill"}
+                                />
+                            )}
+                            <div className={s.duration}>
+                                {
+                                    data.duration &&
                                     data.duration.toString().split(".")[0] +
-                                        "." +
-                                        data.duration
-                                            .toString()
-                                            .split(".")[1]
-                                            .slice(0, 2) +
-                                        "s"
-                                // && parseNumberToFloat(data.duration)
-                            }
+                                    "." +
+                                    data.duration
+                                        .toString()
+                                        .split(".")[1]
+                                        .slice(0, 2) +
+                                    "s"
+                                    // && parseNumberToFloat(data.duration)
+                                }
                             </div>
                         </>
                     </Button>
@@ -97,4 +97,4 @@ export const VideoContent: FC<IProps> = () => {
     );
 };
 
-interface IProps {}
+interface IProps { }

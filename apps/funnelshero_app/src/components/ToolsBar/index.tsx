@@ -63,7 +63,7 @@ export const ToolsBar: FC<IProps> = ({ activeCard }) => {
         setSelectedSwitcher(e.target.index);
     };
 
-    const memoSwitch = useMemo(() => {
+    const memoSwitch: React.ReactNode = useMemo(() => {
         const _DATA = [
             {
                 label: "Design",
@@ -97,7 +97,7 @@ export const ToolsBar: FC<IProps> = ({ activeCard }) => {
     return (
         <div className={s.settings_content}>
             <div className={s.body}>
-                <>{memoSwitch}</>
+                {memoSwitch}
                 <div className={["title16", s.title].join(" ")}>Search</div>
                 <SearchInput placeholder={"Search Image templates"} />
                 <Tabs select={selectedSwitcher}>

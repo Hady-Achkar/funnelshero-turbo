@@ -24,54 +24,54 @@ export const Icon = forwardRef<HTMLSpanElement, IProps>(
         type = (type.charAt(0).toUpperCase() + type.slice(1)) as string;
 
         if (feather) {
-            const Feather = Icons[type as keyof typeof Icons] 
+            const Feather = Icons[type as keyof typeof Icons]
 
             if (fill) {
                 return (
-                    <span className={s.container} ref={ ref}>
+                    <span className={s.container} ref={ref}>
                         <Feather
                             fill={fill}
                             color={color}
                             size={size}
                         />
-                        </span >
+                    </span >
                 );
+            }
+            return (
+                <span ref={ref} className={s.container}>
+                    <Feather
+                        color={color}
+                        size={size}
+                    />
+                </span>
+            );
         }
+        const Custom = I[type as keyof typeof I] as unknown as Icon
+
+        if (fill) {
+            return (
+                <span ref={ref} className={s.container}>
+                    <Custom
+                        width={size}
+                        height={size}
+                        fill={fill}
+                        stroke={color}
+                        strokeWidth={strokeWidth}
+                    />
+                </span>
+            );
+        }
+
         return (
             <span ref={ref} className={s.container}>
-                <Feather
-                    color={color}
-                    size={size}
+                <Custom
+                    width={size}
+                    height={size}
+                    stroke={color}
+                    strokeWidth={strokeWidth}
                 />
             </span>
         );
-    }
-const Custom = I[type as keyof typeof I] as unknown as Icon
-
-if (fill) {
-    return (
-        <span ref={ref} className={s.container}>
-            <Custom
-                width={size}
-                height={size}
-                fill={fill}
-                stroke={color}
-                strokeWidth={strokeWidth}
-            />
-        </span>
-    );
-}
-
-return (
-    <span ref={ref} className={s.container}>
-        <Custom
-            width={size}
-            height={size}
-            stroke={color}
-            strokeWidth={strokeWidth}
-        />
-    </span>
-);
     }
 );
 
