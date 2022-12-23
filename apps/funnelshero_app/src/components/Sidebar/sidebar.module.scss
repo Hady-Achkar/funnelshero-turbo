@@ -1,26 +1,16 @@
 .container {
-    display: flex;
-    background-color: $light-purple;
-}
-
-.navigation_container {
-    background-color: white;
-}
-
-.block {
+    background-color: $block-bgc;
     display: flex;
     flex-direction: column;
-    background-color: $light-purple;
 }
 
 .navigation_btn {
-    width: 100px;
+    width: 140px;
     height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: white;
     transition: all 120ms ease;
     position: relative;
 
@@ -43,104 +33,4 @@
     & > span::first-letter {
         text-transform: uppercase;
     }
-}
-
-.active {
-    background-color: $light-purple;
-    color: white;
-
-    & > div {
-        background-color: white;
-        & svg path {
-            stroke: $black;
-        }
-    }
-
-    &::after {
-        content: "s";
-        background-color: $light-purple;
-        width: 20px;
-        height: 20px;
-        right: 0;
-        top: 0;
-        position: absolute;
-        transform: translateY(-100%);
-        z-index: 2;
-        clip-path: polygon(
-            93% 19%,
-            100% 0,
-            100% 100%,
-            0 100%,
-            23% 90%,
-            43% 79%,
-            61% 66%,
-            77% 51%,
-            86% 34%
-        );
-    }
-
-    &::before {
-        content: "s";
-        background-color: $light-purple;
-        width: 20px;
-        height: 20px;
-        right: 0;
-        bottom: 0;
-        position: absolute;
-        transform: translateY(100%);
-        z-index: 2;
-        clip-path: polygon(
-            0 0,
-            100% 0,
-            100% 100%,
-            96% 81%,
-            91% 60%,
-            84% 40%,
-            69% 24%,
-            52% 14%,
-            32% 6%
-        );
-    }
-}
-
-.settings_content {
-    padding: 16px 0 16px 16px;
-    position: relative;
-    z-index: 99;
-    transition: all 200ms ease;
-}
-
-.open_close_btn {
-    position: absolute;
-    left: 100%;
-    background-color: $light-purple;
-    height: 90px;
-    width: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 0 60px 60px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-}
-
-.body {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-}
-
-.show_content {
-    max-width: 400px;
-    width: 400px;
-}
-
-.hide_content {
-    width: 0;
-}
-
-.title {
-    color: white;
-    margin: 30px 0 10px 0;
 }

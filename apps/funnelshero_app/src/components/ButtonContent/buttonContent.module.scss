@@ -1,0 +1,46 @@
+.container {
+    padding: 10px 0;
+    & > .block {
+        display: flex;
+        flex-wrap: wrap;
+        grid-gap: 16px;
+        padding: 10px 0;
+    }
+}
+
+.green {
+    background-color: #84c301;
+    &:hover {
+        background-color: #7db603;
+    }
+}
+
+.red {
+    background-color: #dd2530;
+    &:hover {
+        background-color: #c71f2a;
+    }
+}
+
+.blue_gradient {
+    background: linear-gradient(
+        180deg,
+        #4249fe 0%,
+        #867ef1 50.52%,
+        #464dfd 100%
+    );
+    &:hover {
+        background: linear-gradient(
+            180deg,
+            #4249fe 0%,
+            #867ef1 50.52%,
+            #464dfd 100%
+        );
+    }
+}
+.green,
+.red,
+.blue_gradient {
+    padding: 6px 20px;
+    border-radius: 20px;
+}

@@ -1,0 +1,99 @@
+.container {
+    position: relative;
+    display: inline-flex;
+    & img {
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
+    }
+}
+
+.menu {
+    display: flex;
+    border: 1px solid $purple;
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: 2px;
+    left: 0;
+    padding: 6px;
+    background-color: white;
+    transition: all 200ms ease;
+    z-index: 9999;
+    & > span {
+        margin-left: 10px;
+        display: flex;
+        align-items: center;
+    }
+    & > .menu_button {
+        display: flex;
+        white-space: nowrap;
+        align-items: center;
+        grid-gap: 0 10px;
+        &:not(:last-child) {
+            border-right: 1px solid $purple;
+        }
+        &:hover {
+            color: $purple;
+        }
+    }
+}
+
+.selected {
+    outline: 1px solid green;
+    padding: 6px;
+}
+.active_btn {
+    color: $purple;
+}
+
+.left_top,
+.left_bottom,
+.right_top,
+.right_bottom {
+    width: 6px;
+    height: 6px;
+    background-color: $light-gray;
+    cursor: pointer;
+    &:hover {
+        background-color: $purple;
+    }
+}
+
+.left_top {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.left_bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.right_top {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.right_bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.border_radius_container {
+    display: flex;
+    align-items: center;
+    grid-gap: 0 8px;
+    & .radius_input {
+        // border: none !important;
+        border-radius: 0 !important;
+        padding: 4px;
+        width: 80px;
+        background-color: $light-gray;
+        & input {
+            color: black;
+        }
+    }
+}

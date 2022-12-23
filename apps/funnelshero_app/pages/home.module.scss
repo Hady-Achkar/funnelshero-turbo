@@ -5,14 +5,14 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: #F6F5FE;
+    background: #f6f5fe;
 
     .sign_block {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        gap: 52px;
+        // gap: 52px;
 
         .forgot_title {
             display: flex;
@@ -20,12 +20,12 @@
             flex-direction: column;
 
             h3 {
-                font-family: 'Poppins';
+                font-family: "Poppins";
                 font-style: normal;
                 font-weight: 600;
                 font-size: 24px;
                 line-height: 29px;
-                color: #383838
+                color: #383838;
             }
 
             p {
@@ -33,19 +33,19 @@
                 font-weight: 400;
                 font-size: 16px;
                 line-height: 19px;
-                font-family: 'Poppins';
-                color: #383838
+                font-family: "Poppins";
+                color: #383838;
             }
         }
 
         .login_title {
-            font-family: 'Poppins';
+            font-family: "Poppins";
             font-style: normal;
             font-weight: 700;
             font-size: 72px;
             line-height: 108px;
             color: #383838;
-            margin-top: 0;
+            margin: 0;
 
             span {
                 color: rgba(158, 151, 246, 1);
@@ -72,12 +72,10 @@
             margin-bottom: 20px;
 
             a {
-                font-family: 'Ubuntu';
-                font-style: normal;
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 16px;
-                color: #9C9C9C;
+                color: #9c9c9c;
                 text-decoration: none;
             }
         }
@@ -87,7 +85,7 @@
         width: 100%;
         margin-top: 34px;
         height: 56px;
-        background: #9E97F6;
+        background: #9e97f6;
     }
 
     .create_accound {
@@ -96,16 +94,19 @@
         justify-content: center;
 
         p {
-            font-family: 'Poppins';
+            font-family: "Poppins";
             font-style: normal;
             font-weight: 400;
             font-size: 16px;
             line-height: 24px;
-            color: #9C9C9C;
+            color: #9c9c9c;
 
             a {
-                color: #9E97F6;
+                color: #9e97f6;
             }
         }
+    }
+    .create_an_account_btn {
+        margin-left: 10px;
     }
 }

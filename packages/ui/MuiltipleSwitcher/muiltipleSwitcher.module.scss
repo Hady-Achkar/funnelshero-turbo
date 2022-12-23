@@ -1,16 +1,12 @@
 .container {
     display: inline-flex;
-    background-color: transparent;
     position: relative;
     user-select: none;
-    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
-    background-color: white;
 }
 
 .btn {
     padding: 8px 16px;
     font-size: 20px;
-    background-color: white;
     color: #383838;
     cursor: pointer;
     display: flex;
@@ -19,6 +15,7 @@
     font-weight: 500;
     transition: all 120ms ease;
     border: none;
+    background-color: white;
 }
 .btn[disabled] {
     background-color: #f8fafc;
@@ -30,7 +27,7 @@
 }
 
 .btn_selected {
-    color: white !important;
+    color: white;
 }
 
 .btn_selected > span {
@@ -41,7 +38,9 @@
 .animation_block {
     background-color: #9e97f6;
     position: absolute;
-    left: 0;
+    // left: 0;
+    // bottom: 0;
+    // max-height: 3px;
     font-size: 20px;
     display: flex;
     justify-content: center;

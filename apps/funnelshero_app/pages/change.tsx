@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { Submit } from "@components/Submit";
-import SignLayout from "layouts/signLayout";
+import { SignLayout } from "layouts";
 import Head from "next/head";
 import Link from "next/link";
 import { Input } from "ui";

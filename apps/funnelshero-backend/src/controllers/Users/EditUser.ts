@@ -9,10 +9,10 @@ interface EditUserDto {
 
 interface AuthRequest extends Request {
 	user?: {
-		email: string,
-		fullName: string,
-		_id: number,
-		stripeId: string,
+		email: string
+		fullName: string
+		_id: number
+		stripeId: string
 	}
 }
 
@@ -33,28 +33,28 @@ export default async (req: AuthRequest, res: Response) => {
 			updateData.picture = req.body.picture
 		}
 
-    const userId: number | undefined = req.user && req.user._id;
+		const userId: number | undefined = req.user && req.user._id
 
-    if (userId) {
-      const user = await prisma.user.update({
-        where: {
-          userId,
-        },
-        data: {
-          ...updateData,
-        }
-      });
+		if (userId) {
+			const user = await prisma.user.update({
+				where: {
+					userId,
+				},
+				data: {
+					...updateData,
+				},
+			})
 
 			//@ts-ignore
-			delete user.password;
-  
-      res.json({
-        message: 'User successfully updated',
-        user,
-      })
-    }
+			delete user.password
+
+			res.json({
+				message: 'User successfully updated',
+				user,
+			})
+		}
 	} catch (err) {
-		console.error(err);
+		console.error(err)
 		if (err instanceof Error) {
 			console.log(err.message)
 			return res.status(500).json({
