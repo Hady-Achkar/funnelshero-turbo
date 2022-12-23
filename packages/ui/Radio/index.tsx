@@ -8,7 +8,7 @@ interface IProps {
     className?: string;
 }
 
-export const Radio: FC<IProps> = ({ label, className, onChange, name }) => {
+export const Radio: FC<IProps> = ({ label, className, onChange, name }):JSX.Element => {
     return (
         <label className={[s["l-radio"], className].join(" ")}>
             <input type="radio" name={name} tab-index="3" onChange={onChange} />

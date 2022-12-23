@@ -36,6 +36,7 @@ import PasswordIcon from "../icons/password.svg";
 import BillingIcon from "../icons/billing.svg";
 import PurchaseIcon from "../icons/purchase.svg";
 import AllBorderRadius from "../icons/all-border-radius.svg";
+import Check from "../icons/check.svg";
 
 export {
     Search,
@@ -76,4 +77,5 @@ export {
     NotificationIcon,
     AvatarIcon,
     AllBorderRadius,
+    Check,
 };

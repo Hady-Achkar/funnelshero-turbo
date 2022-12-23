@@ -84,10 +84,12 @@ const Card: FC<ICard> = ({ title, icon, onClick, dataKey, className }) => {
             onClick={onClick}
             data-key={dataKey}
         >
-            <div>
+            <>
+             <div>
                 <Icon type={icon} size={20} />
             </div>
-            <span>{title}</span>
+                <span>{title}</span>
+            </>
         </Button>
     );
 };

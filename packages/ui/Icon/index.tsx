@@ -1,78 +1,81 @@
-import { SVGAttributes, FC, forwardRef } from "react";
+import React, {
+    SVGAttributes,
+    FC,
+    forwardRef,
+    ReactChild,
+} from "react";
 import * as Icons from "react-feather";
 import * as I from "../assets/icons";
+import s from './icon.module.scss'
 
-export const Icon = forwardRef<SVGAttributes<SVGElement>, IProps>(
+export const Icon = forwardRef<HTMLSpanElement, IProps>(
     (
         {
             type,
             fill,
             color = "black",
             size = 26,
-            className = "",
             strokeWidth = 1,
             feather = false,
-            ...props
         },
         ref
     ) => {
         if (!type) return <>{"invalid <Icon/> type"}</>;
-
         type = (type.charAt(0).toUpperCase() + type.slice(1)) as string;
 
         if (feather) {
-            const Feather: Icon = Icons[type as keyof typeof Icons] as FC;
+            const Feather = Icons[type as keyof typeof Icons] 
+
             if (fill) {
                 return (
-                    <Feather
-                        className={className}
-                        fill={fill}
-                        color={color}
-                        size={size}
-                        ref={ref}
-                        {...props}
-                    />
+                    <span className={s.container} ref={ ref}>
+                        <Feather
+                            fill={fill}
+                            color={color}
+                            size={size}
+                        />
+                        </span >
                 );
-            }
-            return (
+        }
+        return (
+            <span ref={ref} className={s.container}>
                 <Feather
-                    className={className}
                     color={color}
                     size={size}
-                    ref={ref}
-                    {...props}
                 />
-            );
-        }
+            </span>
+        );
+    }
+const Custom = I[type as keyof typeof I] as unknown as Icon
 
-        const Custom = I[type as keyof typeof I] as SVGAttributes<SVGElement>;
-
-        if (fill) {
-            return (
-                <Custom
-                    width={size}
-                    height={size}
-                    fill={fill}
-                    stroke={color}
-                    className={className}
-                    strokeWidth={strokeWidth}
-                    ref={ref}
-                />
-            );
-        }
-
-        return (
+if (fill) {
+    return (
+        <span ref={ref} className={s.container}>
             <Custom
                 width={size}
                 height={size}
+                fill={fill}
                 stroke={color}
-                className={className}
                 strokeWidth={strokeWidth}
-                ref={ref}
             />
-        );
+        </span>
+    );
+}
+
+return (
+    <span ref={ref} className={s.container}>
+        <Custom
+            width={size}
+            height={size}
+            stroke={color}
+            strokeWidth={strokeWidth}
+        />
+    </span>
+);
     }
 );
+
+Icon.displayName = "Icon";
 
 interface IconProps extends SVGAttributes<SVGElement> {
     color?: string;
@@ -81,15 +84,12 @@ interface IconProps extends SVGAttributes<SVGElement> {
 
 type Icon = FC<IconProps>;
 
-interface IProps {
+interface IProps extends SVGAttributes<SVGElement> {
     type: string;
     fill?: string;
     color?: string;
-    className?: string;
     size?: number;
     strokeWidth?: number;
     stroke?: string;
     feather?: boolean;
 }
-
-export default Icon;

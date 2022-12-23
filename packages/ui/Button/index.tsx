@@ -1,28 +1,29 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, ReactNode } from "react";
 import s from "./button.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    label?: string | JSX.Element;
     className?: string;
     activeClass?: string;
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
     disabled?: boolean;
-    children?: React.ReactNode | React.ReactNode[];
+    // children?: React.ReactChild | JSX.Element| string;
+    children?:string |  React.ReactChild ;
     href?: string;
     goBack?: boolean;
     style?: React.CSSProperties;
+    label?: string | React.ReactNode;
 }
 
 export const Button = forwardRef<HTMLButtonElement, IProps>(
     (
         {
-            label = "",
+            label =null,
             className = "",
-            children,
+            children = <></>,
             activeClass = "",
-            onClick = () => {},
+            onClick = () => { },
             disabled = false,
             href,
             goBack = false,
@@ -32,6 +33,8 @@ export const Button = forwardRef<HTMLButtonElement, IProps>(
         ref
     ) => {
         const router = useRouter();
+
+        // const text:React.ReactNode | React.ReactNode[] | string | undefined = label || children || null
 
         if (href) {
             return (
@@ -48,7 +51,6 @@ export const Button = forwardRef<HTMLButtonElement, IProps>(
                         style={style}
                         {...props}
                     >
-                        {label}
                         {children}
                     </button>
                 </Link>
@@ -67,9 +69,10 @@ export const Button = forwardRef<HTMLButtonElement, IProps>(
                 style={style}
                 {...props}
             >
-                {label}
                 {children}
             </button>
         );
     }
 );
+
+Button.displayName = "Button";

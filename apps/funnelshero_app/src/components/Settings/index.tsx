@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import s from "./settings.module.scss";
-import { IEdges } from "interfaces";
 import { Edges, BorderRadius } from "components";
+import {  IEdgesOnChange } from "interfaces";
 import { Scroll, Button, Icon } from "ui";
 import * as FeatherIcons from "react-feather";
 import { EIcon } from "editor";
@@ -58,13 +58,10 @@ export const Settings: FC<IProps> = ({
                     <Edges
                         padding={selectedEditorElement?.data?.props?.padding}
                         margin={selectedEditorElement?.data?.props?.margin}
-                        onChange={(edges: IEdges) => {
+                        onChange={(edges: IEdgesOnChange) => {
                             actions.setProp(
                                 selectedEditorElement.id,
-                                (props: {
-                                    padding: string[];
-                                    margin: string[];
-                                }) => {
+                                (props: IEdgesOnChange) => {
                                     return (
                                         (props.padding = edges.padding),
                                         (props.margin = edges.margin)

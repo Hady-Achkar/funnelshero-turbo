@@ -2,9 +2,9 @@ import { FC } from "react";
 import s from "./checkbox.module.scss";
 
 interface IProps {
-    label?: string | undefined;
+    label: string;
     disabled?: boolean;
-    onChange?: (chacked: boolean, name: string | undefined) => void | undefined;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void | undefined;
     name?: string;
     rounded?: boolean;
     className?: string;
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 export const Checkbox: FC<IProps> = ({
-    label,
+    label = '',
     disabled = false,
     onChange,
     name = "",
@@ -21,18 +21,17 @@ export const Checkbox: FC<IProps> = ({
     checked = false,
     ...props
 }) => {
-    const onChangeInput = (e: React.ChangeEventHandler<HTMLInputElement>) => {
+    const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange && onChange(e);
     };
 
-    return (
-        <div className={s.container}>
-            {label ? (
+    if (label) {
+        return (
+            <div className={s.container}>
                 <label
                     className={[
                         s["form-control"],
                         disabled ? s["form-control--disabled"] : "",
-                        // rounded ? s["checkbox-round"] : "",
                         className,
                     ].join(" ")}
                 >
@@ -45,16 +44,20 @@ export const Checkbox: FC<IProps> = ({
                     />
                     <span>{label} </span>
                 </label>
-            ) : (
-                <input
-                    type="checkbox"
-                    name={name}
-                    disabled={disabled}
-                    onChange={onChangeInput}
-                    defaultChecked={checked}
-                    {...props}
-                />
-            )}
+            </div>
+        )
+
+    }
+    return (
+        <div className={s.container}>
+            {/* <input
+                type="checkbox"
+                name={name}
+                disabled={disabled}
+                onChange={onChangeInput}
+                defaultChecked={checked}
+                {...props}
+            /> */}
         </div>
     );
 };

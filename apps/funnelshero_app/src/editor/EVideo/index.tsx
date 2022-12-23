@@ -3,8 +3,9 @@ import s from "./eVideo.module.scss";
 import { useNode } from "@craftjs/core";
 import { Crop, Button, Icon, Checkbox } from "ui";
 import { ElementTitle } from "components";
+import { IDimensions } from 'interfaces'
 
-export const EVideo: FC<IProps> = ({
+export const EVideo = ({
     src,
     type = "video/mp4",
     enableControls = false,
@@ -13,8 +14,8 @@ export const EVideo: FC<IProps> = ({
     padding,
     margin,
     borderRadius,
-    rotate,
-}) => {
+    rotate = 0,
+}: IProps) => {
     const {
         connectors: { connect, drag },
         actions: { setProp },
@@ -57,17 +58,13 @@ export const EVideo: FC<IProps> = ({
                     width={width}
                     height={height}
                     rotate={rotate}
-                    onChange={(e: {
-                        width: number | undefined;
-                        height: number | undefined;
-                        rotate: number | undefined;
-                    }) => {
+                    onChange={(e: IDimensions) => {
                         setProp(
-                            (props: IProps) => (
-                                (props.width = e.width),
-                                (props.height = e.height),
-                                (props.rotate = e.rotate)
-                            )
+                            (props: IProps) => {
+                                props.width = e.width
+                                props.height = e.height
+                                props.rotate = e.rotate
+                            }
                         );
                     }}
                 />

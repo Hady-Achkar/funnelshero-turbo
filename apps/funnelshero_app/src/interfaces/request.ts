@@ -13,10 +13,10 @@ export interface IRegistrationBody {
     password: string;
     firstName: string;
     lastName: string;
-    priceId: string;
-    username: string;
-    cardNumber: string;
-    expMonth: number;
-    expYear: number;
-    cvc: string;
+    priceId?: string;
+    username?: string;
+    cardNumber?: string;
+    expMonth?: number;
+    expYear?: number;
+    cvc?: string;
 }

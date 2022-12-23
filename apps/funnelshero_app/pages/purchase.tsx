@@ -1,6 +1,5 @@
 import puImage from "../src/assets/images/purchase.png";
-
-import ProfileLayout from "@layouts/ProfileLayout";
+import {ProfileLayout} from "layouts";
 import s from "./funnels.module.scss";
 import Image from "next/image";
 import { Submit } from "@components/Submit";

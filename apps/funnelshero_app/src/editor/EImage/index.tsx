@@ -5,7 +5,7 @@ import { Button, Icon, Crop } from "ui";
 import { ElementTitle } from "components";
 import { insertNodeOnParent } from "utils";
 
-export const EImage: FC<IProps> = ({
+export const EImage = ({
     src,
     alt,
     width = 100,
@@ -14,7 +14,7 @@ export const EImage: FC<IProps> = ({
     padding,
     margin,
     rotate = 0,
-}) => {
+}:IProps) => {
     const {
         connectors: { connect, drag },
         actions: { setProp },

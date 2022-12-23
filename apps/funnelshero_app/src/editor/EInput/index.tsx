@@ -1,9 +1,9 @@
-import { forwardRef, FC, ReactNode } from "react";
+import {  ReactNode } from "react";
 import s from "./inputE.module.scss";
 import { Input, Icon } from "ui";
 import { useNode, Node } from "@craftjs/core";
 
-export const EInput: FC<IProps> = ({
+export const EInput = ({
     placeholder,
     type = "text",
     frontIcon = "",
@@ -11,28 +11,30 @@ export const EInput: FC<IProps> = ({
     margin,
     padding,
     children,
-}) => {
+}: IProps) => {
     const {
         connectors: { connect, drag },
     } = useNode((node: Node) => node);
 
     return (
-        <Input
-            style={{
-                margin,
-                padding,
-            }}
-            ref={(ref: HTMLInputElement) => connect(drag(ref))}
-            placeholder={placeholder}
-            className={`${s.input} ${className}`}
-            type={type}
-            frontIcon={
-                frontIcon ? (
-                    <Icon type={frontIcon} feather={true} size={20} />
-                ) : null
-            }
-            children={children}
-        />
+        <span ref={(ref: HTMLDivElement) => connect(drag(ref))}
+            className={`${s.container} ${className}`}>
+            {children}
+            <Input
+                style={{
+                    margin,
+                    padding,
+                }}
+                className={s.input}
+                placeholder={placeholder}
+                type={type}
+                frontIcon={
+                    frontIcon ? (
+                        <Icon type={frontIcon} feather={true} size={20} />
+                    ) : null
+                }
+            />
+        </span>
     );
 };
 

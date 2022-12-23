@@ -68,7 +68,8 @@ export const VideoContent: FC<IProps> = () => {
                             );
                         }}
                     >
-                        {data.url && (
+                        <>
+                          {data.url && (
                             <Image
                                 src={data.url}
                                 objectFit={"cover"}
@@ -87,7 +88,8 @@ export const VideoContent: FC<IProps> = () => {
                                         "s"
                                 // && parseNumberToFloat(data.duration)
                             }
-                        </div>
+                            </div>
+                        </>
                     </Button>
                 </div>
             ) : null}

@@ -1,8 +1,8 @@
-import React, { FC, ReactHTML, ReactHTMLElement, useRef } from "react";
+import React from "react";
 import s from "./eHtml.module.scss";
 import { useNode, Node } from "@craftjs/core";
 
-export const EHTML: FC<IProps> = ({ tagName = "span" }) => {
+export const EHTML = ({ tagName = "span" }:IProps) => {
     const {
         connectors: { connect, drag },
         isSelected,

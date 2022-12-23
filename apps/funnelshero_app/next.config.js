@@ -5,7 +5,7 @@ const withVideos = require('next-videos')
 
 const nextConfig = withTM({
     // reactStrictMode: true,
-
+    ignoreDuringBuilds: true,
     swcMinify: true,
     optimizeFonts: true,
     env: {

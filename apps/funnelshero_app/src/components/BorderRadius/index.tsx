@@ -17,7 +17,7 @@ export const BorderRadius: FC<IProps> = ({ onChange, borderRadius }) => {
     const onChangeBorder = (e: React.ChangeEvent<HTMLInputElement>) => {
         const bordersClone = structuredClone(borders);
 
-        bordersClone[e.target.name] = e.target.value || "0";
+        bordersClone[+e.target.name] = e.target.value || "0";
 
         onChange(mergeElements(bordersClone, "px"));
         setBorders(bordersClone);

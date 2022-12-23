@@ -35,3 +35,8 @@ export interface IVideoConvertType {
     blob: Blob;
     duration: number;
 }
+
+export interface IEdgesOnChange {
+    padding: string;
+    margin: string;
+}

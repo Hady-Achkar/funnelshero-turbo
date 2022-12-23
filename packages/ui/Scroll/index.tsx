@@ -27,3 +27,5 @@ export const Scroll: FC<IProps> = forwardRef<Ref, IProps>(
         );
     }
 );
+
+Scroll.displayName = "Scroll";

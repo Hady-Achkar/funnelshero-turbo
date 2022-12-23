@@ -8,7 +8,8 @@ export const Topbar = () => {
     return (
         <div className={s.container}>
             <Button className={s.back_btn} goBack={true}>
-                <NextImage
+                <>
+                      <NextImage
                     src={"/logo.png"}
                     layout={"fixed"}
                     alt="logo"
@@ -16,7 +17,8 @@ export const Topbar = () => {
                     height="56"
                 />
                 <Icon type={"ChevronLeft"} fill={"white"} stroke={"blue"} />
-                Home
+                    Home
+                </>
             </Button>
             <div className={s.toggle_container}>
                 <Button label={<Icon type={"Settings"} fill={"white"} />} />

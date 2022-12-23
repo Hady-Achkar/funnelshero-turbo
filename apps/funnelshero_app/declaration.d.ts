@@ -9,7 +9,7 @@ declare module "*.mp4" {
 }
 
 declare module "@tiptap/core" {
-    interface Commands<ReturnType> {
+    interface Commands<string> {
         fontSize: {
             setFontSize: (size: string) => ReturnType;
         };

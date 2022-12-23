@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "ESNext",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
@@ -22,9 +22,9 @@
             "@store/*": ["store/*"],
             "@styles/*": ["styles/*"],
             "@utils/*": ["utils/*"],
-            "@prototypes/*": ["prototypes/*"],
             "@layouts/*": ["layouts/*"],
-            "@api/*": ["api/*"]
+            "@api/*": ["api/*"],
+            "@resources/*": ["resources/*"]
         }
     },
     "include": [

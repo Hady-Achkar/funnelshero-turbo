@@ -12,7 +12,6 @@
     display: flex;
     justify-content: space-between;
     background-color: white;
-    padding: 4px 14px;
     align-items: center;
     grid-gap: 0 6px;
     input[type="file"] {
@@ -73,17 +72,16 @@
     margin-top: 5px;
     color: rgba(220, 38, 38, 0.7);
     font-size: 12px;
-    // white-space: ;
     display: flex;
     flex-wrap: wrap;
 }
 
 .rounded {
-    padding: 16px 12px;
+    padding: 12px;
     border-radius: 50px;
 
     &_error {
-        padding: 20px 12px;
+        padding: 12px;
         border-radius: 50px;
         border: 2px solid $red !important;
     }

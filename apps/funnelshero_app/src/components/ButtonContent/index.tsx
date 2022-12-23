@@ -11,7 +11,7 @@ export const ButtonContent: FC<IProps> = () => {
         <div className={s.container}>
             <div className={s.block}>
                 <Button
-                    label={"Button"}
+                    label={ 'Button'}
                     className={s.green}
                     ref={(ref: HTMLButtonElement) => {
                         connectors.create(

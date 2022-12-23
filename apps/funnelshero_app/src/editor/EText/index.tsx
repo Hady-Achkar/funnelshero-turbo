@@ -13,8 +13,9 @@ import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import { ElementTitle } from "components";
 import TextStyle from "@tiptap/extension-text-style";
+import { stringify } from "querystring";
 
-export const EText: FC<IProps> = ({ text }) => {
+export const EText = ({ text }:IProps) => {
     const editor = Tiptap.useEditor({
         extensions: [
             StarterKit,
@@ -242,8 +243,8 @@ const TextStyleExtended = TextStyle.extend({
             ...this.parent?.(),
             setFontSize:
                 (fontSize: string) =>
-                ({ commands }) => {
-                    return commands.setMark(this.name, { fontSize: fontSize });
+                    ({ commands }:{ commands: { setMark(name:string,{}):void}}) => {
+                    return commands.setMark(this?.name, { fontSize: fontSize });
                 },
         };
     },

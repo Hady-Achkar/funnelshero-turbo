@@ -5,7 +5,7 @@ import { ColorPicker } from "components";
 import s from "./eButton.module.scss";
 import { TypeInputChangeEvent } from "types";
 
-export const EButton: FC<IProps> = ({
+export const EButton = ({
     color = "#000000",
     text,
     className = "",
@@ -13,7 +13,7 @@ export const EButton: FC<IProps> = ({
     margin,
     borderRadius,
     backgroundColor,
-}) => {
+}:IProps) => {
     const {
         connectors: { connect, drag },
     } = useNode();
@@ -29,8 +29,8 @@ export const EButton: FC<IProps> = ({
                 margin,
                 borderRadius,
             }}
-            label={text}
-        />
+            // label={text}
+        >{text}</Button>
     );
 };
 
