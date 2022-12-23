@@ -12,8 +12,7 @@ interface IProps {
     activeClass?: string;
     onClick?: (e: React.MouseEvent) => void;
     disabled?: boolean;
-        children?: React.ReactChild |string ;
-        // children?: JSX.Element | string;
+    children?: React.ReactChild | string;
     variant?: Variant;
     size?: Size;
 }
@@ -24,7 +23,7 @@ export const Submit = forwardRef<HTMLButtonElement, IProps>(
             label = "",
             className = "",
             href,
-            children =<></>,
+            children = <></>,
             activeClass = "",
             onClick,
             disabled = false,
@@ -43,10 +42,10 @@ export const Submit = forwardRef<HTMLButtonElement, IProps>(
                 }}
                 disabled={disabled}
                 href={href}
-                label={ label}
+                label={label}
                 {...props}
             >
-                    {children}
+                {children}
             </Button>
         );
     }
