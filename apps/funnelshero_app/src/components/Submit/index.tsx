@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import s from "./submit.module.scss";
 import { Button } from "ui";
 
-type Variant = "primary" | "secondary";
+type Variant = "primary" | "secondary" | "link";
 type Size = "normal" | "large" | "small";
 
 interface IProps {
@@ -12,7 +12,7 @@ interface IProps {
     activeClass?: string;
     onClick?: (e: React.MouseEvent) => void;
     disabled?: boolean;
-    children?: React.ReactChild | React.ReactChild[];
+    children?: React.ReactChild | string;
     variant?: Variant;
     size?: Size;
 }
@@ -36,20 +36,16 @@ export const Submit = forwardRef<HTMLButtonElement, IProps>(
         return (
             <Button
                 ref={ref}
-                className={[s.container, s[variant], s[size], className].join(
-                    " "
-                )}
+                className={`${s.container} ${s[variant]} ${s[size]} ${className}`}
                 onClick={(e) => {
                     disabled ? e.preventDefault() : onClick && onClick(e);
                 }}
                 disabled={disabled}
                 href={href}
+                label={label}
                 {...props}
             >
-                <>
-                    {label}
-                    {children}
-                </>
+                {children}
             </Button>
         );
     }

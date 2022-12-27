@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "ESNext",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
@@ -20,7 +20,11 @@
             "@assets/*": ["assets/*"],
             "@interfaces/*": ["interfaces/*"],
             "@store/*": ["store/*"],
-            "@styles/*": ["styles/*"]
+            "@styles/*": ["styles/*"],
+            "@utils/*": ["utils/*"],
+            "@layouts/*": ["layouts/*"],
+            "@api/*": ["api/*"],
+            "@resources/*": ["resources/*"]
         }
     },
     "include": [
@@ -28,7 +32,7 @@
         "**/*.ts",
         "**/*.tsx",
         "pages/index.jsx",
-        "./custom.d.ts"
+        "next.config.js"
     ],
     "exclude": ["node_modules"]
 }

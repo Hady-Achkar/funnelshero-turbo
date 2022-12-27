@@ -1,0 +1,58 @@
+.switch_container {
+    background-color: transparent;
+    & > button:first-child {
+        border-radius: 16px 0 0 16px;
+    }
+    & > button:nth-child(2) {
+        border-radius: 0 16px 16px 0;
+    }
+    .first {
+        border-radius: 16px 0 0 16px;
+    }
+    .last {
+        border-radius: 0 16px 16px 0;
+    }
+
+    .switch_selected_btn {
+        color: #1890ff;
+    }
+    .switch_btn {
+        padding: 17px 25px;
+        font-size: 14px;
+        background-color: white;
+    }
+
+    .switch_animated {
+        border: 1px solid $purple;
+        background-color: transparent;
+        transition: all 140ms linear !important;
+        height: calc(100% - 2px) !important;
+    }
+}
+
+.plan_size_container {
+    position: relative;
+    margin: 16px 0;
+    & > .save_size {
+        border-radius: 16px;
+        background-color: $blue;
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 12px;
+        padding: 0 29px;
+        color: white;
+        transform: translateX(80%);
+        z-index: 8;
+    }
+}
+.header {
+    font-size: 40px;
+    color: $purple;
+}
+.plan_cards {
+    display: flex;
+    gap: 0 20px;
+    margin-top: 20px;
+    justify-content: center;
+}

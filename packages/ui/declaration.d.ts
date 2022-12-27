@@ -8,3 +8,13 @@ declare module "*.svg" {
     const src: string;
     export default src;
 }
+declare module "*.mp4" {
+    const src: string;
+    export default src;
+}
+
+declare global {
+    interface Array<T> {
+        mergeElements(pattern: string): string;
+    }
+}

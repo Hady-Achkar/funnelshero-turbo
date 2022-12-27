@@ -1,54 +1,79 @@
 import type { NextPage } from "next";
+import { useState, useEffect } from "react";
 import s from "./funnel.module.scss";
-import { Topbar, Sidebar } from "../../src/components";
 import { Editor, Frame, Element } from "@craftjs/core";
-import { ButtonE, Image, Text } from "editor";
-import NextImage from "next/image";
-import { Scroll } from "ui";
+import {
+    EButton,
+    EImage,
+    EText,
+    EInput,
+    EHTML,
+    EContainer,
+    ESelect,
+    EVideo,
+    EIcon,
+} from "editor";
+import { Scroll, Button } from "ui";
+import { Topbar, Sidebar, ToolsBar } from "components";
 
 const Funnel: NextPage = () => {
+    const [activeCard, setActiveCard] = useState<string>("image");
+
+    const onClickCard = (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (e.currentTarget.dataset.key)
+            setActiveCard(e.currentTarget.dataset.key);
+    };
+
     return (
         <div className={s.container}>
             <Topbar />
             <div className={s.block}>
                 <Editor
+                    onNodesChange={(e) => {
+                        // console.log(e.getNodes());
+                        // console.log(document.getElementsByClassName(s.root)[0]);
+                    }}
                     resolver={{
-                        Image,
-                        ButtonE,
-                        NextImage,
-                        Text,
+                        EImage,
+                        EButton,
+                        EInput,
+                        EText,
+                        EHTML,
+                        EContainer,
+                        ESelect,
+                        EVideo,
+                        EIcon,
                     }}
                 >
-                    <Sidebar />
-                    <Scroll className={s.artboard}>
-                        <Frame>
-                            <Element
-                                is={"div"}
-                                padding={5}
-                                background="#eee"
-                                className={s.element}
-                                canvas
-                            >
-                                <ButtonE
-                                    size="small"
-                                    variant="outlined"
-                                    text={"Click"}
-                                />
-
-                                <Element
-                                    is={"div"}
-                                    id={"div123123"}
-                                    padding={2}
-                                    background="#999"
-                                    canvas
-                                >
-                                    and draggable // Node of type Text,
-                                    draggable
-                                </Element>
-                                <Element is={Text} text={"image1"} canvas />
-                            </Element>
-                        </Frame>
-                    </Scroll>
+                    <Sidebar
+                        onClickCard={onClickCard}
+                        activeCard={activeCard}
+                    />
+                    <div
+                        style={{
+                            flex: 1,
+                            display: "grid",
+                            gridTemplateRows: "auto 1fr",
+                            zIndex: 1,
+                            position: "relative",
+                        }}
+                    >
+                        <div className={s.funnel_menu_container}>
+                            <Button className={s.question_btn}>
+                               <> <div>?</div> +add</>
+                            </Button>
+                            <Button
+                                className={s.add_page_btn}
+                                label={"Add page"}
+                            />
+                        </div>
+                        <Scroll className={s.artboard}>
+                            <Frame>
+                                <Element is={"div"} className={s.root} canvas />
+                            </Frame>
+                        </Scroll>
+                    </div>
+                    <ToolsBar activeCard={activeCard} />
                 </Editor>
             </div>
         </div>

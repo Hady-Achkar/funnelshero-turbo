@@ -12,3 +12,40 @@ body,
 a {
     font-family: Poppins, serif;
 }
+
+.selected {
+    border: 1px solid rgb(130, 206, 236);
+    padding: 0;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.height100 {
+    height: 100vh;
+}
+
+.flex {
+    display: flex;
+}
+
+.align_center {
+    align-items: center;
+}
+
+.center {
+    justify-content: center;
+}
+
+.flex_end {
+    justify-content: flex-end;
+}
+
+.space_between {
+    justify-content: space-between;
+}
+
+.column {
+    flex-direction: column;
+}

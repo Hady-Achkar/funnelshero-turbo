@@ -1,0 +1,45 @@
+.drag_element {
+    background-color: white;
+    border: 1px solid rgb(130, 206, 236);
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    z-index: 999;
+    &:hover {
+        border: 1px solid rgb(81, 162, 194);
+        width: 8px;
+        height: 8px;
+    }
+}
+
+.left_top {
+    left: 3px;
+    top: 3px;
+    cursor: nw-resize;
+}
+
+.left_bottom {
+    left: 3px;
+    bottom: 3px;
+    cursor: ne-resize;
+}
+
+.right_top {
+    right: 3px;
+    top: 3px;
+    cursor: sw-resize;
+}
+
+.right_bottom {
+    right: 3px;
+    bottom: 3px;
+    cursor: se-resize;
+}
+
+.rotate_btn {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99;
+}

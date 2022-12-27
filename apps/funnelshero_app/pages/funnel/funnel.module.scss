@@ -7,6 +7,78 @@
 .block {
     display: flex;
 }
+
+.settings_content {
+    padding: 16px;
+    position: relative;
+    z-index: 99;
+    transition: all 200ms ease;
+    background-color: $block-bgc;
+}
 .body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+.title {
+    margin: 30px 0 10px 0;
+    color: rgba(0, 0, 0, 0.36);
+}
+.switch_block {
+    display: flex;
+}
+.switch_container {
+    display: grid;
     flex: 1;
+}
+
+.switch_btn {
+    flex: 1;
+}
+
+.artboard {
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.root {
+    width: 100%;
+    flex: 1;
+}
+
+.funnel_menu_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+
+    .question_btn {
+        display: flex;
+        align-items: center;
+        color: #9c9c9c;
+        gap: 0 6px;
+        z-index: 2;
+        background-color: white !important;
+        & > div {
+            border-radius: 50%;
+            width: 33px;
+            height: 33px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: white;
+            background-color: $purple;
+        }
+    }
+
+    .add_page_btn {
+        background-color: $purple !important;
+        color: white;
+        padding: 6px 16px;
+        font-size: 16px;
+        border-radius: 6px;
+        z-index: 3;
+    }
 }

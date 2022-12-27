@@ -1,33 +1,29 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, ReactNode } from "react";
 import s from "./button.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-interface IProps {
-    label?: string | JSX.Element;
+interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     activeClass?: string;
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
     disabled?: boolean;
-    children?: React.ReactChild | React.ReactChild[];
-    variant?: string;
-    size?: string;
+    children?: string | React.ReactChild;
     href?: string;
     goBack?: boolean;
     style?: React.CSSProperties;
+    label?: string | React.ReactNode;
 }
 
 export const Button = forwardRef<HTMLButtonElement, IProps>(
     (
         {
-            label = "",
+            label = null,
             className = "",
-            children,
+            children = <></>,
             activeClass = "",
-            onClick = () => {},
+            onClick = () => { },
             disabled = false,
-            variant = "primary",
-            size = "normal",
             href,
             goBack = false,
             style,
@@ -37,17 +33,14 @@ export const Button = forwardRef<HTMLButtonElement, IProps>(
     ) => {
         const router = useRouter();
 
+        // const text:React.ReactNode | React.ReactNode[] | string | undefined = label || children || null
+
         if (href) {
             return (
                 <Link href={href}>
                     <button
                         ref={ref}
-                        className={[
-                            s.container,
-                            s[variant],
-                            s[size],
-                            className,
-                        ].join(" ")}
+                        className={[s.container, className].join(" ")}
                         onClick={(e) =>
                             disabled
                                 ? e.preventDefault()
@@ -57,8 +50,9 @@ export const Button = forwardRef<HTMLButtonElement, IProps>(
                         style={style}
                         {...props}
                     >
-                        {label}
-                        {children}
+                        <>
+                            {label || children}
+                        </>
                     </button>
                 </Link>
             );
@@ -70,17 +64,18 @@ export const Button = forwardRef<HTMLButtonElement, IProps>(
                 className={[s.container, className].join(" ")}
                 onClick={(e) => {
                     disabled ? e.preventDefault() : onClick && onClick(e);
-                    if (goBack) {
-                        router.back();
-                    }
+                    if (goBack) router.back();
                 }}
-                {...props}
                 disabled={disabled}
                 style={style}
+                {...props}
             >
-                {label}
-                {children}
+                <>
+                    {label || children}
+                </>
             </button>
         );
     }
 );
+
+Button.displayName = "Button";

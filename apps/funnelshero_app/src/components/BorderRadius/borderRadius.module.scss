@@ -1,0 +1,26 @@
+.container {
+    display: grid;
+    gap: 20px 0;
+    margin-bottom: 20px;
+}
+
+.row {
+    display: flex;
+    max-width: 240px;
+    align-items: center;
+}
+
+.input {
+    padding: 4px;
+    background-color: #ededed;
+    border-radius: 0;
+    border: 2px solid #ededed;
+}
+
+.input input {
+    font-size: 14px;
+}
+
+.icon {
+    margin-right: 10px;
+}

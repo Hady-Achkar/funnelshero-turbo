@@ -1,0 +1,23 @@
+.container {
+    background-color: $light-gray;
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 1fr;
+}
+
+.input {
+    border: none;
+    border-radius: 0;
+    color: $gray;
+    background-color: transparent;
+    padding: 4px 6px;
+    flex: 1;
+    &:focus-within {
+        border: none;
+    }
+    & input[type="date"]::-webkit-inner-spin-button,
+    & input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
+}

@@ -50,6 +50,15 @@ const colId = (arr: IData[]) => {
     return a;
 };
 
+export interface IMuiltipleSwitcherEventType {
+    target: {
+        label: ReactNode | string | JSX.Element;
+        value: string | number;
+        index: number;
+        name: string | undefined;
+    };
+}
+
 export const MuiltipleSwitcher: FC<IProps> = ({
     data = [],
     onChange = () => {},
@@ -61,6 +70,9 @@ export const MuiltipleSwitcher: FC<IProps> = ({
     btnsClass = "",
     name,
     disabled = false,
+    animatedClassName = "",
+    selectedBtnClass = "",
+    defaultSelected,
 }) => {
     const containerId = useMemo<string>(() => colId(data), [data]);
     const [selected, setSelected] = useState<ISelected>({
@@ -68,6 +80,7 @@ export const MuiltipleSwitcher: FC<IProps> = ({
         label: data[0].label,
         index: 0,
     });
+
     const container = useRef<HTMLDivElement>(null);
     const animatedBlock = useRef<HTMLDivElement>(null);
 
@@ -82,7 +95,7 @@ export const MuiltipleSwitcher: FC<IProps> = ({
             animatedBlock.current.style.width = "0px";
             animatedBlock.current.style.height = "0px";
         }
-    }, [containerId, disabled]);
+    }, [containerId, disabled, defaultSelected]);
 
     useLayoutEffect(() => {
         if (animatedBlock.current) {
@@ -101,20 +114,23 @@ export const MuiltipleSwitcher: FC<IProps> = ({
             });
             animate(selected?.id);
         }
-    }, [selected]);
+    }, [selected, defaultSelected]);
 
     const animate = (id: number | string) => {
-        const switchBtn: HTMLDivElement = container.current.querySelector(
-            "#switchBtn" + id
-        );
-        if (switchBtn) {
-            const btn: DOMRect = switchBtn.getBoundingClientRect();
-            if (animatedBlock?.current) {
-                animatedBlock.current.style.width = btn.width + "px";
-                animatedBlock.current.style.height = btn.height + "px";
-                const x: number =
-                    btn.left - container.current.getBoundingClientRect().left;
-                animatedBlock.current.style.transform = `translateX(${x}px)`;
+        if (container.current) {
+            const switchBtn: HTMLDivElement | null =
+                container.current.querySelector("#switchBtn" + id);
+            if (switchBtn) {
+                const btn: DOMRect = switchBtn.getBoundingClientRect();
+                if (animatedBlock?.current) {
+                    animatedBlock.current.style.width = btn.width + "px";
+                    animatedBlock.current.style.height = btn.height + "px";
+
+                    const x: number =
+                        btn.left -
+                        container.current.getBoundingClientRect().left;
+                    animatedBlock.current.style.transform = `translateX(${x}px)`;
+                }
             }
         }
     };
@@ -152,7 +168,7 @@ export const MuiltipleSwitcher: FC<IProps> = ({
                             className={[
                                 s.btn,
                                 selected?.index === index
-                                    ? s["btn_selected"]
+                                    ? selectedBtnClass || s["btn_selected"]
                                     : "",
                                 btnsClass,
                             ].join(" ")}
@@ -172,7 +188,7 @@ export const MuiltipleSwitcher: FC<IProps> = ({
             })}
             {!disabled ? (
                 <div
-                    className={[s.animation_block].join(" ")}
+                    className={[s.animation_block, animatedClassName].join(" ")}
                     ref={animatedBlock}
                 />
             ) : null}
@@ -191,18 +207,9 @@ interface ISelected {
     index: number;
 }
 
-interface IOnChangeEvent {
-    target: {
-        label: ReactNode | string | JSX.Element;
-        value: string | number;
-        index: number;
-        name: string | undefined;
-    };
-}
-
 interface IProps {
     data: IData[];
-    onChange?(e: IOnChangeEvent): void;
+    onChange?(e: IMuiltipleSwitcherEventType): void;
     containerPadding?: number;
     paddingBetweenBtns?: number;
     divider?: boolean;
@@ -211,4 +218,7 @@ interface IProps {
     btnsClass?: string;
     name?: string;
     disabled?: boolean;
+    animatedClassName?: string;
+    selectedBtnClass?: string;
+    defaultSelected?: string;
 }
