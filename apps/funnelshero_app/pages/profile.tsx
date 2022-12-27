@@ -1,4 +1,4 @@
-import ProfileLayout from "@layouts/ProfileLayout";
+import {ProfileLayout} from "layouts";
 
 const Profile = () => {
     return (

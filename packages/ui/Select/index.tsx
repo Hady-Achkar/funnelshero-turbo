@@ -1,4 +1,4 @@
-import {
+import React, {
     FC,
     useEffect,
     useState,
@@ -17,7 +17,7 @@ export const Select: FC<IProps> = ({
     children,
     select = "",
     placeholder = "placeholder",
-    icon = () => {},
+    icon,
     labelClassName = "",
     onChange,
     className = "",
@@ -29,7 +29,9 @@ export const Select: FC<IProps> = ({
     useEffect(() => {
         ++id;
     }, []);
+
     const containerId = id.toString(2);
+
     useLayoutEffect(() => {
         Children.forEach(children, (child) => {
             if (!isValidElement(child)) {
@@ -48,15 +50,15 @@ export const Select: FC<IProps> = ({
     }, [select]);
 
     const childrenWithProps = useMemo(() => {
-        return Children.map(children, (child) => {
+        return Children.map(children, (child: React.ReactNode) => {
             if (!isValidElement(child)) {
                 return null;
             }
             const activeClassName: string =
-                child.props?.id === selected?.id ? s.activeClassName : "";
+                child.props.id === selected?.id ? s.activeClassName : "";
             let classNames = `${s.option} ${activeClassName}`;
 
-            if (child?.props?.className) {
+            if (child.props?.className) {
                 classNames += child?.props?.className;
             }
             const passProps = {
@@ -70,8 +72,8 @@ export const Select: FC<IProps> = ({
 
     useEffect(() => {
         const onMouseDown = (e: MouseEvent) => {
-            if (e.target && show) {
-                const _TARGET = e?.target?.closest("." + s.container);
+            if (e.target instanceof Element && show) {
+                const _TARGET = e.target.closest("." + s.container);
 
                 if (_TARGET === null || _TARGET?.id !== containerId)
                     setShow(false);
@@ -81,7 +83,7 @@ export const Select: FC<IProps> = ({
         return () => window.removeEventListener("mousedown", onMouseDown);
     }, [show]);
 
-    const onSelectOption = (child: React.ReactChild) => {
+    const onSelectOption = (child: React.ReactElement) => {
         setSelected({
             id: child.props.id,
             child: child,
@@ -106,25 +108,33 @@ export const Select: FC<IProps> = ({
                     setShow(!show);
                 }}
             >
-                <div className={s.label}>{selected?.child || placeholder}</div>
-                {icon && typeof icon === "function" ? (
-                    icon(show)
-                ) : (
-                    <Icon type={"ChevronDown"} feather={true} />
-                )}
+                <>
+                    <div className={s.label}>
+                        <>
+                            {selected?.child || placeholder}
+                        </>
+                    </div>
+                    {icon && typeof icon === "function" ? (
+                        icon(show)
+                    ) : (
+                        <Icon type={show ? "ChevronDown" : 'ChevronUp'} color={'rgba(0,0,0,.3)'} feather={true} />
+                    )}
+                </>
             </button>
-            {show && <div className={s.body}>{childrenWithProps}</div>}
+            {show && <div className={s.body}><>
+                {childrenWithProps}</></div>}
         </div>
     );
 };
 
+Select.displayName = "Select";
 interface ISelected {
     id: string;
-    child: React.ReactNode | React.ReactNode[];
+    child: React.ReactElement | string;
 }
 
 interface IProps {
-    children: React.ReactNode | React.ReactNode[];
+    children: React.ReactElement | React.ReactElement[] | string;
     select?: string;
     optionClassName?: string;
     bodyClassName?: string;

@@ -27,4 +27,5 @@ const uploadPicture = multer({
 const router = express()
 
 router.route('/me').put(authenticateUser, uploadPicture.single('picture'), resizePicture, validate.schema(userEditSchema),  EditUser)
+
 export default router

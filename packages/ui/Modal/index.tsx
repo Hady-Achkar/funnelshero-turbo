@@ -4,11 +4,13 @@ import { Portal } from "..";
 
 const root = document.documentElement;
 
-window.addEventListener("click", (e: React.MouseEvent) => {
-    const target: HTMLElement = e.target.closest(".modal-handler");
-    if (target) {
+window.addEventListener("click", (e: MouseEvent) => {
+    if (e.target instanceof Window) {
+        // const target: HTMLElement = e.target.closest(".modal-handler");
+        // if (target) {
         root.style.setProperty("--mouse-x", e.pageX + "px");
         root.style.setProperty("--mouse-y", e.pageY + "px");
+        // }
     }
 });
 

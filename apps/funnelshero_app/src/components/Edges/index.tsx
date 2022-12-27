@@ -1,12 +1,16 @@
 import { FC, useEffect, useState } from "react";
 import s from "./edges.module.scss";
-import { IEdges } from "interfaces";
 import { mergeElements } from "utils";
 interface IProps {
     onChange: (edges: IOnChangeArgument) => void;
     padding: string;
     margin: string;
 }
+export interface IEdges {
+    padding: string[];
+    margin: string[];
+}
+
 interface IOnChangeArgument {
     padding: string;
     margin: string;

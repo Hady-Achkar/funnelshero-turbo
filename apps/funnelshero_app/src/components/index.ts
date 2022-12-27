@@ -7,6 +7,7 @@ export * from "./ToolsBar";
 export * from "./Edges";
 export * from "./Settings";
 export * from "./Steper";
+export * from "./PlanCard";
 
 export * from "./ImageContent";
 export * from "./TextContent";

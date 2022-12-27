@@ -1,4 +1,4 @@
-import ProfileLayout from "@layouts/ProfileLayout";
+import {ProfileLayout} from "layouts";
 import s from "./funnels.module.scss";
 import funelImg from "../src/assets/images/funnel.png";
 import Image from "next/image";
@@ -14,10 +14,10 @@ const Security = () => {
                         <b>Login & security</b>
                     </h1>
                     <div className={s.inputs}>
-                        <Input rounded={true} placeholder="Current Password" />
-                        <Input rounded={true} placeholder="New Password" />
+                        <Input variant={ 'rounded'}  placeholder="Current Password" />
+                        <Input variant={ 'rounded'} placeholder="New Password" />
                         <Input
-                            rounded={true}
+                            variant={ 'rounded'}
                             placeholder="Confirm New Password"
                         />
                         <Submit label={"Save"} />

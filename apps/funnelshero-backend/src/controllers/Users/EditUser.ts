@@ -9,6 +9,7 @@ interface EditUserDto {
 
 interface AuthRequest extends Request {
 	user?: {
+
 		email: string
 		fullName: string
 		_id: number
@@ -55,6 +56,7 @@ export default async (req: AuthRequest, res: Response) => {
 		}
 	} catch (err) {
 		console.error(err)
+
 		if (err instanceof Error) {
 			console.log(err.message)
 			return res.status(500).json({

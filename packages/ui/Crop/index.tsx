@@ -52,7 +52,7 @@ export const Crop: FC<IProps> = ({ width, height, rotate = 0, onChange }) => {
         return () => window.removeEventListener("mouseup", windowMouseUp);
     }, [isResizing, isRotating]);
 
-    const updateSize = (e: React.MouseEvent): void => {
+    const updateSize = (e: MouseEvent): void => {
         if (
             startC.current.x &&
             startC.current.y &&
@@ -186,7 +186,7 @@ interface IProps {
     width: number;
     height: number;
     rotate: number;
-    onChange: (dimensions: IDimensions) => void;
+    onChange: ((dimensions: IDimensions) => void) | undefined;
 }
 
 interface IDimensions {

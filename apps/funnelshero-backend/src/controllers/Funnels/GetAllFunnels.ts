@@ -7,12 +7,11 @@ export default async (req: Request, res: Response) => {
 		const userId: number = req.user._id
 
 		const funnels = await prisma.funnel.findMany({
-			where: {
-				userId,
-			},
-		})
-
-		res.json(funnels)
+      where: {
+        userId,
+      },
+    });
+    res.json(funnels);
 	} catch (err) {
 		console.error(err)
 		if (err instanceof Error) {

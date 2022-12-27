@@ -60,7 +60,7 @@ const Funnel: NextPage = () => {
                     >
                         <div className={s.funnel_menu_container}>
                             <Button className={s.question_btn}>
-                                <div>?</div> +add
+                               <> <div>?</div> +add</>
                             </Button>
                             <Button
                                 className={s.add_page_btn}

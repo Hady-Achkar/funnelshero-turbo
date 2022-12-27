@@ -29,8 +29,8 @@ export function getVideoFrame(
         const videoPlayer = document.createElement("video");
         videoPlayer.setAttribute("src", file);
         videoPlayer.load();
-        videoPlayer.addEventListener("error", (ex) => {
-            reject("error when loading video file", ex);
+        videoPlayer.addEventListener("error", () => {
+            reject("error when loading video file");
         });
         // load metadata of the video to get video duration and dimensions
         videoPlayer.addEventListener("loadedmetadata", () => {

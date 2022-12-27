@@ -20,6 +20,7 @@ export default async (req: Request, res: Response) => {
 		}
 
 		res.json(funnel)
+
 	} catch (err) {
 		console.error(err)
 		if (err instanceof Error) {

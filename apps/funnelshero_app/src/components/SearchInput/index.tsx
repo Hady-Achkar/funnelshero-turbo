@@ -31,7 +31,8 @@ export const SearchInput: FC<IProps> = ({
                 buttons={[{ label: <Icon type={"Search"} /> }]}
                 value={value}
                 label={label}
-                className={className}
+
+                className={`${s.input} ${className}`}
                 name={name}
                 onChange={onChange}
                 onFinish={onFinish}

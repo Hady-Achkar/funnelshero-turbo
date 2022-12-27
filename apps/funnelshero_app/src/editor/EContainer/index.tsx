@@ -4,7 +4,7 @@ import { useNode } from "@craftjs/core";
 import { ColorPicker, ElementTitle } from "components";
 import { Icon, Button, Crop, Select } from "ui";
 
-export const EContainer: FC<IProps> = ({
+export const EContainer = ({
     borderRadius,
     backgroundColor,
     padding,
@@ -15,7 +15,7 @@ export const EContainer: FC<IProps> = ({
     children,
     borderColor = "#f00000",
     borderWidth = 0,
-}) => {
+}:IProps) => {
     const {
         connectors: { connect, drag },
         actions: { setProp },

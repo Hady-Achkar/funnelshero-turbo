@@ -12,4 +12,7 @@ router.route('/').get(authenticateUser, GetAllPages)
 router.route('/:id').get(validate.params(idSchema),authenticateUser, GetPageById)
 router.route('/:id').put(validate.params(idSchema),authenticateUser, UpdatePage)
 router.route('/:id').delete(validate.params(idSchema),authenticateUser, DeletePage)
+=======
+
+
 export default router

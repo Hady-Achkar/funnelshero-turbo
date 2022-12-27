@@ -13,4 +13,5 @@ router.route('/sign-up').post(validate.schema(userSignupSchema), Signup)
 router.route('/sign-in').post(validate.schema(userSininSchema),Signin)
 router.route('/verify').post(validate.schema(verifySchema),VerifyEmail)
 router.route('/refresh-token').post(validate.schema(refreshTokenSchema),RefreshToken)
+
 export default router

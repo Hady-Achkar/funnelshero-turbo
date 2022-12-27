@@ -33,6 +33,7 @@ export const Tabs: FC<IProps> = ({ children = [], select = 0 }) => {
     );
 };
 
+Tabs.displayName = "Tabs";
 interface IProps {
     select: number;
     children: React.ReactNode[];

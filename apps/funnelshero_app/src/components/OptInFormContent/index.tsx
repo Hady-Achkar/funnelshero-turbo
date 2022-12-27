@@ -37,8 +37,10 @@ export const OptInFormContent: FC<IProps> = () => {
                         );
                     }}
                 >
-                    <Icon type={"Calendar"} feather={true} size={20} />
-                    Date input
+                    <>
+                     <Icon type={"Calendar"} feather={true} size={20} />
+                        Date input
+                    </>
                 </Button>
                 <Button
                     className={s.input_sample}
@@ -55,8 +57,9 @@ export const OptInFormContent: FC<IProps> = () => {
                         );
                     }}
                 >
-                    <Icon type={"Mail"} feather={true} size={20} />
-                    Email input
+                    <>
+                       <Icon type={"Mail"} feather={true} size={20} />
+                    Email input</>
                 </Button>
                 <Button
                     className={s.input_sample}
@@ -72,8 +75,9 @@ export const OptInFormContent: FC<IProps> = () => {
                         );
                     }}
                 >
-                    <Icon type={"User"} feather={true} size={20} />
-                    User input
+                    <>
+                       <Icon type={"User"} feather={true} size={20} />
+                    User input</>
                 </Button>
             </div>
         </div>

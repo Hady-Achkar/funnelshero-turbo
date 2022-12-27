@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState, FC, forwardRef, ReactElement } from "react";
-import { Icon } from "..";
+import { Icon } from "../Icon";
 import s from "./input.module.scss";
 
 let typingTimer: NodeJS.Timeout; //timer identifier
@@ -27,6 +27,24 @@ const regexConfig: IRegex = {
         ),
         errorMessage: "Invalid phone number.",
     },
+    card: {
+        validation: new RegExp(
+            "^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$"
+        ),
+        errorMessage: "Invalid card number.",
+    },
+    expDate: {
+        validation: new RegExp("^(0[1-9]|1[0-2])\\/?([0-9]{4}|[0-9]{2})$"),
+        errorMessage: "Invalid expiry date.",
+    },
+    CVV: {
+        validation: new RegExp("^[0-9]{3,4}$"),
+        errorMessage: "Invalid CVV",
+    },
+    cardholder: {
+        validation: new RegExp("^[a-zA-Z]+ [a-zA-Z]+$"),
+        errorMessage: "Invalid name.",
+    },
 };
 
 const validateField = (
@@ -35,7 +53,14 @@ const validateField = (
 ): boolean =>
     fieldName ? regexConfig[fieldName].validation.test(text.toString()) : false;
 
-export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
+const cardNumberUpdater = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    stateUpdater: (state: string) => void
+) => {
+    // for (let i: number = 0;)
+};
+
+export const Input: FC<IProps> = forwardRef<HTMLInputElement, IProps>(
     (
         {
             type = "text",
@@ -67,6 +92,7 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
         const [defaultValue, setDefaultValue] = useState<string | number>(
             value
         );
+
         useLayoutEffect(() => setDefaultValue(value), [value]);
 
         useLayoutEffect(() => {
@@ -78,9 +104,7 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
             setIsValid(true);
         }, []);
 
-        const onTextChange = (
-            e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-        ) => {
+        const onTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             if (maxLength && +e.target.value === maxLength) {
                 e.stopPropagation();
             }
@@ -88,20 +112,26 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
             let text: InputText | undefined;
 
             if (type === "number") {
+                if (maxLength !== undefined) {
+                    if (e.target.value.length > maxLength) {
+                        return;
+                    }
+                }
                 if (min !== undefined) {
                     if (min >= 0 && +e.target.value < 0) {
-                        e.target.value = "0";
-                        e.stopPropagation();
+                        e.target.value = Math.abs(+e.target.value).toString();
                     }
                     text = e.target.value;
                 }
                 if (max !== undefined) {
                     if (+e.target.value >= max) {
-                        e.target.value = max.toString();
-                        text = e.target.value;
-                        e.stopPropagation();
+                        return;
                     }
                 }
+                // if (validationKey === "card") {
+                //     cardNumberUpdater(e, setDefaultValue);
+                //     text = e.target.value;
+                // }
             } else {
                 text = e.target.value;
             }
@@ -146,25 +176,6 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
             return onChange(e, false);
         };
 
-        if (type === "textarea") {
-            return (
-                <div
-                    className={[s.container, className].join(" ")}
-                    ref={ref as React.RefObject<HTMLDivElement>}
-                >
-                    <textarea
-                        className={[s.container, s.textarea].join(" ")}
-                        name={name}
-                        placeholder={placeholder}
-                        rows={8}
-                        onChange={onTextChange}
-                        disabled={disabled}
-                        {...props}
-                    />
-                </div>
-            );
-        }
-
         if (type === "file") {
             return (
                 <label
@@ -186,10 +197,11 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
 
         return (
             <div
-                ref={ref as React.RefObject<HTMLInputElement>}
+                ref={ref as React.RefObject<HTMLDivElement>}
                 style={{ width: "auto" }}
             >
                 <label className={s.label_container}>
+                    <>
                     {label && <div className={s.label}>{label}</div>}
                     <div
                         className={[
@@ -205,7 +217,8 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                             className,
                         ].join(" ")}
                     >
-                        {frontIcon || children}
+                            <>
+                             {frontIcon }
                         <input
                             type={
                                 type === "password"
@@ -256,7 +269,9 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
                                     </button>
                                 );
                             })}
-                    </div>
+                            </>
+                        </div>
+                    </>
                 </label>
 
                 {validationKey && !isValid && (
@@ -270,6 +285,8 @@ export const Input: FC<IProps> = forwardRef<HTMLButtonElement, IProps>(
     }
 );
 
+Input.displayName = "Input";
+
 interface IValidator {
     validation: RegExp;
     errorMessage: string;
@@ -279,6 +296,10 @@ interface IRegex {
     password: IValidator;
     email: IValidator;
     phone: IValidator;
+    card: IValidator;
+    expDate: IValidator;
+    CVV: IValidator;
+    cardholder: IValidator;
 }
 
 type TValidationKey = keyof IRegex;
@@ -287,11 +308,11 @@ interface IProps {
     name?: string | undefined;
     placeholder?: string;
     onFinish?: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        e: React.ChangeEvent<HTMLInputElement>,
         isValid: boolean
     ) => void;
     onChange?: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        e: React.ChangeEvent<HTMLInputElement>,
         isValid: boolean
     ) => void;
     className?: string;
@@ -308,7 +329,6 @@ interface IProps {
     variant?: string;
     maxLength?: number;
     style?: React.CSSProperties;
-    children?: React.ReactNode | React.ReactNode[];
 }
 
 interface IButtons {
