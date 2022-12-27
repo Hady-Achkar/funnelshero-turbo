@@ -13,6 +13,8 @@ import multer from 'multer'
 import fileUpload from 'express-fileupload'
 import morgan from 'morgan'
 import { StripeWebhooks } from './controllers'
+import genericErrorHandler from './middlewares/genericErrorHandler';
+
 
 const main = async () => {
 	dotenv.config()
@@ -28,12 +30,7 @@ const main = async () => {
 		}),
 	)
 	app.use(morgan('dev'))
-	app.use(
-		fileUpload({
-			limits: {},
-		}),
-	)
-	app.use(multer().single(''))
+
 
 	app.use('/', async (req, _, next) => {
 		try {
@@ -45,12 +42,14 @@ const main = async () => {
 			console.log(error)
 		}
 	})
-	app.use(bodyParser.json())
+
 	app.use('/auth', AuthRouter)
 	app.use('/users', UserRouter)
 	app.use('/funnels', FunnelRouter)
 	app.use('/pages', PageRouter)
 	app.use('/payments', PaymentRouter)
+	app.use(genericErrorHandler);
+
 	app.listen(process.env.MAIN_PORT, () => {
 		console.log(`[i] Server is listening on port ${process.env.MAIN_PORT}`)
 	})

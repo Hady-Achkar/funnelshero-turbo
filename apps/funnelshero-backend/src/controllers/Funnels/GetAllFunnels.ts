@@ -11,7 +11,6 @@ export default async (req: Request, res: Response) => {
         userId,
       },
     });
-
     res.json(funnels);
 	} catch (err) {
 		console.error(err)
